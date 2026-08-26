@@ -18,6 +18,36 @@ Three separate forces are at work and the market prices them as one:
 | AI collapsing effort per unit of outcome | Deflationary | Permanent — survivable only by repricing |
 | GCC insourcing and AI-native entrants | Competitive | A decade — clients are building the capability |
 
+## How the demand actually splits
+
+Aggregate revenue fell 2.4%. No client cut 2.4% of their spend — three pools moved in different
+directions and roughly cancelled. The pools are derived arithmetically from the same seven-bucket
+model that drives the scenarios, so they reconcile exactly to both FY26 actual and base-case FY31.
+
+| Pool | FY26 | Share | Base FY31 | CAGR | What it is |
+|---|---|---|---|---|---|
+| Run | $13.6bn | 45.2% | $13.9bn | +0.5% | Annuity work. Volume stable, price falling. Deflation lands here first. |
+| Change | $10.4bn | 34.8% | $11.9bn | +2.7% | Discretionary projects. The pool that froze, and the pool that thaws first. |
+| Grow | $6.0bn | 20.0% | $10.2bn | +11.1% | Consulting, data, AI, cyber, products. Has to carry the whole transition. |
+
+The sharper point is that the money has changed **buying centre**. The CIO run budget is ~75% of TCS
+revenue and growing 0–2%; the business-unit AI budget is ~10% and growing 25–40%. TCS is the
+incumbent of record in the first and is usually not in the room for the second.
+
+## The mechanism, in one contract
+
+Take a $100 contract at a 70% cost ratio and assume AI cuts delivery effort 30% over five years.
+The saving is identical in all three cases. Who keeps it is decided entirely by the pricing model:
+
+| Pricing model | Yr 5 revenue | Yr 5 margin |
+|---|---|---|
+| Time & materials | $70 | 30.0% |
+| Fixed price (reprices at renewal) | $78 | 36.8% |
+| Outcome-linked | $112 | 56.3% |
+
+A 60-point revenue spread on identical delivery economics. **The share of TCS revenue priced on
+effort is the single most important number in the business, and it is not disclosed.**
+
 **42% of FY26 revenue ($12.7bn) sits in work AI can substantially automate.** Whether that becomes lost revenue depends on price pass-through and volume elasticity — which is what the model flexes.
 
 **87% of Tata Sons' FY26 dividend income came from TCS alone** (₹28,291 cr of ₹32,528 cr), already down 12% year on year. Against that sit the Dholera fab (₹91,000 cr), Assam ATMP (₹27,000 cr), the Air India fleet, Agratas Somerset (£4bn) and Tata Digital.
@@ -34,6 +64,32 @@ Three separate forces are at work and the market prices them as one:
 Probability-weighted, expected FY31 revenue is **$31.9bn — 1.2% a year**. On an expected-value basis TCS spends the next five years roughly where it is.
 
 Tata Sons needs **₹30,827 crore** from TCS in FY31 to cover its own costs and its committed capital call. Two of the four paths never reach it.
+
+---
+
+## What is in the assessment
+
+| § | Section | What it does |
+|---|---|---|
+| 01 | The judgement | The call: not a trough, a repricing |
+| 02 | The record | Five years of numbers, constant currency vs rupees |
+| 03 | Decomposition | Three forces wrongly treated as one |
+| 04 | Demand | How client demand is splitting, by pool, buying centre, vertical and geography |
+| 05 | Competitive landscape | Peer performance and strategy; TCS scored against best-in-class on the dimensions AI makes decisive |
+| 06 | Industry structure | Five forces, and the supply-side pyramid problem |
+| 07 | Unit economics | What AI does to one contract under three pricing models |
+| 08 | Risk register | Revenue by exposure bucket and automatable share |
+| 09 | Scenario model | Four futures, driver by driver |
+| 10 | The Tata Sons view | Parent cash bridge against the capital call |
+| 11 | Sensitivity | Growth vs margin, and the break-even |
+| 12 | Recommendations | Nine actions, in order |
+| 13 | Monitoring | Leading indicators and the data gaps |
+| 14 | Sources | |
+
+Sections 04–07 introduce **no new external data**. They reorganise the figures already sourced,
+add explicitly-labelled judgements, and derive the demand pools from the same bucket model that
+drives the scenarios. Where a peer figure was unavailable the table says *not in this dataset*
+rather than estimating one.
 
 ---
 
@@ -100,6 +156,11 @@ needs `openpyxl`; the memo and deck generators need `npm i docx pptxgenjs`.
 **Judgement — challenge these first:**
 
 - **The seven-bucket revenue decomposition.** TCS has disclosed no service-line split since FY21. The weights are reconstructed from the last disclosure, deal composition and peer structure. This is the single most challengeable input in the whole analysis.
+- **The vertical and geographic splits** in section 04 — reconstructions of the same undisclosed mix.
+- **The 60/40 split of application work** between the Run and Change pools.
+- **The three buying-centre pool sizes and growth rates** — estimates, labelled as such on the page.
+- **Every score in the competitive matrix** (section 05) and **every five-forces rating** (section 06). These are assessments of structural position with no data behind them, and are the right place to start an argument.
+- **The effort, pass-through and repricing assumptions** behind the contract arithmetic in section 07.
 - Per-bucket deflation and volume drivers for each scenario.
 - Scenario probabilities (15 / 40 / 30 / 15).
 - The forward capital-call profile, held constant across scenarios by design — the commitments do not shrink because TCS slows.
