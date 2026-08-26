@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>*{margin:0;padding:0;box-sizing:border-box}img{max-width:100%}</style>
+<title>The TCS Question</title>
+<meta name="description" content="Eighty-seven per cent of Tata Sons' dividend income comes from one company, and that company has just reported the first revenue decline of its listed life. A driver-based five-year scenario assessment of TCS, FY27-FY31.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23155B6B'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' fill='%23FCFCFB' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The TCS Question">
+<meta property="og:description" content="How much of the first revenue decline in TCS's listed history is the cycle, how much is structural, and what it means for Tata Sons' ability to fund everything else.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,500;0,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+</head>
+<body>
+
+<style>
+:root{
+  --ground:#F4F6F5; --paper:#FCFCFB; --sunk:#EAEEEE;
+  --ink:#141A1C; --ink-2:#3E4A4E; --ink-3:#6C7A7E;
+  --rule:#D6DEDE; --rule-2:#C2CDCD;
+  --accent:#155B6B; --accent-soft:#E2EEF0; --accent-ink:#0D4351;
+  --bull:#159178; --base:#3A72C0; --bear:#C8801A; --severe:#C23B36;
+  --bull-soft:#DDF0EA; --base-soft:#E0EAF7; --bear-soft:#F7EBD8; --severe-soft:#F8E3E1;
+  --shadow:0 1px 2px rgba(20,26,28,.05), 0 8px 24px -16px rgba(20,26,28,.18);
+  --maxw:1180px; --spine:37rem;
+}
+:root:not([data-theme="light"]){ }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1315; --paper:#151B1E; --sunk:#1B2327;
+    --ink:#E8EDED; --ink-2:#B3C0C2; --ink-3:#7E8D90;
+    --rule:#293437; --rule-2:#364447;
+    --accent:#63B3C4; --accent-soft:#12333B; --accent-ink:#8FCEDB;
+    --bull-soft:#0F2A26; --base-soft:#132335; --bear-soft:#2C2214; --severe-soft:#301715;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1315; --paper:#151B1E; --sunk:#1B2327;
+  --ink:#E8EDED; --ink-2:#B3C0C2; --ink-3:#7E8D90;
+  --rule:#293437; --rule-2:#364447;
+  --accent:#63B3C4; --accent-soft:#12333B; --accent-ink:#8FCEDB;
+  --bull-soft:#0F2A26; --base-soft:#132335; --bear-soft:#2C2214; --severe-soft:#301715;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.1rem,4vw,2.6rem)}
+.spine{max-width:var(--spine)}
+h1,h2,h3{font-family:Newsreader,Georgia,serif; font-weight:500; text-wrap:balance; margin:0}
+p{margin:0 0 1.05em}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+strong{font-weight:600}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 .7rem;
+}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule); background:var(--paper)}
+.mast-in{padding:clamp(2.6rem,7vw,4.6rem) 0 clamp(2rem,5vw,3rem)}
+.mast .kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent); display:flex; flex-wrap:wrap;
+  gap:.55rem 1.1rem; align-items:baseline; margin-bottom:1.6rem;
+}
+.mast .kicker span:not(:first-child){color:var(--ink-3)}
+h1{font-size:clamp(2.5rem,6.4vw,4.35rem); line-height:1.02; letter-spacing:-.018em; max-width:16ch}
+.standfirst{
+  font-family:Newsreader,Georgia,serif; font-size:clamp(1.1rem,2.1vw,1.32rem);
+  line-height:1.55; color:var(--ink-2); max-width:44ch; margin-top:1.5rem;
+}
+.byline{
+  margin-top:2rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+  font-size:.82rem; color:var(--ink-3); display:flex; flex-wrap:wrap; gap:.4rem 1.6rem;
+}
+
+/* ---------- verdict tiles ---------- */
+.verdict{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin:0}
+.tile{background:var(--paper); padding:1.35rem 1.3rem 1.45rem}
+.tile .lab{font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3); margin-bottom:.55rem}
+.tile .fig{font-family:Newsreader,Georgia,serif; font-size:2.35rem; line-height:1.05;
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.tile .fig.sm{font-size:1.75rem}
+.tile{display:flex; flex-direction:column}
+.tile .sub{margin-top:auto; padding-top:.5rem}
+.tile .sub{font-size:.79rem; color:var(--ink-2); margin-top:.5rem; line-height:1.45}
+.fig.neg{color:var(--severe)} .fig.pos{color:var(--bull)}
+
+/* ---------- sections ---------- */
+section{padding:clamp(3rem,7vw,5rem) 0; border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:none}
+h2{font-size:clamp(1.7rem,3.4vw,2.35rem); line-height:1.14; letter-spacing:-.012em; max-width:20ch}
+h3{font-size:1.13rem; line-height:1.3; margin:2.2rem 0 .6rem; letter-spacing:-.005em}
+.lede{font-family:Newsreader,Georgia,serif; font-size:1.16rem; line-height:1.58;
+  color:var(--ink-2); max-width:46ch; margin:1.1rem 0 0}
+
+/* ---------- figure / instrument ---------- */
+figure{margin:2.4rem 0 0; background:var(--paper); border:1px solid var(--rule);
+  padding:1.5rem 1.4rem 1.2rem; box-shadow:var(--shadow)}
+figcaption{font-size:.79rem; color:var(--ink-3); line-height:1.5; margin-top:1rem;
+  padding-top:.85rem; border-top:1px solid var(--rule)}
+.fig-head{margin-bottom:1.2rem}
+.fig-title{font-family:Newsreader,Georgia,serif; font-size:1.08rem; line-height:1.3}
+.fig-sub{font-size:.78rem; color:var(--ink-3); margin-top:.25rem}
+.scroller{overflow-x:auto; overflow-y:hidden}
+svg{display:block; max-width:100%}
+.scroller>svg{max-width:none}
+svg text{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+
+/* ---------- legend ---------- */
+.legend{display:flex; flex-wrap:wrap; gap:.35rem .95rem; margin-top:.9rem;
+  font-size:.74rem; color:var(--ink-2)}
+.legend button{all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:.38rem;
+  padding:.18rem .34rem; border-radius:2px}
+.legend button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.legend .sw{width:11px; height:11px; border-radius:2px; flex:none}
+.legend button[aria-pressed="false"]{opacity:.4}
+
+/* ---------- scenario control ---------- */
+.scen-bar{display:flex; flex-wrap:wrap; gap:.5rem; margin:2.2rem 0 0}
+.scen-bar button{
+  all:unset; cursor:pointer; padding:.62rem .95rem; border:1px solid var(--rule-2);
+  background:var(--paper); font-size:.83rem; font-weight:500; line-height:1.2;
+  display:flex; flex-direction:column; gap:.18rem; min-width:0; flex:1 1 165px;
+}
+.scen-bar button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.scen-bar button .nm{display:flex; align-items:center; gap:.45rem}
+.scen-bar button .dot{width:9px; height:9px; border-radius:50%; flex:none}
+.scen-bar button .pr{font-family:"IBM Plex Mono",monospace; font-size:.68rem; color:var(--ink-3)}
+.scen-bar button[aria-pressed="true"]{border-color:currentColor; box-shadow:inset 0 0 0 1px currentColor}
+.scen-bar button[data-k="bull"][aria-pressed="true"]{color:var(--bull); background:var(--bull-soft)}
+.scen-bar button[data-k="base"][aria-pressed="true"]{color:var(--base); background:var(--base-soft)}
+.scen-bar button[data-k="bear"][aria-pressed="true"]{color:var(--bear); background:var(--bear-soft)}
+.scen-bar button[data-k="severe"][aria-pressed="true"]{color:var(--severe); background:var(--severe-soft)}
+
+/* ---------- readout ---------- */
+.readout{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:1px; background:var(--rule); border:1px solid var(--rule); margin-top:1.5rem}
+.readout div{background:var(--paper); padding:.85rem .9rem; display:flex;
+  flex-direction:column; justify-content:space-between; min-height:4.9rem}
+.readout .l{font-family:"IBM Plex Mono",monospace; font-size:.63rem; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--ink-3)}
+.readout .v{font-family:Newsreader,Georgia,serif; font-size:1.5rem; line-height:1.15;
+  margin-top:.5rem; font-variant-numeric:tabular-nums}
+
+/* ---------- tables ---------- */
+table{border-collapse:collapse; width:100%; font-size:.84rem}
+th,td{text-align:right; padding:.55rem .6rem; border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-family:"IBM Plex Mono",monospace; font-size:.65rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3); font-weight:500;
+  border-bottom:1px solid var(--rule-2)}
+tbody td:not(:first-child){font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:600; border-top:1px solid var(--rule-2); border-bottom:none}
+
+/* ---------- forces ---------- */
+.forces{display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:1.15rem; margin-top:2.4rem}
+.force{background:var(--paper); border:1px solid var(--rule); padding:1.3rem 1.25rem 1.4rem;
+  border-top:3px solid var(--c)}
+.force .tag{font-family:"IBM Plex Mono",monospace; font-size:.64rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--c); margin-bottom:.55rem}
+.force h3{margin:0 0 .5rem; font-size:1.06rem}
+.force p{font-size:.87rem; line-height:1.55; color:var(--ink-2); margin-bottom:.7rem}
+.force p:last-child{margin-bottom:0}
+.force .verdict-line{font-size:.78rem; padding-top:.7rem; margin-top:.2rem;
+  border-top:1px dashed var(--rule-2); color:var(--ink)}
+
+/* ---------- recommendations ---------- */
+.recs{margin-top:2.4rem; border-top:1px solid var(--rule-2)}
+.rec{display:grid; grid-template-columns:2.6rem 1fr; gap:1.1rem;
+  padding:1.5rem 0; border-bottom:1px solid var(--rule)}
+.rec .n{font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--accent);
+  padding-top:.25rem; font-weight:500}
+.rec h3{margin:0 0 .4rem; font-size:1.12rem}
+.rec p{font-size:.92rem; color:var(--ink-2); margin-bottom:.6rem}
+.rec p:last-child{margin-bottom:0}
+.rec .ask{font-size:.82rem; color:var(--ink); background:var(--sunk);
+  padding:.65rem .8rem; border-left:2px solid var(--accent); margin-top:.75rem}
+.rec .ask b{font-family:"IBM Plex Mono",monospace; font-size:.65rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--accent); display:block; margin-bottom:.2rem; font-weight:500}
+
+/* ---------- pull ---------- */
+.pull{font-family:Newsreader,Georgia,serif; font-size:clamp(1.25rem,2.6vw,1.62rem);
+  line-height:1.42; color:var(--ink); border-left:2px solid var(--accent);
+  padding:.15rem 0 .15rem 1.4rem; margin:2.4rem 0; max-width:38ch}
+
+/* ---------- watchlist / gaps ---------- */
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2.2rem; margin-top:2.2rem}
+ul.tight{margin:.6rem 0 0; padding-left:1.1rem}
+ul.tight li{margin-bottom:.55rem; font-size:.9rem; color:var(--ink-2); line-height:1.5}
+ul.tight li b{color:var(--ink); font-weight:600}
+
+/* ---------- sensitivity ---------- */
+.sens-ctl{display:flex; flex-wrap:wrap; gap:1.4rem; margin-top:1.4rem; align-items:flex-end}
+.sens-ctl label{display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px;
+  font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3)}
+.sens-ctl output{font-family:Newsreader,Georgia,serif; font-size:1.35rem; color:var(--ink);
+  letter-spacing:0; text-transform:none; font-variant-numeric:tabular-nums}
+input[type=range]{width:100%; accent-color:var(--accent); margin:0}
+.sens-out{margin-top:1.5rem; padding:1.1rem 1.2rem; background:var(--sunk); border-left:3px solid var(--accent)}
+.sens-out .v{font-family:Newsreader,Georgia,serif; font-size:2.1rem; line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.sens-out .s{font-size:.84rem; color:var(--ink-2); margin-top:.45rem}
+.verdict-pill{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:.66rem;
+  letter-spacing:.1em; text-transform:uppercase; padding:.22rem .5rem; margin-top:.6rem}
+.vp-ok{background:var(--bull-soft); color:var(--bull)}
+.vp-no{background:var(--severe-soft); color:var(--severe)}
+
+/* ---------- tooltip ---------- */
+.tip{position:fixed; pointer-events:none; z-index:50; background:var(--paper);
+  border:1px solid var(--rule-2); box-shadow:var(--shadow); padding:.55rem .7rem;
+  font-size:.76rem; line-height:1.45; opacity:0; transition:opacity .1s; max-width:230px}
+.tip .t{font-weight:600; margin-bottom:.25rem}
+.tip .r{display:flex; justify-content:space-between; gap:1rem;
+  font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+.tip .r span:first-child{color:var(--ink-2)}
+
+/* ---------- sources ---------- */
+.sources{font-size:.79rem; color:var(--ink-3); line-height:1.6}
+.sources a{color:var(--ink-2)}
+.caveat{background:var(--sunk); border:1px solid var(--rule); padding:1.15rem 1.25rem;
+  margin-top:2rem; font-size:.86rem; line-height:1.55; color:var(--ink-2)}
+.caveat b{color:var(--ink); display:block; margin-bottom:.35rem;
+  font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+@media (max-width:640px){
+  .rec{grid-template-columns:1fr; gap:.4rem}
+  .rec .n{padding-top:0}
+}
+</style>
+
+<header class="mast">
+  <div class="wrap mast-in">
+    <div class="kicker">
+      <span>Strategic assessment</span><span>Prepared for the Chairman, Tata Sons</span><span>26 August 2026</span>
+    </div>
+    <h1>The TCS question</h1>
+    <p class="standfirst">Eighty-seven per cent of Tata Sons&rsquo; dividend income comes from one company, and that company has just reported the first revenue decline of its listed life. This is an assessment of how much of that is the cycle, how much is structural, and what it means for the group&rsquo;s ability to fund everything else.</p>
+    <div class="byline">
+      <span>Base year FY26 &middot; five-year horizon to FY31</span>
+      <span>All figures from public filings unless marked</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap"><div class="verdict" id="verdict"></div></div>
+
+<main class="wrap">
+
+<section id="judgement">
+  <p class="eyebrow">01 &middot; The judgement</p>
+  <h2>Not a trough. A repricing.</h2>
+  <div class="spine">
+    <p class="lede">The honest reading is that TCS is facing three separate problems at once, and the market is pricing them as one. Only the first of them fixes itself.</p>
+    <p>FY26 revenue was <strong>$30.0bn, down 0.5% in dollars and 2.4% in constant currency</strong> &mdash; the first annual dollar decline in TCS&rsquo;s listed history. Operating margin nonetheless <em>rose</em> to 25.0%, which is the tell: the margin was bought with <strong>23,460 fewer people</strong>, not with better pricing. When hiring resumed in Q1 FY27 (+9,279), margin fell 130 basis points to 24.0% in a single quarter.</p>
+    <p>Order book looks reassuring &mdash; $40.7bn of TCV in FY26, $9.5bn in Q1 FY27. It should not reassure us. The same scope of work is now signing for fewer dollars than it did two years ago. A healthy book-to-bill on a deflating rate card is not growth; it is running to stand still.</p>
+    <p>Meanwhile Infosys grew <strong>3.1% in constant currency</strong> on a $20.2bn base in the same year TCS shrank 2.4%. That five-and-a-half point gap is not the cycle. Everyone faced the same clients, the same tariffs, the same AI. TCS is, for the first time in its modern history, the slowest-growing of the large Indian caps at scale.</p>
+    <p class="pull">The threat to TCS is not artificial intelligence. It is that TCS sells effort, and AI is collapsing the amount of effort each unit of client outcome requires.</p>
+    <p>That distinction matters because it determines the remedy. If the problem were AI capability, TCS would fix it by hiring AI engineers &mdash; it already has 270,000 people with AI competencies and a $2.6bn annualised AI book growing 13.6% a quarter. If the problem is the <em>pricing model</em>, then every productivity gain TCS achieves is a discount it hands to the client, and capability alone makes the arithmetic worse, not better.</p>
+  </div>
+</section>
+
+<section id="record">
+  <p class="eyebrow">02 &middot; The record</p>
+  <h2>What five years of numbers actually say</h2>
+  <div class="spine">
+    <p class="lede">Growth has decelerated every year since FY23 and turned negative in FY26. The rupee has been masking it.</p>
+  </div>
+  <figure>
+    <div class="fig-head">
+      <div class="fig-title">Revenue growth, constant currency vs. reported rupees</div>
+      <div class="fig-sub">The gap between the two bars is currency. FY26 is the first year the constant-currency bar goes below zero.</div>
+    </div>
+    <div class="scroller"><svg id="c-history" role="img" aria-label="Bar chart of TCS revenue growth in constant currency and in rupees, FY22 to FY26"></svg></div>
+    <div class="legend" id="l-history"></div>
+    <figcaption>Constant-currency growth from TCS results press releases; rupee growth from reported consolidated revenue. FY26 rupee revenue rose 4.6% while dollar revenue fell 0.5% &mdash; a roughly five-point currency tailwind. Q1 FY27 constant-currency growth was +3.2% year on year, flattered by a low base and a 7.6% sequential jump in the India business.</figcaption>
+  </figure>
+  <div class="spine">
+    <p>Three numbers from the same period are worth holding together. Revenue per employee rose from <span class="mono">$49,640</span> in FY25 to <span class="mono">$51,354</span> in FY26 &mdash; AI leverage is real and it is showing up. Headcount fell 23,460. And total shareholder payout was <span class="mono">₹39,571 crore</span> against free cash flow of <span class="mono">₹42,983 crore</span> &mdash; a 92% payout, consistent with a stated policy of returning 80&ndash;100% of free cash flow.</p>
+    <p>That last figure is the one that should concern this office most. <strong>There is no retained buffer.</strong> TCS distributes essentially everything it generates. Any fall in free cash flow passes through to Tata Sons within one dividend cycle, undamped.</p>
+  </div>
+</section>
+
+<section id="forces">
+  <p class="eyebrow">03 &middot; Decomposition</p>
+  <h2>Three forces, wrongly treated as one</h2>
+  <p class="lede">Conflating these is how boards get the response wrong. Each has a different half-life and a different remedy.</p>
+  <div class="forces">
+    <div class="force" style="--c:var(--bear)">
+      <div class="tag">Force one &middot; Cyclical</div>
+      <h3>Discretionary spend is frozen</h3>
+      <p>Clients in banking, retail and communications have stretched decision cycles and deferred programmes. Tariffs, Middle East disruption and US federal contraction have all bitten. Accenture cut its FY26 growth guidance from 5% to 4% and saw bookings fall 2% year on year; its stock dropped 18% in a session.</p>
+      <p class="verdict-line"><strong>Half-life: 4&ndash;8 quarters.</strong> This one reverses on its own. It is also the smallest of the three.</p>
+    </div>
+    <div class="force" style="--c:var(--severe)">
+      <div class="tag">Force two &middot; Deflationary</div>
+      <h3>The unit of sale is shrinking</h3>
+      <p>AI reduces the hours required per unit of delivered outcome. Under time-and-materials and FTE-priced contracts, that reduction is refunded to the client at renewal. Industry reporting is consistent: the same scope now translates into a smaller dollar value than a year ago, even as order books grow.</p>
+      <p class="verdict-line"><strong>Half-life: permanent.</strong> This does not reverse. It is only survivable by changing what is being sold and how it is priced.</p>
+    </div>
+    <div class="force" style="--c:var(--base)">
+      <div class="tag">Force three &middot; Competitive</div>
+      <h3>The work is moving elsewhere</h3>
+      <p>India&rsquo;s global capability centres are now a <strong>$98&ndash;100bn</strong> market across 2,100+ centres and some 2.3 million people &mdash; more than three times TCS&rsquo;s entire revenue, growing at roughly 20%. Separately, OpenAI has put over $4bn behind placing forward-deployed engineers inside enterprises and acquired a consultancy to do it.</p>
+      <p class="verdict-line"><strong>Half-life: a decade.</strong> Clients are building the capability TCS used to rent them.</p>
+    </div>
+  </div>
+  <div class="spine">
+    <p style="margin-top:2.2rem">One genuine tailwind deserves naming. The $100,000 H-1B fee, which reads as a headwind, is largely already absorbed: TCS took on roughly 500 new H-1B holders this year and has shifted decisively to local hiring. Analysts put the incremental cost under the old delivery model at about $50m a year &mdash; material but not structural. Rivals more dependent on visa-linked onsite staffing carry more of that cost than TCS does.</p>
+  </div>
+</section>
+
+<section id="risk">
+  <p class="eyebrow">04 &middot; Risk register</p>
+  <h2>Where the exposure actually sits</h2>
+  <div class="spine">
+    <p class="lede">TCS has not disclosed a service-line revenue split since FY21. What follows is a reconstruction &mdash; and it is the single most challengeable input in this whole assessment.</p>
+  </div>
+  <figure>
+    <div class="fig-head">
+      <div class="fig-title">FY26 revenue by exposure bucket, and the share of it AI can substantially automate</div>
+      <div class="fig-sub">The filled portion is gross revenue at risk. This is a measure of exposure, not of expected loss.</div>
+    </div>
+    <div class="scroller"><svg id="c-risk" role="img" aria-label="Horizontal bar chart of TCS revenue by exposure bucket with the automatable share highlighted"></svg></div>
+    <figcaption>Weights reconstructed from TCS&rsquo;s last disclosed service-line mix, deal composition and peer structure. Automatable share is a judgement about the proportion of each bucket&rsquo;s work that current and near-term AI can perform with materially less human effort by FY31 &mdash; not a claim that the revenue disappears.</figcaption>
+  </figure>
+  <div class="scroller" style="margin-top:1.6rem"><table id="t-risk"></table></div>
+  <div class="spine">
+    <p style="margin-top:2rem"><strong>$12.7bn &mdash; 42% of FY26 revenue &mdash; sits in work that AI can substantially automate.</strong> Whether that becomes lost revenue depends entirely on two things TCS partly controls: how much of the productivity gain is passed to the client in price, and how far cheaper delivery expands the volume of work clients are willing to buy. That is the whole scenario question, and it is what the model below flexes.</p>
+    <p>Note what is <em>not</em> exposed. Engineering and R&amp;D services, and products and platforms, together are about 14% of revenue and carry the lowest automation exposure. Products and platforms &mdash; BaNCS, ignio, iON, ADD &mdash; are the only part of the book whose value AI <em>raises</em> rather than deflates, because their revenue is licensed, not billed by the hour. They are 5% of revenue. That number is a strategic failure a decade in the making, and it is now the most valuable thing in the portfolio.</p>
+  </div>
+</section>
+
+<section id="scenarios">
+  <p class="eyebrow">05 &middot; Scenario model</p>
+  <h2>Four futures, and what separates them</h2>
+  <div class="spine">
+    <p class="lede">Each scenario is built bucket by bucket from two drivers: annual price deflation and annual volume growth. Select one to see the full path. The full model, with every assumption editable, is in the accompanying workbook.</p>
+  </div>
+
+  <div class="scen-bar" id="scen-bar" role="group" aria-label="Select scenario"></div>
+  <div class="readout" id="readout"></div>
+
+  <figure>
+    <div class="fig-head">
+      <div class="fig-title">Revenue path, FY26&ndash;FY31 ($bn)</div>
+      <div class="fig-sub">The selected scenario is drawn solid; the others stay visible for context.</div>
+    </div>
+    <div class="scroller"><svg id="c-rev" role="img" aria-label="Line chart of TCS revenue projections under four scenarios"></svg></div>
+    <div class="legend" id="l-rev"></div>
+    <figcaption>Probability-weighted across all four scenarios, expected revenue in FY31 is <strong>$31.9bn</strong> &mdash; a compound growth rate of <strong>1.2% a year</strong>. On an expected-value basis, TCS spends the next five years roughly where it is.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="fig-head">
+      <div class="fig-title">Dividend to Tata Sons (₹ crore)</div>
+      <div class="fig-sub">The dashed line is what the parent needs from TCS in FY31 to cover its own costs and its committed capital call.</div>
+    </div>
+    <div class="scroller"><svg id="c-div" role="img" aria-label="Line chart of dividend paid to Tata Sons under four scenarios against the break-even requirement"></svg></div>
+    <div class="legend" id="l-div"></div>
+    <figcaption>Break-even of ₹30,827 crore is the FY31 capital call on Tata Sons plus parent operating costs, interest and tax, less dividend income expected from all other listed holdings. Two of the four scenarios never reach it.</figcaption>
+  </figure>
+
+  <div class="scroller" style="margin-top:2.2rem"><table id="t-scen"></table></div>
+  <div class="spine">
+    <p style="margin-top:2rem">The employment number deserves a line of its own. In the severe case, headcount falls from 584,519 to <span class="mono">334,575</span> &mdash; a reduction of roughly <strong>250,000 jobs</strong> over five years. That is not primarily a financial event for this group. It is a political and social one, and it would be managed as such, which in turn constrains how quickly the cost base can actually be taken out. The model assumes an orderly adjustment. A disorderly one is worse for margins, not better.</p>
+  </div>
+</section>
+
+<section id="parent">
+  <p class="eyebrow">06 &middot; The Tata Sons view</p>
+  <h2>The concentration is the risk</h2>
+  <div class="spine">
+    <p class="lede">TCS could perform respectably and still leave this office short, because the parent has committed to a capital programme sized against a dividend that has already started falling.</p>
+    <p>In FY26 Tata Sons received <strong>₹28,291 crore</strong> from TCS, down 12% from ₹32,184 crore the year before. Total dividend income across every holding was ₹32,528 crore. TCS was <strong>87% of it</strong>. The rest of a listed portfolio worth ₹11.68 trillion contributed ₹4,237 crore.</p>
+    <p>Against that, the commitments: the Dholera fab at ₹91,000 crore and Assam assembly at ₹27,000 crore; Air India&rsquo;s 600-aircraft order and a business into which ₹22,618 crore has already gone; Agratas&rsquo;s £4bn Somerset plant; Tata Digital, carrying ₹22,903 crore of equity and a ₹4,974 crore FY26 loss. The four newest businesses lost roughly ₹30,000 crore between them last year. Parent net cash at the FY26 close was ₹21,841 crore, with no borrowings.</p>
+  </div>
+  <figure>
+    <div class="fig-head">
+      <div class="fig-title">Tata Sons cumulative net cash, FY26&ndash;FY31 (₹ crore)</div>
+      <div class="fig-sub">Capital deployment is held constant across all four scenarios &mdash; the commitments do not shrink because TCS slows.</div>
+    </div>
+    <div class="scroller"><svg id="c-cash" role="img" aria-label="Line chart of Tata Sons cumulative net cash under four scenarios"></svg></div>
+    <div class="legend" id="l-cash"></div>
+    <figcaption>Assumes non-TCS dividend income grows 9% a year, parent costs 6%, and equity deployment into Air India, Tata Electronics, Agratas and Tata Digital rises from ₹20,000 crore in FY27 to ₹28,000 crore in FY31 (FY26 actual: ₹15,956 crore).</figcaption>
+  </figure>
+  <div class="spine">
+    <p style="margin-top:2rem">In the bear case Tata Sons runs a cumulative deficit of <span class="mono">₹19,163 crore</span> across FY27&ndash;FY31 and its net cash is all but exhausted. In the severe case the deficit is <span class="mono">₹56,517 crore</span> and the parent is in net borrowing from FY30. The gap between the best and worst cumulative dividend from TCS over five years is <strong>₹1,25,649 crore</strong> &mdash; roughly the whole cost of the Dholera fab plus the Assam facility.</p>
+    <p>There is a regulatory dimension to this that should not wait. Tata Sons remains on the RBI&rsquo;s upper-layer NBFC list, and the application to deregister as a core investment company is still unresolved. If the shock absorber for a falling dividend is access to debt markets at scale, that question needs an answer <em>before</em> it is needed, not after.</p>
+    <p class="pull">We are not exposed to whether TCS grows. We are exposed to having assumed it would.</p>
+  </div>
+</section>
+
+<section id="sensitivity">
+  <p class="eyebrow">07 &middot; Sensitivity</p>
+  <h2>What TCS has to do to keep the group whole</h2>
+  <div class="spine">
+    <p class="lede">Two levers determine almost the whole answer: how fast revenue grows, and what margin survives. Move them and see where FY31 lands.</p>
+  </div>
+  <figure>
+    <div class="sens-ctl">
+      <label>FY26&ndash;FY31 revenue CAGR
+        <input type="range" id="s-cagr" min="-10" max="10" step="0.5" value="3.5">
+        <output id="o-cagr"></output>
+      </label>
+      <label>FY31 operating margin
+        <input type="range" id="s-marg" min="16" max="27" step="0.5" value="25.5">
+        <output id="o-marg"></output>
+      </label>
+    </div>
+    <div class="sens-out">
+      <div class="l mono" style="font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">FY31 dividend to Tata Sons</div>
+      <div class="v" id="o-div"></div>
+      <div class="s" id="o-note"></div>
+      <div id="o-pill"></div>
+    </div>
+    <figcaption>Holds free cash flow at 82% of net income, dividend at 92% of free cash flow, the rupee at ₹98.22 to the dollar in FY31, and the Tata Sons stake at 71.74%. Break-even is ₹30,827 crore.</figcaption>
+  </figure>
+  <div class="spine">
+    <p style="margin-top:2rem">Run the sliders and the shape of the problem shows itself. Over the range actually available to management, <strong>margin cannot rescue a growth failure.</strong> Moving operating margin from 25% to 27% &mdash; an outcome nobody has achieved in a decade &mdash; is worth roughly <span class="mono">₹2,400 crore</span> of FY31 dividend from a flat-revenue base. Getting from flat revenue to 4% growth is worth about <span class="mono">₹6,900 crore</span>, and unlike margin it compounds every year rather than resetting.</p>
+    <p>Worse, the two are not independent. In every downside path modelled here margin falls <em>because</em> growth fails, not alongside it: idle capacity, pricing concessions to hold volume, and the cost of a workforce that cannot be reshaped as fast as revenue moves. Cost discipline buys time. It does not buy the outcome.</p>
+  </div>
+</section>
+
+<section id="actions">
+  <p class="eyebrow">08 &middot; Recommendations</p>
+  <h2>Nine things I would do, in this order</h2>
+  <p class="lede">Three are about the group&rsquo;s own balance sheet and should happen regardless of what TCS does. Five are about TCS. One is about how this board governs the uncertainty.</p>
+  <div class="recs" id="recs"></div>
+</section>
+
+<section id="watch">
+  <p class="eyebrow">09 &middot; Monitoring</p>
+  <h2>What would change this view</h2>
+  <div class="two">
+    <div>
+      <h3 style="margin-top:0">Leading indicators, in order of signal value</h3>
+      <ul class="tight">
+        <li><b>Revenue per employee.</b> The single cleanest test of whether AI-led delivery is working. If it rises faster than revenue falls, the transition is being managed. FY26: +3.5%.</li>
+        <li><b>TCV-to-revenue conversion by deal vintage.</b> A growing order book converting to less revenue is the deflation thesis proving itself. This is internal data; we should be seeing it.</li>
+        <li><b>Renewal pricing on the top 50 accounts.</b> Where the productivity refund actually happens. Watch rate-card movement, not headline wins.</li>
+        <li><b>BFSI constant-currency growth.</b> 32% of revenue and the first vertical to move in any recovery. FY26: +1.0%.</li>
+        <li><b>Share of revenue on non-effort-linked pricing.</b> Not currently disclosed. It should be, at least to this board.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-top:0">What I would need to sharpen this</h3>
+      <ul class="tight">
+        <li><b>Actual service-line revenue and gross margin.</b> The seven-bucket split here is a reconstruction. Real MIS would materially change the risk quantification, in either direction.</li>
+        <li><b>Pricing model mix.</b> Time-and-materials versus fixed-price versus outcome-linked, and the trend. This determines how much deflation is contractually unavoidable.</li>
+        <li><b>The HyperVault business case.</b> Hurdle rate, capital schedule, ring-fencing, exit.</li>
+        <li><b>Tata Sons&rsquo; committed versus discretionary capital call by year.</b> The model treats it as fixed. How much of it genuinely is?</li>
+        <li><b>Client concentration and renewal calendar.</b> Which of the 66 hundred-million-dollar accounts come up for renewal, and when.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="caveat">
+    <b>On the confidence of these numbers</b>
+    The financial history, the Tata Sons dividend figures and the capital commitments are from public filings and are reliable. The seven-bucket revenue decomposition, the per-bucket deflation and volume drivers, the scenario probabilities and the forward capital-call profile are judgements. They are documented and editable in the accompanying workbook, and they should be argued with. A model whose assumptions cannot be challenged is not an analysis; it is an opinion with decimal places.
+  </div>
+</section>
+
+<section id="sources">
+  <p class="eyebrow">10</p>
+  <h2 style="font-size:1.25rem">Sources</h2>
+  <div class="sources" style="margin-top:1.2rem; max-width:60rem">
+    <p>TCS Q4 FY26 results press release and fact sheet; TCS Q1 FY27 results press release; TCS Q4 FY25 and Q4 FY24 press releases (tcs.com/investor-relations). Infosys FY26 results and FY27 guidance. Accenture Q3 FY2026 results. Tata Sons FY26 accounts as reported in Business Today (28 July 2026) and Business Standard (17&ndash;18 August 2026). Screener.in and stockanalysis.com for market data as at 24 August 2026. Business of GCC industry data for India GCC market size. TCS&ndash;TPG HyperVault announcement. RBI upper-layer NBFC list, August 2026.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="tip" id="tip" aria-hidden="true"></div>
+
+<script>
+const DATA = {"years":["FY27","FY28","FY29","FY30","FY31"],"fy26":{"rev":30017.0,"opm":0.25,"pat":5938.0,"div":39571.0,"ts":28291.0,"hc":584519,"dps":110.0,"fcf":42983.0},"history":[{"FY":"FY22","RevUSDm":25707,"USDg":0.157,"CCg":0.157,"OPM":0.25,"NetM":0.204,"PATusdm":5240,"RevINRcr":191754,"PATINRcr":38449,"TCVusdbn":34600,"Headcount":592195,"DPS":43,"PayoutINRcr":15671},{"FY":"FY23","RevUSDm":27927,"USDg":0.086,"CCg":0.138,"OPM":0.244,"NetM":0.192,"PATusdm":5364,"RevINRcr":225458,"PATINRcr":42303,"TCVusdbn":34100,"Headcount":614795,"DPS":115,"PayoutINRcr":42084},{"FY":"FY24","RevUSDm":29080,"USDg":0.041,"CCg":0.034,"OPM":0.246,"NetM":0.196,"PATusdm":5697,"RevINRcr":240893,"PATINRcr":46099,"TCVusdbn":42700,"Headcount":601546,"DPS":73,"PayoutINRcr":26411},{"FY":"FY25","RevUSDm":30180,"USDg":0.038,"CCg":0.042,"OPM":0.243,"NetM":0.19,"PATusdm":5739,"RevINRcr":255324,"PATINRcr":48797,"TCVusdbn":39400,"Headcount":607979,"DPS":126,"PayoutINRcr":44962},{"FY":"FY26","RevUSDm":30017,"USDg":-0.005,"CCg":-0.024,"OPM":0.25,"NetM":0.198,"PATusdm":5938,"RevINRcr":267021,"PATINRcr":49454,"TCVusdbn":40700,"Headcount":584519,"DPS":110,"PayoutINRcr":39571}],"buckets":[{"name":"Application Development & Maintenance (custom)","w":0.32,"auto":0.55,"rev":9605.44,"note":"Code generation, test automation and agentic L1/L2 support attack the core of this book. Largest single pool and the most exposed."},{"name":"Enterprise / Package Application Services","w":0.13,"auto":0.4,"rev":3902.21,"note":"SAP/Oracle/Salesforce migration and rollout. Config work automates; change management, data migration and integration hold value."},{"name":"Cloud & Infrastructure Managed Services","w":0.16,"auto":0.5,"rev":4802.72,"note":"AIOps compresses run-cost; offset by AI-infrastructure build, GPU estate operations and the HyperVault adjacency."},{"name":"Business Process Services","w":0.1,"auto":0.65,"rev":3001.7000000000003,"note":"Most directly substitutable. Agentic workflows displace seat-based delivery; the FTE pricing model is the liability."},{"name":"Engineering & R&D Services","w":0.09,"auto":0.25,"rev":2701.5299999999997,"note":"Embedded, semiconductor, automotive software. Least substitutable near-term and structurally growing."},{"name":"Consulting, Data, AI & Cybersecurity","w":0.15,"auto":0.15,"rev":4502.55,"note":"The growth engine. AI-native demand, data estate rebuild, model governance, security. TCS AI book already ~8.5% of revenue."},{"name":"Products & Platforms (BaNCS, ignio, iON, ADD)","w":0.05,"auto":0.1,"rev":1500.8500000000001,"note":"IP-led, non-linear. AI raises product value rather than deflating it. Strategically under-scaled at ~5% of revenue."}],"scenarios":{"bull":{"label":"Bull \u2014 AI Dividend","prob":0.15,"rev":[32787.4,35793.5,39139.5,42697.7,46582.6],"ccg":[0.0923,0.0917,0.0935,0.0909,0.091],"opm":[0.245,0.255,0.262,0.267,0.27],"pat":[6375.3,7226.5,8106.2,9002.2,9925.4],"revinr":[297499,331271,369482,411133,457513],"patinr":[57847,66882,76523,86681,97482],"fcf":[46278,50161,60454,72812,85784],"div":[42575,46148,55617,66987,78922],"dps":[117.7,127.6,153.7,185.2,218.1],"ts":[30544,33107,39900,48057,56618],"hc":[605182,626226,649066,671159,694054],"rpe":[54178,57158,60301,63618,67117],"cagr":0.0919,"cumts":208225,"bridge":{"tcs":[30544,33107,39900,48057,56618],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[7759,6294,11069,18220,25791],"cum":[29600,35894,46962,65183,90974],"cumsur":69133},"buckets":[[9946.4,10299.5,10721.3,11160.3,11678.2],[4163.7,4442.6,4754.9,5089.2,5463.8],[5163.9,5552.2,5994.6,6472.3,7017.0],[3103.8,3209.3,3339.6,3475.2,3639.2],[2995.5,3321.4,3686.4,4091.7,4546.0],[5673.2,6971.2,8374.9,9858.7,11395.9],[1741.0,1997.3,2267.7,2550.3,2842.6]]},"base":{"label":"Base \u2014 Managed Transition","prob":0.4,"rev":[31149.4,32299.3,33451.4,34746.0,36023.7],"ccg":[0.0377,0.0369,0.0357,0.0387,0.0368],"opm":[0.243,0.246,0.25,0.252,0.255],"pat":[6010.4,6304.5,6629.1,6937.4,7273.0],"revinr":[282636,298932,315786,334568,353807],"patinr":[54536,58348,62579,66800,71432],"fcf":[43629,44345,48812,54776,60717],"div":[40575,41241,44907,50394,55860],"dps":[112.1,114.0,124.1,139.3,154.4],"ts":[29108,29586,32216,36152,40074],"hc":[583240,581511,579089,578367,576571],"rpe":[53407,55544,57766,60076,62479],"cagr":0.0372,"cumts":167137,"bridge":{"tcs":[29108,29586,32216,36152,40074],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[6324,2773,3385,6316,9247],"cum":[28165,30938,34323,40639,49886],"cumsur":28045},"buckets":[[9570.9,9536.4,9502.1,9528.3,9554.6],[4008.4,4117.4,4229.4,4362.5,4499.8],[4927.6,5055.7,5187.2,5350.0,5518.0],[2927.3,2854.7,2783.9,2738.4,2693.7],[2859.3,3026.3,3203.0,3397.0,3602.7],[5206.7,5910.9,6600.1,7276.3,7916.7],[1649.3,1798.0,1945.8,2093.4,2238.1]]},"bear":{"label":"Bear \u2014 Slow Bleed","prob":0.3,"rev":[29471.7,28500.1,27361.4,26472.0,25794.9],"ccg":[-0.0182,-0.033,-0.04,-0.0325,-0.0256],"opm":[0.24,0.234,0.228,0.224,0.22],"pat":[5620.9,5308.1,4973.8,4733.2,4535.3],"revinr":[267414,263770,258296,254898,253345],"patinr":[51001,49127,46953,45576,44543],"fcf":[39781,35372,34745,35549,36525],"div":[37792,32896,31618,31994,32873],"dps":[104.5,90.9,87.4,88.4,90.9],"ts":[27112,23599,22683,22953,23583],"hc":[557186,523123,487594,458004,433290],"rpe":[52894,54481,56115,57799,59533],"cagr":-0.0299,"cumts":119930,"bridge":{"tcs":[27112,23599,22683,22953,23583],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[4327,-3214,-6148,-6884,-7244],"cum":[26168,22954,16806,9922,2678],"cumsur":-19163},"buckets":[[9092.1,8439.3,7755.9,7199.0,6748.2],[3826.4,3704.7,3564.0,3450.6,3362.2],[4675.2,4473.2,4242.7,4059.4,3917.9],[2767.8,2484.4,2199.6,1974.3,1796.3],[2719.7,2715.3,2699.7,2695.4,2702.3],[4837.9,5094.0,5284.7,5453.6,5604.0],[1552.7,1589.3,1614.9,1639.6,1663.9]]},"severe":{"label":"Severe \u2014 Structural Break","prob":0.15,"rev":[28337.5,25552.7,22547.6,20181.9,18509.4],"ccg":[-0.056,-0.0983,-0.1176,-0.1049,-0.0829],"opm":[0.235,0.22,0.202,0.188,0.175],"pat":[5299.0,4492.7,3662.0,3067.2,2633.8],"revinr":[257122,236491,212853,194330,181790],"patinr":[48081,41580,34569,29534,25868],"fcf":[36060,27443,23507,21855,20694],"div":[34257,24698,19981,18577,17590],"dps":[94.7,68.3,55.2,51.3,48.6],"ts":[24576,17719,14334,13327,12619],"hc":[543659,482988,419888,370278,334575],"rpe":[52124,52905,53699,54505,55322],"cagr":-0.0922,"cumts":82576,"bridge":{"tcs":[24576,17719,14334,13327,12619],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[1792,-9095,-14497,-16509,-18208],"cum":[23633,14538,41,-16468,-34676],"cumsur":-56517},"buckets":[[8856.2,7704.9,6502.9,5573.0,4921.0],[3691.5,3359.3,2996.5,2699.8,2481.1],[4530.6,4072.6,3570.3,3169.7,2884.5],[2624.0,2108.6,1620.1,1273.3,1045.7],[2630.3,2497.2,2340.6,2208.0,2109.6],[4529.1,4397.4,4184.0,3993.4,3854.0],[1475.8,1412.7,1333.2,1264.6,1213.5]]}},"expected":{"rev":[30470.0,30671.7,30842.0,31271.9,31911.7],"ts":[28045,26538,27826,30554,33490],"hc":[572778,555923,538257,524963,514909],"cagr":0.0123},"fx":{"FY27":90.74,"FY28":92.55,"FY29":94.4,"FY30":96.29,"FY31":98.22},"breakeven_fy31":30827};
+
+const SCEN = [
+  {k:'bull',   n:'Bull',   full:'AI Dividend',       v:'--bull'},
+  {k:'base',   n:'Base',   full:'Managed Transition',v:'--base'},
+  {k:'bear',   n:'Bear',   full:'Slow Bleed',        v:'--bear'},
+  {k:'severe', n:'Severe', full:'Structural Break',  v:'--severe'}
+];
+let active = 'base';
+const YRS = ['FY26', ...DATA.years];
+const BREAKEVEN = DATA.breakeven_fy31;
+
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const SVGNS = 'http://www.w3.org/2000/svg';
+function niceStep(r){ const e = Math.pow(10, Math.floor(Math.log10(Math.abs(r)||1)));
+  const f = (Math.abs(r)||1)/e; return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*e; }
+const el = (t, a={}) => { const n = document.createElementNS(SVGNS,t);
+  for (const k in a) n.setAttribute(k, a[k]); return n; };
+const fmt = (n,d=0) => n.toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d});
+const cr  = n => '₹' + fmt(Math.round(n)) + ' cr';
+const pct = (n,d=1) => (n*100).toFixed(d) + '%';
+const usd = (n,d=1) => '$' + (n/1000).toFixed(d) + 'bn';
+
+/* ---------------- tooltip ---------------- */
+const tip = document.getElementById('tip');
+function showTip(e, title, rows){
+  tip.innerHTML = '<div class="t">'+title+'</div>' +
+    rows.map(r=>'<div class="r"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>').join('');
+  tip.style.opacity = 1;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = e.clientX + 14, y = e.clientY - h - 12;
+  if (x + w > innerWidth - 8) x = e.clientX - w - 14;
+  if (y < 8) y = e.clientY + 18;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+const hideTip = () => tip.style.opacity = 0;
+document.addEventListener('scroll', hideTip, {passive:true});
+
+/* ---------------- verdict tiles ---------------- */
+function verdict(){
+  const items = [
+    ['FY26 revenue', '&minus;2.4%', 'neg', 'Constant currency. First annual dollar decline in TCS&rsquo;s listed history.'],
+    ['Revenue at risk', '42%', 'neg', '$12.7bn of FY26 revenue sits in work AI can substantially automate.'],
+    ['Tata Sons dependence', '87%', '', 'Share of the parent&rsquo;s FY26 dividend income that came from TCS alone.'],
+    ['Expected FY31 revenue', '$31.9bn', '', 'Probability-weighted across four scenarios &mdash; 1.2% a year from here.'],
+    ['Dividend spread, 5 yrs', '₹1.26 lakh cr', 'sm', 'Gap between the best and worst cumulative dividend to Tata Sons.']
+  ];
+  document.getElementById('verdict').innerHTML = items.map(([l,f,c,s]) =>
+    `<div class="tile"><div class="lab">${l}</div><div class="fig ${c}">${f}</div><div class="sub">${s}</div></div>`).join('');
+}
+
+/* ---------------- chart: history ---------------- */
+function chartHistory(){
+  const svg = document.getElementById('c-history');
+  svg.innerHTML = '';
+  const W = Math.max(560, svg.parentElement.clientWidth), H = 300;
+  const M = {t:16,r:16,b:44,l:52};
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width',W); svg.setAttribute('height',H);
+  const h = DATA.history;
+  const rows = h.map(r=>({fy:r.FY, cc:r.CCg, inr:(r.RevINRcr/ (h[h.indexOf(r)-1]? h[h.indexOf(r)-1].RevINRcr:r.RevINRcr))-1}));
+  rows[0].inr = 0.168;
+  const iw = W-M.l-M.r, ih = H-M.t-M.b;
+  const lo = -0.05, hi = 0.20;
+  const y = v => M.t + ih - (v-lo)/(hi-lo)*ih;
+  const bw = iw/rows.length;
+  const gp = 8, bar = (bw-gp*2)/2 - 3;
+
+  for (let v=-0.05; v<=0.201; v+=0.05){
+    const yy = y(v);
+    svg.appendChild(el('line',{x1:M.l,x2:W-M.r,y1:yy,y2:yy,
+      stroke: Math.abs(v)<1e-9?css('--rule-2'):css('--rule'),
+      'stroke-width': Math.abs(v)<1e-9?1.5:1}));
+    const t = el('text',{x:M.l-9,y:yy+4,'text-anchor':'end','font-size':10,fill:css('--ink-3')});
+    t.textContent = (v*100).toFixed(0)+'%'; svg.appendChild(t);
+  }
+  rows.forEach((r,i)=>{
+    const x0 = M.l + i*bw + gp;
+    [['inr',r.inr,css('--ink-3')],['cc',r.cc,r.cc<0?css('--severe'):css('--accent')]].forEach(([k,v,c],j)=>{
+      const x = x0 + j*(bar+6);
+      const yy = v>=0 ? y(v) : y(0), hh = Math.max(2, Math.abs(y(v)-y(0)));
+      const rect = el('rect',{x, y:yy, width:bar, height:hh, fill:c, rx:2});
+      rect.style.cursor='pointer';
+      rect.addEventListener('mousemove', e=>showTip(e, r.fy, [
+        ['Constant currency', pct(r.cc)], ['Reported rupees', pct(r.inr)]]));
+      rect.addEventListener('mouseleave', hideTip);
+      svg.appendChild(rect);
+    });
+    const t = el('text',{x:x0+bar+1,y:H-M.b+20,'text-anchor':'middle','font-size':11,fill:css('--ink-2')});
+    t.textContent = r.fy; svg.appendChild(t);
+  });
+  // annotate FY26
+  const lastX = M.l + 4*bw + gp + (bar+6) + bar/2;
+  const lab = el('text',{x:lastX, y:y(-0.024)+26,'text-anchor':'middle','font-size':11,
+    fill:css('--severe'),'font-weight':600});
+  lab.textContent = '−2.4%'; svg.appendChild(lab);
+
+  document.getElementById('l-history').innerHTML =
+    `<span style="display:inline-flex;align-items:center;gap:.38rem"><span class="sw" style="background:${css('--accent')}"></span>Constant currency</span>`+
+    `<span style="display:inline-flex;align-items:center;gap:.38rem"><span class="sw" style="background:${css('--ink-3')}"></span>Reported rupees</span>`;
+}
+
+/* ---------------- chart: risk buckets ---------------- */
+const SHORT = ['App development & maintenance','Package application services',
+  'Cloud & infrastructure managed','Business process services','Engineering & R&D',
+  'Consulting, data, AI & cyber','Products & platforms'];
+
+function chartRisk(){
+  const svg = document.getElementById('c-risk'); svg.innerHTML='';
+  const W = Math.max(660, svg.parentElement.clientWidth);
+  const rowH = 42, M={t:30,r:128,b:14,l:Math.min(240, Math.max(178, W*0.27))};
+  const H = M.t + DATA.buckets.length*rowH + M.b;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width',W); svg.setAttribute('height',H);
+  const iw = W-M.l-M.r;
+  const ceil = 10000;
+  const x = v => v/ceil*iw;
+
+  [0,2500,5000,7500,10000].forEach(v=>{
+    const xx = M.l + x(v);
+    svg.appendChild(el('line',{x1:xx,x2:xx,y1:M.t-10,y2:H-M.b,stroke:css('--rule'),'stroke-width':1}));
+    const t = el('text',{x:xx,y:M.t-16,'text-anchor': v===10000?'end':'middle',
+      'font-size':9.5,fill:css('--ink-3')});
+    t.textContent = v===0?'$0':'$'+(v/1000)+'bn'; svg.appendChild(t);
+  });
+
+  DATA.buckets.forEach((b,i)=>{
+    const yy = M.t + i*rowH + 8, bh = 21;
+    const g = el('g'); g.style.cursor='pointer';
+    g.appendChild(el('rect',{x:M.l,y:yy,width:Math.max(2,x(b.rev)),height:bh,
+      fill:css('--sunk'),stroke:css('--rule-2'),'stroke-width':1,rx:2}));
+    g.appendChild(el('rect',{x:M.l,y:yy,width:Math.max(2,x(b.rev*b.auto)),height:bh,
+      fill:css('--severe'),rx:2,opacity:.85}));
+    const nm = el('text',{x:M.l-14,y:yy+15,'text-anchor':'end','font-size':11.5,
+      fill:css('--ink'),'font-family':'"IBM Plex Sans",sans-serif'});
+    nm.textContent = SHORT[i]; g.appendChild(nm);
+    const val = el('text',{x:M.l+x(b.rev)+10,y:yy+15,'font-size':10.5,fill:css('--ink-2')});
+    val.textContent = '$'+fmt(Math.round(b.rev))+'m · '+pct(b.auto,0); g.appendChild(val);
+    g.addEventListener('mousemove', e=>showTip(e, b.name, [
+      ['FY26 revenue','$'+fmt(Math.round(b.rev))+'m'],
+      ['Share of total', pct(b.w,1)],
+      ['Automatable share', pct(b.auto,0)],
+      ['Gross revenue at risk','$'+fmt(Math.round(b.rev*b.auto))+'m']]));
+    g.addEventListener('mouseleave', hideTip);
+    svg.appendChild(g);
+  });
+
+}
+
+function tableRisk(){
+  const t = document.getElementById('t-risk');
+  const sev = DATA.scenarios.severe.buckets;
+  let html = '<thead><tr><th>Exposure bucket</th><th>FY26 $m</th><th>Share</th><th>Automatable</th><th>At risk $m</th><th>Severe case FY31 $m</th></tr></thead><tbody>';
+  DATA.buckets.forEach((b,i)=>{
+    html += `<tr><td>${b.name}</td><td>${fmt(Math.round(b.rev))}</td><td>${pct(b.w,1)}</td>`+
+      `<td>${pct(b.auto,0)}</td><td>${fmt(Math.round(b.rev*b.auto))}</td>`+
+      `<td>${fmt(Math.round(sev[i][4]))}</td></tr>`;
+  });
+  const tot = DATA.buckets.reduce((a,b)=>a+b.rev,0);
+  const tr  = DATA.buckets.reduce((a,b)=>a+b.rev*b.auto,0);
+  const ts  = sev.reduce((a,r)=>a+r[4],0);
+  html += `<tr class="tot"><td>Total</td><td>${fmt(Math.round(tot))}</td><td>100.0%</td><td>${pct(tr/tot,0)}</td><td>${fmt(Math.round(tr))}</td><td>${fmt(Math.round(ts))}</td></tr>`;
+  t.innerHTML = html + '</tbody>';
+}
+
+/* ---------------- generic line chart ---------------- */
+function lineChart(id, legendId, series, opts){
+  const svg = document.getElementById(id); svg.innerHTML='';
+  const W = Math.max(560, svg.parentElement.clientWidth), H = opts.h||330;
+  const M = {t:20,r:opts.r||70,b:40,l:opts.l||62};
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width',W); svg.setAttribute('height',H);
+  const iw = W-M.l-M.r, ih = H-M.t-M.b;
+  const all = series.flatMap(s=>s.vals).concat(opts.extra||[]);
+  let rawLo = Math.min(...all), rawHi = Math.max(...all);
+  if (opts.zero) rawLo = Math.min(0, rawLo);
+  const span = (rawHi - rawLo) || 1;
+  const step = niceStep(span/4.2);
+  const lo = Math.floor((rawLo - span*0.06)/step)*step;
+  const hi = Math.ceil((rawHi + span*0.06)/step)*step;
+  const x = i => M.l + i*(iw/(YRS.length-1));
+  const y = v => M.t + ih - (v-lo)/(hi-lo)*ih;
+
+  for (let v=lo; v<=hi+step/2; v+=step){
+    const yy = y(v), isZero = Math.abs(v) < step/1000;
+    svg.appendChild(el('line',{x1:M.l,x2:W-M.r,y1:yy,y2:yy,
+      stroke: isZero?css('--ink-3'):css('--rule'), 'stroke-width': isZero?1.4:1}));
+    const t = el('text',{x:M.l-9,y:yy+4,'text-anchor':'end','font-size':10,
+      fill: isZero?css('--ink-2'):css('--ink-3'), 'font-weight': isZero?600:400});
+    t.textContent = opts.fmtY(v); svg.appendChild(t);
+  }
+  YRS.forEach((fy,i)=>{
+    const t = el('text',{x:x(i),y:H-M.b+20,'text-anchor':'middle','font-size':10.5,fill:css('--ink-2')});
+    t.textContent = fy; svg.appendChild(t);
+  });
+
+  if (opts.threshold != null){
+    const yy = y(opts.threshold);
+    svg.appendChild(el('line',{x1:M.l,x2:W-M.r,y1:yy,y2:yy,stroke:css('--ink'),
+      'stroke-width':1.5,'stroke-dasharray':'5 4',opacity:.65}));
+    const t = el('text',{x:M.l+6,y:yy-7,'font-size':10,fill:css('--ink'),'font-weight':600});
+    t.textContent = opts.thresholdLabel; svg.appendChild(t);
+  }
+
+  series.forEach(s=>{
+    const on = s.k===active;
+    const d = s.vals.map((v,i)=>(i?'L':'M')+x(i)+' '+y(v)).join(' ');
+    svg.appendChild(el('path',{d, fill:'none', stroke:css(s.v),
+      'stroke-width': on?2.6:1.7, opacity: on?1:.42,
+      'stroke-linejoin':'round','stroke-linecap':'round'}));
+    if (on) s.vals.forEach((v,i)=>{
+      svg.appendChild(el('circle',{cx:x(i),cy:y(v),r:4.2,fill:css(s.v),
+        stroke:css('--paper'),'stroke-width':2}));
+    });
+    const lab = el('text',{x:W-M.r+8,y:y(s.vals[s.vals.length-1])+4,'font-size':10.5,
+      fill:css(s.v),'font-weight': on?600:400, opacity: on?1:.55});
+    lab.textContent = s.n; svg.appendChild(lab);
+  });
+
+  // crosshair hit zones
+  YRS.forEach((fy,i)=>{
+    const zw = iw/(YRS.length-1);
+    const r = el('rect',{x:x(i)-zw/2,y:M.t,width:zw,height:ih,fill:'transparent'});
+    r.style.cursor='crosshair';
+    r.addEventListener('mousemove', e=>{
+      showTip(e, fy, series.map(s=>[s.n, opts.fmtT(s.vals[i])]));
+    });
+    r.addEventListener('mouseleave', hideTip);
+    svg.appendChild(r);
+  });
+
+  if (legendId){
+    document.getElementById(legendId).innerHTML = series.map(s=>
+      `<span style="display:inline-flex;align-items:center;gap:.38rem;${s.k===active?'font-weight:600':''}">
+        <span class="sw" style="background:${css(s.v)}"></span>${s.n} &mdash; ${s.full}</span>`).join('');
+  }
+}
+
+function seriesFor(field, includeFy26, fy26val){
+  return SCEN.map(s=>({k:s.k, n:s.n, full:s.full, v:s.v,
+    vals: includeFy26 ? [fy26val, ...DATA.scenarios[s.k][field]] : DATA.scenarios[s.k][field]}));
+}
+
+function drawScenarioCharts(){
+  lineChart('c-rev','l-rev', seriesFor('rev', true, DATA.fy26.rev),
+    {fmtY:v=>'$'+(v/1000).toFixed(0)+'bn', fmtT:v=>usd(v,2), h:330});
+  lineChart('c-div','l-div', seriesFor('ts', true, DATA.fy26.ts),
+    {fmtY:v=>fmt(v/1000,0)+'k', fmtT:v=>cr(v), h:330,
+     threshold:BREAKEVEN, thresholdLabel:'Break-even ₹30,827 cr', extra:[BREAKEVEN]});
+  const cashSeries = SCEN.map(s=>({k:s.k,n:s.n,full:s.full,v:s.v,
+    vals:[21841, ...DATA.scenarios[s.k].bridge.cum]}));
+  lineChart('c-cash','l-cash', cashSeries,
+    {fmtY:v=>fmt(v/1000,0)+'k', fmtT:v=>cr(v), h:330, zero:true, extra:[0]});
+}
+
+/* ---------------- scenario controls ---------------- */
+function scenBar(){
+  document.getElementById('scen-bar').innerHTML = SCEN.map(s=>
+    `<button data-k="${s.k}" aria-pressed="${s.k===active}">
+       <span class="nm"><span class="dot" style="background:var(${s.v})"></span>${s.n} &middot; ${s.full}</span>
+       <span class="pr">Probability ${pct(DATA.scenarios[s.k].prob,0)}</span>
+     </button>`).join('');
+  document.querySelectorAll('#scen-bar button').forEach(b=>
+    b.addEventListener('click', ()=>{ active = b.dataset.k; render(); }));
+}
+
+function readout(){
+  const s = DATA.scenarios[active];
+  const last = s.rev.length-1;
+  const items = [
+    ['FY31 revenue', usd(s.rev[last],1)],
+    ['Revenue CAGR', (s.cagr>=0?'+':'−')+Math.abs(s.cagr*100).toFixed(1)+'%'],
+    ['FY31 margin', pct(s.opm[last])],
+    ['FY31 headcount', fmt(s.hc[last])],
+    ['Cum. dividend to Tata Sons', '₹'+fmt(Math.round(s.cumts/1000))+'k cr'],
+    ['Tata Sons 5-yr cash',  (s.bridge.cumsur<0?'−₹':'₹')+fmt(Math.abs(Math.round(s.bridge.cumsur)))+' cr']
+  ];
+  const col = css(SCEN.find(x=>x.k===active).v);
+  document.getElementById('readout').innerHTML = items.map(([l,v],i)=>
+    `<div><div class="l">${l}</div><div class="v" ${i===0||i===5?`style="color:${col}"`:''}>${v}</div></div>`).join('');
+}
+
+function tableScen(){
+  const s = DATA.scenarios[active];
+  const rows = [
+    ['Revenue ($m)', [DATA.fy26.rev,...s.rev], v=>fmt(Math.round(v))],
+    ['Growth, constant currency', [null,...s.ccg], v=>v==null?'—':pct(v)],
+    ['Operating margin', [DATA.fy26.opm,...s.opm], v=>pct(v)],
+    ['Net income ($m)', [DATA.fy26.pat,...s.pat], v=>fmt(Math.round(v))],
+    ['Free cash flow (₹ cr)', [DATA.fy26.fcf,...s.fcf], v=>fmt(Math.round(v))],
+    ['Total dividend (₹ cr)', [DATA.fy26.div,...s.div], v=>fmt(Math.round(v))],
+    ['Dividend per share (₹)', [DATA.fy26.dps,...s.dps], v=>fmt(v,0)],
+    ['Dividend to Tata Sons (₹ cr)', [DATA.fy26.ts,...s.ts], v=>fmt(Math.round(v))],
+    ['Revenue per employee ($)', [51354,...s.rpe], v=>fmt(Math.round(v))],
+    ['Closing headcount', [DATA.fy26.hc,...s.hc], v=>fmt(Math.round(v))]
+  ];
+  let html = '<thead><tr><th>'+DATA.scenarios[active].label+'</th>'+
+    YRS.map((y,i)=>`<th>${y}${i===0?'A':''}</th>`).join('')+'</tr></thead><tbody>';
+  rows.forEach(([l,vals,f])=>{
+    html += `<tr><td>${l}</td>`+vals.map(v=>`<td>${f(v)}</td>`).join('')+'</tr>';
+  });
+  document.getElementById('t-scen').innerHTML = html+'</tbody>';
+}
+
+/* ---------------- recommendations ---------------- */
+const RECS = [
+  ['A1','Break the single-source dependency &mdash; target below 70% within three years',
+   'Eighty-seven per cent of parent dividend income from one holding is not a concentration we would accept in any portfolio we advised. Two levers exist and both are available now. First, the rest of a ₹11.68 trillion listed portfolio returned ₹4,237 crore last year; the payout policies of Tata Motors, Tata Steel, Titan, Tata Power, Tata Consumer and IHCL have never been set with the parent&rsquo;s funding needs in view. Second, bring third-party capital in at the asset level, as we have already done with TPG in HyperVault and Tata Motors EV, and BlackRock and Mubadala in Tata Power Renewables.',
+   'Set an explicit target for TCS as a share of parent dividend income, and report it to this board each year.'],
+  ['A2','Sequence the capital call rather than running it in parallel',
+   'Dholera, Assam, the Air India fleet, Agratas Somerset and Tata Digital are all being funded simultaneously against a dividend that fell 12% last year. Rank them on two axes: how irreversible the commitment already is, and whether a partner or a government can carry part of the load. The bear case gives us until roughly FY28 before this becomes forced rather than chosen.',
+   'A ranked, dated sequencing plan with a named decision point for each programme.'],
+  ['A3','Settle the RBI question before we need the answer',
+   'Tata Sons remains on the upper-layer NBFC list with the core-investment-company deregistration plea unresolved. If the shock absorber for a falling dividend is debt capacity at the parent, that capacity has to exist and be priced before the dividend falls, not during. This is a live regulatory question, not a background one.',
+   'A clear read on what the parent can borrow, at what cost, under each outcome of the deregistration decision.'],
+  ['B1','Change what this board asks TCS for',
+   'Revenue growth and headcount are the wrong scoreboard in a deflating market. If AI-led delivery works, revenue per employee rises faster than revenue falls &mdash; and that is a good outcome, not a bad one, even with flat revenue. The board should be tracking revenue per employee, the share of revenue on non-effort-linked pricing, products and platforms as a percentage of total, and gross margin on the AI book. Not one of those four is currently a headline metric.',
+   'Replace the quarterly growth-and-headcount review with those four measures.'],
+  ['B2','Force the pricing transition instead of defending the rate card',
+   'This is the central recommendation. TCS&rsquo;s exposure is not AI capability &mdash; it has more AI-competent staff than almost anyone. The exposure is billing for effort while effort collapses. Whoever moves to outcome-based and platform pricing first keeps the productivity gain; whoever moves last refunds it. Every quarter spent protecting time-and-materials rates is a quarter of margin handed to clients in the next renewal round.',
+   'What proportion of the FY27 order book is priced on outcomes rather than effort, and what is the FY29 target?'],
+  ['B3','Products and platforms should be 15% of revenue, not 5%',
+   'BaNCS, ignio, iON and ADD are the only assets in the portfolio whose value artificial intelligence raises rather than deflates, because they are licensed rather than billed by the hour. They have been under-invested for a decade because services cash was easier to earn. This is now the most valuable optionality TCS owns, and it is a build-or-buy decision that will not make itself.',
+   'A five-year plan to triple IP-led revenue share, with the acquisitions it would require costed.'],
+  ['B4','Interrogate HyperVault properly, and ring-fence it',
+   'Committing up to ₹18,000 crore of equity to AI data centres may well be right. But it converts TCS from an asset-light dividend machine into a capital-intensive infrastructure story at precisely the moment this parent depends most on the dividend &mdash; and free cash flow conversion has already fallen to 81% of net income. Capacity of this kind commoditises. The TPG structure is the right instinct; the question is whether it goes far enough.',
+   'Hurdle rate, capital schedule, the degree of ring-fencing from the dividend stream, and the exit.'],
+  ['B5','Fix the workforce model rather than oscillating',
+   'Headcount fell 23,460 across FY26 and then rose 9,279 in a single quarter with margin dropping 130 basis points. That is not a strategy; it is a company that has not yet worked out what shape a delivery organisation should be when AI does the first draft. The pyramid is being replaced by something with a thinner base and a thicker middle, and the cost of getting there is real. Better to say so and plan it than to discover it a quarter at a time.',
+   'A three-year workforce shape plan, with the reskilling cost stated explicitly rather than absorbed into margin.'],
+  ['C1','Decide the trigger points now, while conditions are calm',
+   'The worst version of this is a board that debates the group&rsquo;s capital plan in the quarter the dividend disappoints. Define in advance what would force a change: two consecutive quarters of negative constant-currency growth, or a dividend to Tata Sons below ₹25,000 crore, or free cash flow conversion below 70%. Agree the response to each while nobody is under pressure.',
+   'A one-page trigger schedule, agreed at this board and reviewed each quarter.']
+];
+function recs(){
+  document.getElementById('recs').innerHTML = RECS.map(([n,h,p,ask])=>
+    `<div class="rec"><div class="n">${n}</div><div>
+       <h3>${h}</h3><p>${p}</p>
+       <div class="ask"><b>What I would ask for</b>${ask}</div>
+     </div></div>`).join('');
+}
+
+/* ---------------- sensitivity ---------------- */
+function sens(){
+  const g = +document.getElementById('s-cagr').value/100;
+  const m = +document.getElementById('s-marg').value/100;
+  const rev31 = DATA.fy26.rev * Math.pow(1+g,5);
+  const pat = rev31 * (m + 0.016) * (1-0.255);
+  const patInr = pat * 98.22 / 10;
+  const div = patInr * 0.82 * 0.92;
+  const ts = div * 0.7174;
+  document.getElementById('o-cagr').textContent = (g>=0?'+':'−')+Math.abs(g*100).toFixed(1)+'% a year';
+  document.getElementById('o-marg').textContent = (m*100).toFixed(1)+'%';
+  document.getElementById('o-div').textContent = cr(ts);
+  const gap = ts - BREAKEVEN;
+  document.getElementById('o-note').textContent =
+    `FY31 revenue of ${usd(rev31,1)}. That is ${gap>=0?'₹'+fmt(Math.round(gap))+' crore above':'₹'+fmt(Math.round(-gap))+' crore below'} what the parent needs to fund its committed capital call without drawing down cash or borrowing.`;
+  document.getElementById('o-pill').innerHTML = gap>=0
+    ? '<span class="verdict-pill vp-ok">Parent funds itself</span>'
+    : '<span class="verdict-pill vp-no">Parent runs a deficit</span>';
+  document.getElementById('o-div').style.color = gap>=0 ? css('--ink') : css('--severe');
+}
+
+/* ---------------- render ---------------- */
+function render(){
+  document.querySelectorAll('#scen-bar button').forEach(b=>
+    b.setAttribute('aria-pressed', b.dataset.k===active));
+  readout(); tableScen(); drawScenarioCharts();
+}
+function renderAll(){
+  verdict(); chartHistory(); chartRisk(); tableRisk(); scenBar(); recs(); render(); sens();
+}
+renderAll();
+
+document.getElementById('s-cagr').addEventListener('input', sens);
+document.getElementById('s-marg').addEventListener('input', sens);
+
+let t; addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(()=>{
+  chartHistory(); chartRisk(); drawScenarioCharts(); }, 160); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', renderAll);
+new MutationObserver(renderAll).observe(document.documentElement,
+  {attributes:true, attributeFilter:['data-theme']});
+</script>
+
+</body>
+</html>
