@@ -26,7 +26,7 @@
   --bull:#159178; --base:#3A72C0; --bear:#C8801A; --severe:#C23B36;
   --bull-soft:#DDF0EA; --base-soft:#E0EAF7; --bear-soft:#F7EBD8; --severe-soft:#F8E3E1;
   --shadow:0 1px 2px rgba(20,26,28,.05), 0 8px 24px -16px rgba(20,26,28,.18);
-  --maxw:1180px; --spine:37rem;
+  --maxw:1040px; --spine:42rem; --side:15rem; --sidebar:16.5rem;
 }
 :root:not([data-theme="light"]){ }
 @media (prefers-color-scheme: dark){
@@ -54,8 +54,176 @@ body{
   font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.1rem,4vw,2.6rem)}
-.spine{max-width:var(--spine)}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.1rem,3.5vw,2.8rem)}
+/* The gutter is reserved out of whatever width the spine's parent actually has, so a
+   spine inside a <details> or any padded box shrinks instead of overflowing. */
+.spine{max-width:min(var(--spine), calc(100% - var(--side) - 2rem))}
+/* a lede carrying a sidenote must span the full measure, or the note lands short */
+.lede:has(.sn){max-width:min(var(--spine), calc(100% - var(--side) - 2rem))}
+
+/* ---------- app shell ---------- */
+.app{min-height:100vh}
+.sidebar{
+  position:fixed; left:0; top:0; width:var(--sidebar); height:100vh; z-index:40;
+  background:var(--paper); border-right:1px solid var(--rule);
+  display:flex; flex-direction:column; overflow:hidden;
+  transition:transform .22s ease;
+}
+.content{margin-left:var(--sidebar); transition:margin-left .22s ease; min-width:0}
+.app[data-nav="closed"] .sidebar{transform:translateX(-100%)}
+.app[data-nav="closed"] .content{margin-left:0}
+
+.sb-head{padding:1.15rem 1.1rem .9rem; border-bottom:1px solid var(--rule); flex:none}
+.sb-head .t{font-family:Newsreader,Georgia,serif; font-size:1.05rem; line-height:1.2}
+.sb-head .s{font-family:"IBM Plex Mono",monospace; font-size:.6rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3); margin-top:.35rem}
+.toc{list-style:none; margin:0; padding:.5rem 0 1rem; overflow-y:auto; flex:1 1 auto}
+.toc li{margin:0}
+.toc a{
+  display:flex; gap:.6rem; align-items:baseline; text-decoration:none;
+  padding:.46rem 1.1rem; font-size:.83rem; line-height:1.3; color:var(--ink-2);
+  border-left:2px solid transparent;
+}
+.toc a:hover{background:var(--sunk); color:var(--ink)}
+.toc a .n{font-family:"IBM Plex Mono",monospace; font-size:.66rem; color:var(--ink-3); flex:none; width:1.35rem}
+.toc a[aria-current="page"]{background:var(--accent-soft); color:var(--accent-ink);
+  border-left-color:var(--accent); font-weight:500}
+.toc a[aria-current="page"] .n{color:var(--accent)}
+.sb-foot{flex:none; padding:.8rem 1.1rem; border-top:1px solid var(--rule);
+  font-size:.68rem; line-height:1.45; color:var(--ink-3)}
+
+.navtoggle{
+  position:fixed; top:.75rem; left:calc(var(--sidebar) + .6rem); z-index:50;
+  all:unset; cursor:pointer; width:2rem; height:2rem; display:grid; place-items:center;
+  background:var(--paper); border:1px solid var(--rule-2); border-radius:3px;
+  color:var(--ink-2); transition:left .22s ease;
+}
+.navtoggle:hover{color:var(--ink); border-color:var(--ink-3)}
+.navtoggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.app[data-nav="closed"] .navtoggle{left:.6rem}
+.navtoggle svg{width:15px; height:15px; display:block}
+.scrim{display:none}
+
+/* ---------- chapters ---------- */
+.chapter{display:none}
+.chapter.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:0; transform:translateY(3px)} to{opacity:1; transform:none}}
+.chapter > .wrap{padding-top:clamp(2rem,4vw,3.2rem); padding-bottom:clamp(2.5rem,5vw,4rem)}
+/* figures, tables and card grids may exceed the text measure */
+.chapter figure, .chapter .scroller, .chapter .pools, .chapter .forces,
+.chapter .f5, .chapter .two, .chapter .recs, .chapter .verdict,
+.chapter .caveat, .chapter .statkey, .chapter ol.srclist, .chapter .regbar{
+  max-width:none;
+}
+.chnav{display:flex; justify-content:space-between; gap:1rem; margin-top:3rem;
+  padding-top:1.4rem; border-top:1px solid var(--rule-2)}
+.chnav a{
+  display:flex; flex-direction:column; gap:.2rem; text-decoration:none; max-width:47%;
+  padding:.7rem .9rem; border:1px solid var(--rule-2); background:var(--paper); color:var(--ink);
+}
+.chnav a:hover{border-color:var(--accent); background:var(--accent-soft)}
+.chnav a .d{font-family:"IBM Plex Mono",monospace; font-size:.6rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-3)}
+.chnav a .t{font-size:.87rem; line-height:1.3; font-weight:500}
+.chnav a.nx{margin-left:auto; text-align:right}
+
+/* ---------- sidenotes ---------- */
+.sn{
+  float:right; clear:right; width:var(--side);
+  margin:.35rem 0 1rem 2rem; margin-right:calc(-1 * (var(--side) + 2rem));
+  font-size:.735rem; line-height:1.5; color:var(--ink-3);
+  border-left:2px solid var(--rule-2); padding:.1rem 0 .1rem .7rem;
+}
+.sn b{display:block; color:var(--ink-2); font-weight:600; font-size:.68rem;
+  font-family:"IBM Plex Mono",monospace; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.2rem}
+.sn.jf{border-left-color:var(--bear)}
+.sn.jf b{color:var(--bear)}
+.sn.src b{color:var(--accent)}
+.sn.src{border-left-color:var(--accent)}
+/* inside a figure, card or table the gutter does not exist, so keep the note in flow */
+figure .sn, .force .sn, .pool .sn, .force5 .sn, td .sn, .rec .sn, .caveat .sn{
+  float:none; width:auto; margin:.7rem 0 0; margin-right:0;
+  background:var(--sunk); padding:.55rem .8rem; border-left-width:3px;
+}
+@media (max-width:1300px){
+  .sn{float:none; width:auto; margin:.7rem 0 1.1rem; padding:.55rem .8rem;
+    background:var(--sunk); border-left-width:3px}
+}
+
+/* ---------- citations ---------- */
+sup.cite{font-family:"IBM Plex Mono",monospace; font-size:.62em; font-weight:600;
+  color:var(--accent); cursor:pointer; padding:0 .1em; vertical-align:super; line-height:0}
+sup.cite:hover{text-decoration:underline}
+sup.cite::before{content:"["} sup.cite::after{content:"]"}
+.jtag{
+  display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:.58rem;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--bear);
+  border:1px solid var(--bear); border-radius:2px; padding:.05rem .28rem;
+  vertical-align:.12em; margin-left:.28rem; white-space:nowrap; font-weight:500;
+}
+.jtag.est{color:var(--ink-3); border-color:var(--rule-2)}
+
+/* ---------- comparator picker ---------- */
+.cmp{display:flex; flex-wrap:wrap; gap:.4rem; margin:0 0 1.1rem}
+.cmp button{all:unset; cursor:pointer; padding:.42rem .75rem; border:1px solid var(--rule-2);
+  background:var(--paper); font-size:.79rem; color:var(--ink-2); line-height:1.2}
+.cmp button:hover{border-color:var(--ink-3); color:var(--ink)}
+.cmp button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.cmp button[aria-pressed="true"]{border-color:var(--severe); background:var(--severe-soft);
+  color:var(--severe); font-weight:600}
+
+/* ---------- source list and figure register ---------- */
+ol.srclist{list-style:none; margin:1.2rem 0 0; padding:0; max-width:62rem}
+ol.srclist li{display:grid; grid-template-columns:1.9rem 1fr; gap:.5rem;
+  padding:.5rem 0; border-bottom:1px solid var(--rule); font-size:.83rem; line-height:1.5;
+  color:var(--ink-2); scroll-margin-top:1rem}
+ol.srclist li:target{background:var(--accent-soft); border-radius:2px}
+ol.srclist .sn-n{font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--accent); font-weight:600}
+ol.srclist .dt{color:var(--ink-3)}
+.regbar{display:flex; flex-wrap:wrap; gap:.45rem; align-items:center; margin:1.4rem 0 .3rem}
+.regbar button{all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:.45rem;
+  padding:.4rem .7rem; border:1px solid var(--rule-2); background:var(--paper);
+  font-size:.79rem; color:var(--ink-2)}
+.regbar button:hover{border-color:var(--ink-3); color:var(--ink)}
+.regbar button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.regbar button[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft);
+  color:var(--accent-ink); font-weight:500}
+.regbar .ct{font-family:"IBM Plex Mono",monospace; font-size:.68rem; color:var(--ink-3)}
+.regbar button[aria-pressed="true"] .ct{color:var(--accent)}
+.regcount{font-family:"IBM Plex Mono",monospace; font-size:.7rem; color:var(--ink-3); margin-left:auto}
+.stat{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:.6rem;
+  letter-spacing:.08em; text-transform:uppercase; border:1px solid; border-radius:2px;
+  padding:.05rem .32rem; font-weight:500; white-space:nowrap}
+#t-register td{vertical-align:top; font-size:.81rem}
+#t-register td:first-child{text-align:left; font-family:inherit}
+#t-register td:last-child{text-align:left; font-family:inherit; color:var(--ink-3); font-size:.76rem}
+a.srcref{color:var(--ink-3); text-decoration-color:var(--rule-2)}
+a.srcref:hover{color:var(--accent)}
+.statkey{display:grid; gap:.5rem; margin-top:1.3rem; max-width:46rem}
+.statkey div{display:grid; grid-template-columns:5.6rem 1fr; gap:.7rem; font-size:.81rem;
+  line-height:1.5; color:var(--ink-2); align-items:start}
+
+/* ---------- collapsible sub-sections ---------- */
+details.sec{border:1px solid var(--rule); background:var(--paper); margin-top:1.1rem}
+details.sec > summary{
+  cursor:pointer; list-style:none; padding:1rem 1.15rem; display:grid;
+  grid-template-columns:1fr 1.4rem; gap:.8rem; align-items:start;
+}
+details.sec > summary::-webkit-details-marker{display:none}
+details.sec > summary:hover{background:var(--sunk)}
+details.sec > summary:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+details.sec .sh{font-family:Newsreader,Georgia,serif; font-size:1.08rem; line-height:1.3; color:var(--ink)}
+details.sec .ss{font-size:.845rem; line-height:1.5; color:var(--ink-2); margin-top:.3rem}
+details.sec .chev{
+  width:1.4rem; height:1.4rem; display:grid; place-items:center; color:var(--ink-3);
+  border:1px solid var(--rule-2); border-radius:2px; transition:transform .18s; align-self:center;
+}
+details.sec[open] > summary .chev{transform:rotate(180deg); color:var(--accent); border-color:var(--accent)}
+details.sec[open] > summary{border-bottom:1px solid var(--rule)}
+details.sec .body{padding:1.3rem 1.15rem 1.4rem}
+details.sec .body > .spine{max-width:min(var(--spine), calc(100% - var(--side) - 2rem))}
+
+@media (prefers-reduced-motion:reduce)
 h1,h2,h3{font-family:Newsreader,Georgia,serif; font-weight:500; text-wrap:balance; margin:0}
 p{margin:0 0 1.05em}
 a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
@@ -286,9 +454,40 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 @media (max-width:640px){
   .rec{grid-template-columns:1fr; gap:.4rem}
   .rec .n{padding-top:0}
+  .chnav{flex-direction:column}
+  .chnav a{max-width:none}
+  .chnav a.nx{text-align:left; margin-left:0}
+}
+@media (max-width:900px){
+  .content{margin-left:0}
+  .sidebar{box-shadow:var(--shadow)}
+  .app[data-nav="open"] .scrim{display:block; position:fixed; inset:0; z-index:35;
+    background:rgba(0,0,0,.38)}
+  .navtoggle{left:.6rem}
+  .app[data-nav="open"] .navtoggle{left:calc(var(--sidebar) + .6rem)}
 }
 </style>
 
+<div class="app" id="app" data-nav="open">
+
+<button class="navtoggle" id="navtoggle" aria-expanded="true" aria-controls="sidebar" title="Toggle contents (press \ )">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <path d="M2 4h12M2 8h12M2 12h12"/></svg>
+</button>
+<div class="scrim" id="scrim"></div>
+
+<nav class="sidebar" id="sidebar" aria-label="Chapters">
+  <div class="sb-head">
+    <div class="t">The TCS question</div>
+    <div class="s">Strategic assessment &middot; FY26 base</div>
+  </div>
+  <ol class="toc" id="toc"></ol>
+  <div class="sb-foot">Figures marked <span class="jtag">J</span> are judgements, not disclosed data. Superscripts link to sources in chapter 14.</div>
+</nav>
+
+<div class="content" id="content">
+
+<section id="overview" class="chapter">
 <header class="mast">
   <div class="wrap mast-in">
     <div class="kicker">
@@ -304,23 +503,27 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 </header>
 
 <div class="wrap"><div class="verdict" id="verdict"></div></div>
+<div class="wrap"><div class="chnav" id="nav-overview"></div></div>
+</section>
 
-<main class="wrap">
-
-<section id="judgement">
+<section id="judgement" class="chapter">
+<div class="wrap">
   <p class="eyebrow">01 &middot; The judgement</p>
   <h2>Not a trough. A repricing.</h2>
   <div class="spine">
     <p class="lede">The honest reading is that TCS is facing three separate problems at once, and the market is pricing them as one. Only the first of them fixes itself.</p>
-    <p>FY26 revenue was <strong>$30.0bn, down 0.5% in dollars and 2.4% in constant currency</strong> &mdash; the first annual dollar decline in TCS&rsquo;s listed history. Operating margin nonetheless <em>rose</em> to 25.0%, which is the tell: the margin was bought with <strong>23,460 fewer people</strong>, not with better pricing. When hiring resumed in Q1 FY27 (+9,279), margin fell 130 basis points to 24.0% in a single quarter.</p>
-    <p>Order book looks reassuring &mdash; $40.7bn of TCV in FY26, $9.5bn in Q1 FY27. It should not reassure us. The same scope of work is now signing for fewer dollars than it did two years ago. A healthy book-to-bill on a deflating rate card is not growth; it is running to stand still.</p>
-    <p>Meanwhile Infosys grew <strong>3.1% in constant currency</strong> on a $20.2bn base in the same year TCS shrank 2.4%. That five-and-a-half point gap is not the cycle. Everyone faced the same clients, the same tariffs, the same AI. TCS is, for the first time in its modern history, the slowest-growing of the large Indian caps at scale.</p>
+    <p>FY26 revenue was <strong>$30.0bn, down 0.5% in dollars and 2.4% in constant currency</strong><sup class="cite" data-s="1">1</sup> &mdash; the first annual dollar decline in TCS&rsquo;s listed history.<span class="sn src"><b>Source 1</b>TCS Q4 FY26 results press release and fact sheet, April 2026. Constant-currency growth is as reported by the company.</span> Operating margin nonetheless <em>rose</em> to 25.0%<sup class="cite" data-s="1">1</sup>, which is the tell: the margin was bought with <strong>23,460 fewer people</strong><sup class="cite" data-s="1">1</sup>, not with better pricing. When hiring resumed in Q1 FY27 (+9,279), margin fell 130 basis points to 24.0% in a single quarter.<sup class="cite" data-s="2">2</sup></p>
+    <p>Order book looks reassuring &mdash; $40.7bn of TCV in FY26<sup class="cite" data-s="1">1</sup>, $9.5bn in Q1 FY27<sup class="cite" data-s="2">2</sup>. It should not reassure us. The same scope of work is now signing for fewer dollars than it did two years ago. A healthy book-to-bill on a deflating rate card is not growth; it is running to stand still.<span class="sn jf"><b>Judgement</b>That the same scope now signs for fewer dollars is an inference from industry reporting, not a disclosed TCS metric. TCV-to-revenue conversion by deal vintage would settle it.</span></p>
+    <p>Meanwhile Infosys grew <strong>3.1% in constant currency</strong> on a $20.2bn base<sup class="cite" data-s="5">5</sup> in the same year TCS shrank 2.4%. That five-and-a-half point gap is not the cycle. Everyone faced the same clients, the same tariffs, the same AI. TCS is, for the first time in its modern history, the slowest-growing of the large Indian caps at scale.<span class="sn src"><b>Source 5</b>Infosys FY26 results. The 5.5-point gap is the arithmetic difference between +3.1% and &minus;2.4% constant currency.</span></p>
     <p class="pull">The threat to TCS is not artificial intelligence. It is that TCS sells effort, and AI is collapsing the amount of effort each unit of client outcome requires.</p>
-    <p>That distinction matters because it determines the remedy. If the problem were AI capability, TCS would fix it by hiring AI engineers &mdash; it already has 270,000 people with AI competencies and a $2.6bn annualised AI book growing 13.6% a quarter. If the problem is the <em>pricing model</em>, then every productivity gain TCS achieves is a discount it hands to the client, and capability alone makes the arithmetic worse, not better.</p>
+    <p>That distinction matters because it determines the remedy. If the problem were AI capability, TCS would fix it by hiring AI engineers &mdash; it already has 270,000 people with AI competencies and a $2.6bn annualised AI book growing 13.6% a quarter<sup class="cite" data-s="1">1</sup>. If the problem is the <em>pricing model</em>, then every productivity gain TCS achieves is a discount it hands to the client, and capability alone makes the arithmetic worse, not better.</p>
   </div>
+<div class="chnav" id="nav-judgement"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="record">
+<section id="record" class="chapter">
+<div class="wrap">
   <p class="eyebrow">02 &middot; The record</p>
   <h2>What five years of numbers actually say</h2>
   <div class="spine">
@@ -336,15 +539,18 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
     <figcaption>Constant-currency growth from TCS results press releases; rupee growth from reported consolidated revenue. FY26 rupee revenue rose 4.6% while dollar revenue fell 0.5% &mdash; a roughly five-point currency tailwind. Q1 FY27 constant-currency growth was +3.2% year on year, flattered by a low base and a 7.6% sequential jump in the India business.</figcaption>
   </figure>
   <div class="spine">
-    <p>Three numbers from the same period are worth holding together. Revenue per employee rose from <span class="mono">$49,640</span> in FY25 to <span class="mono">$51,354</span> in FY26 &mdash; AI leverage is real and it is showing up. Headcount fell 23,460. And total shareholder payout was <span class="mono">₹39,571 crore</span> against free cash flow of <span class="mono">₹42,983 crore</span> &mdash; a 92% payout, consistent with a stated policy of returning 80&ndash;100% of free cash flow.</p>
-    <p>That last figure is the one that should concern this office most. <strong>There is no retained buffer.</strong> TCS distributes essentially everything it generates. Any fall in free cash flow passes through to Tata Sons within one dividend cycle, undamped.</p>
+    <p><span class="sn src"><b>Sources 1&ndash;4</b>Constant-currency growth is as reported in each year&rsquo;s results release. Rupee growth is computed from reported consolidated revenue, so the gap between the two bars is currency.</span>Three numbers from the same period are worth holding together. Revenue per employee rose from <span class="mono">$49,640</span> in FY25 to <span class="mono">$51,354</span> in FY26<span class="sn src"><b>Derived</b>Revenue divided by closing headcount, both from the results releases. FY26: $30,017m / 584,519.</span> &mdash; AI leverage is real and it is showing up. Headcount fell 23,460. And total shareholder payout was <span class="mono">₹39,571 crore</span> against free cash flow of <span class="mono">₹42,983 crore</span><sup class="cite" data-s="1">1</sup> &mdash; a 92% payout, consistent with a stated policy of returning 80&ndash;100% of free cash flow.</p>
+    <p>That last figure is the one that should concern this office most. <strong>There is no retained buffer.</strong><span class="sn src"><b>Derived</b>&#8377;39,571 cr payout &divide; &#8377;42,983 cr free cash flow = 92.1%. Both figures from the FY26 release.</span> TCS distributes essentially everything it generates. Any fall in free cash flow passes through to Tata Sons within one dividend cycle, undamped.</p>
   </div>
+<div class="chnav" id="nav-record"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="forces">
+<section id="forces" class="chapter">
+<div class="wrap">
   <p class="eyebrow">03 &middot; Decomposition</p>
   <h2>Three forces, wrongly treated as one</h2>
-  <p class="lede">Conflating these is how boards get the response wrong. Each has a different half-life and a different remedy.</p>
+  <p class="lede">Conflating these is how boards get the response wrong. Each has a different half-life and a different remedy.<span class="sn jf"><b>Judgement</b>The three half-lives are assessments, not measured quantities &mdash; they set the shape of the whole argument. The Accenture figures are from its Q3 FY2026 results (source 6).</span></p>
   <div class="forces">
     <div class="force" style="--c:var(--bear)">
       <div class="tag">Force one &middot; Cyclical</div>
@@ -361,21 +567,24 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
     <div class="force" style="--c:var(--base)">
       <div class="tag">Force three &middot; Competitive</div>
       <h3>The work is moving elsewhere</h3>
-      <p>India&rsquo;s global capability centres are now a <strong>$98&ndash;100bn</strong> market across 2,100+ centres and some 2.3 million people &mdash; more than three times TCS&rsquo;s entire revenue, growing at roughly 20%. Separately, OpenAI has put over $4bn behind placing forward-deployed engineers inside enterprises and acquired a consultancy to do it.</p>
+      <p>India&rsquo;s global capability centres are now a <strong>$98&ndash;100bn</strong> market across 2,100+ centres and some 2.3 million people<sup class="cite" data-s="10">10</sup> &mdash; more than three times TCS&rsquo;s entire revenue, growing at roughly 20%. Separately, OpenAI has put over $4bn behind placing forward-deployed engineers inside enterprises and acquired a consultancy to do it.<sup class="cite" data-s="13">13</sup></p>
       <p class="verdict-line"><strong>Half-life: a decade.</strong> Clients are building the capability TCS used to rent them.</p>
     </div>
   </div>
   <div class="spine">
     <p style="margin-top:2.2rem">One genuine tailwind deserves naming. The $100,000 H-1B fee, which reads as a headwind, is largely already absorbed: TCS took on roughly 500 new H-1B holders this year and has shifted decisively to local hiring. Analysts put the incremental cost under the old delivery model at about $50m a year &mdash; material but not structural. Rivals more dependent on visa-linked onsite staffing carry more of that cost than TCS does.</p>
   </div>
+<div class="chnav" id="nav-forces"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="demand">
+<section id="demand" class="chapter">
+<div class="wrap">
   <p class="eyebrow">04 &middot; Demand</p>
   <h2>Demand is not falling. It is moving.</h2>
   <div class="spine">
     <p class="lede">The revenue line hides three demand pools travelling in different directions at different speeds. Reading them as one budget is how the response gets mis-sized.</p>
-    <p>Aggregate revenue fell 2.4% in constant currency. No single client cut 2.4% of their spend. What happened is that one pool of demand kept its volume and lost its price, a second pool froze outright, and a third grew quickly from a small base &mdash; and the three roughly cancelled.</p>
+    <p>Aggregate revenue fell 2.4% in constant currency. No single client cut 2.4% of their spend. What happened is that one pool of demand kept its volume and lost its price, a second pool froze outright, and a third grew quickly from a small base &mdash; and the three roughly cancelled.<span class="sn jf"><b>Derived, on a judgement</b>Pool sizes follow arithmetically from the seven-bucket model. The one free choice is the 60/40 split of application work between Run and Change.</span></p>
   </div>
 
   <div class="pools" id="pools"></div>
@@ -390,17 +599,24 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
     <figcaption>Pools are built from the seven exposure buckets: <em>Run</em> is managed infrastructure, business process services and 60% of application work; <em>Change</em> is the remaining application work, package implementation and engineering services; <em>Grow</em> is consulting, data, AI, cyber and the product estate. The 60/40 split of application work between run and change is a judgement; the rest follows the bucket definitions directly.</figcaption>
   </figure>
 
-  <div class="spine">
-    <h3>The money has changed buying centre</h3>
+<details class="sec"><summary><span><span class="sh">The money has changed buying centre</span><span class="ss">Three budgets fund enterprise technology. They grow at very different rates, and TCS is strongest in the slowest one and weakest in the fastest.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="spine">
     <p>This is the part that does not show up in a revenue bridge. Enterprise technology spend is authorised from three different budgets, they are not growing at the same rate, and TCS is not equally well placed in each.</p>
   </div>
+  <figure style="margin-top:1.4rem">
+    <div class="fig-head">
+      <div class="fig-title">Where the money is, against where it is growing</div>
+      <div class="fig-sub">Bubble area is the pool&rsquo;s share of TCS revenue. The diagonal is the problem: position is inversely related to growth.</div>
+    </div>
+    <div class="scroller"><svg id="c-budget" role="img" aria-label="Scatter chart of budget pools by share of TCS revenue against pool growth rate"></svg></div>
+    <figcaption>Pool sizes and growth rates are estimates, not disclosed figures &mdash; they are labelled as judgements in the register in chapter 14. The shape of the relationship is the point, not the precision of any one bubble.</figcaption>
+  </figure>
   <div class="scroller" style="margin-top:1.4rem"><table id="t-budget"></table></div>
   <div class="spine">
     <p style="margin-top:1.5rem" class="pull">The fastest-growing pool of enterprise technology spend is the one where we have the weakest relationship. The AI budget is not a line item in the CIO&rsquo;s plan, and it is not being spent with the CIO&rsquo;s incumbent vendor.</p>
-    <p>There is a real consolation in the middle row. Cost pressure at the client is <em>demand</em> for TCS &mdash; when a chief financial officer mandates a 15% reduction in run-cost, somebody has to be paid to deliver it, and an incumbent with the estate knowledge is the cheapest route. That pool has held up, and it is part of why revenue fell 2.4% rather than 10%. It is also, unavoidably, a pool that shrinks as it succeeds.</p>
+    <p>There is a real consolation in the middle row. Cost pressure at the client is <em>demand</em> for TCS &mdash; when a chief financial officer mandates a 15% reduction in run-cost, somebody has to be paid to deliver it, and an incumbent with the estate knowledge is the cheapest route. That pool has held up, and it is part of why revenue fell 2.4% rather than 10%. It is also, unavoidably, a pool that shrinks as it succeeds.<span class="sn jf"><b>Estimate</b>The three buying-centre shares and growth rates are estimates. No company discloses spend split this way; the ordering is the claim, not the decimals.</span></p>
   </div>
 
-  <div class="two" style="margin-top:2.6rem">
+</div></details><details class="sec"><summary><span><span class="sh">Where the revenue sits, by vertical and geography</span><span class="ss">Reconstructed shares across eight verticals and six markets. India is the fastest-growing market TCS serves, and the reason should worry the board.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="two">
     <div>
       <h3 style="margin-top:0">By vertical</h3>
       <div class="scroller"><table id="t-vertical"></table></div>
@@ -413,63 +629,75 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
   </div>
   <div class="caveat">
     <b>On these two tables</b>
-    TCS has not disclosed a vertical or geographic revenue split since FY21. The shares below are reconstructed from the last disclosure and peer structure, and carry the same health warning as the seven-bucket split in section 08. The BFSI constant-currency figure (+1.0%) and the India sequential figure (+7.6%) are from the results releases and are reliable; the directional labels are judgements.
+    TCS has not disclosed a vertical or geographic revenue split since FY21. The shares above are reconstructed from the last disclosure and peer structure, and carry the same health warning as the seven-bucket split in chapter 08. The BFSI constant-currency figure (+1.0%) and the India sequential figure (+7.6%) are from the results releases and are reliable; the directional labels are judgements.
   </div>
+</div></details>
+<div class="chnav" id="nav-demand"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="competition">
+<section id="competition" class="chapter">
+<div class="wrap">
   <p class="eyebrow">05 &middot; Competitive landscape</p>
   <h2>Losing on the dimensions that are about to matter</h2>
   <div class="spine">
     <p class="lede">TCS is the largest of the Indian majors, the most profitable at scale, and now the slowest-growing. Only two of those three are durable.</p>
-    <p>The cleanest comparison is the one already made: Infosys grew <strong>3.1% in constant currency</strong> on a $20.2bn base in the year TCS shrank <strong>2.4%</strong> on $30.0bn. Same clients, same tariffs, same AI, same currency. Five and a half points of difference that the cycle does not explain.</p>
-    <p>Accenture is the more instructive case, because it is the best-positioned incumbent in the industry and it was punished anyway: FY26 growth guidance cut from 5% to 4%, bookings down 2% year on year, and an 18% fall in a single session. The read-across is not that Accenture is in trouble. It is that the market is not yet discriminating between services firms that will survive AI and those that will not &mdash; it is repricing the whole category. It will start discriminating, and TCS should want to be on the right side of that when it does.</p>
+    <p>The cleanest comparison is the one already made: Infosys grew <strong>3.1% in constant currency</strong> on a $20.2bn base in the year TCS shrank <strong>2.4%</strong> on $30.0bn. Same clients, same tariffs, same AI, same currency. Five and a half points of difference that the cycle does not explain.<span class="sn src"><b>Sources 1 and 5</b>TCS and Infosys FY26 results releases.</span></p>
+    <p>Accenture is the more instructive case, because it is the best-positioned incumbent in the industry and it was punished anyway: FY26 growth guidance cut from 5% to 4%, bookings down 2% year on year, and an 18% fall in a single session.<sup class="cite" data-s="6">6</sup> The read-across is not that Accenture is in trouble. It is that the market is not yet discriminating between services firms that will survive AI and those that will not &mdash; it is repricing the whole category. It will start discriminating, and TCS should want to be on the right side of that when it does.</p>
     <p class="pull">Accenture&rsquo;s advantage over us is not AI capability. It is sequence &mdash; it is in the room when the client decides <em>what</em> to do, not just <em>who</em> builds it.</p>
-    <p>That distinction is worth more now than at any point in twenty years. When the build was expensive, being the builder was the valuable seat. If AI collapses the cost of the build, the advisory seat upstream captures the margin and the build becomes the commodity. Accenture has spent two decades and a great deal of acquisition money buying that seat. TCS has not, and cannot buy it quickly.</p>
-    <h3>Where each competitor actually stands</h3>
+    <p>That distinction is worth more now than at any point in twenty years. When the build was expensive, being the builder was the valuable seat. If AI collapses the cost of the build, the advisory seat upstream captures the margin and the build becomes the commodity. Accenture has spent two decades and a great deal of acquisition money buying that seat. TCS has not, and cannot buy it quickly.<span class="sn jf"><b>Judgement</b>The sequence argument is an assessment of competitive structure. It is the single most contestable claim in this chapter.</span></p>
   </div>
-  <div class="scroller" style="margin-top:1.2rem"><table id="t-peers"></table></div>
+<details class="sec"><summary><span><span class="sh">Where each competitor actually stands</span><span class="ss">Peer-by-peer read on strategy and position, plus a scored matrix of TCS against Accenture, Infosys, HCLTech, client GCCs and AI-native entrants on the seven dimensions AI makes decisive.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="scroller"><table id="t-peers"></table></div>
 
   <figure style="margin-top:2.4rem">
     <div class="fig-head">
       <div class="fig-title">Competitive position on the dimensions AI makes decisive</div>
       <div class="fig-sub">Scored 1 (weak) to 5 (strong). These are judgements, not measured data &mdash; argue with them.</div>
     </div>
+    <div class="cmp" id="cmp" role="group" aria-label="Choose a competitor to compare against TCS"></div>
+    <div class="scroller"><svg id="c-radar" role="img" aria-label="Radar chart comparing TCS against a selected competitor across seven dimensions"></svg></div>
+    <div class="legend" id="l-radar" style="margin-bottom:1.4rem"></div>
     <div class="scroller"><table class="matrix" id="t-ai"></table></div>
     <div class="mkey" id="k-ai"></div>
     <figcaption>Scores assess structural position, not current revenue. &ldquo;Client GCCs&rdquo; and &ldquo;AI-native entrants&rdquo; are categories rather than firms and are scored as archetypes. TCS is outlined. The pattern that matters is not the total &mdash; it is that TCS&rsquo;s strongest scores sit on dimensions that were decisive in the last decade, and its weakest sit on the dimensions that look decisive in the next one.</figcaption>
   </figure>
 
-  <div class="spine">
-    <h3>What we are genuinely good at, stated fairly</h3>
-    <p>Three things, and they are not small. <strong>Cost base:</strong> at 25% operating margin on $30bn, TCS runs the most efficient delivery organisation of its size anywhere. <strong>Incumbency:</strong> 66 accounts above $100m, decades of estate knowledge, and security and regulatory clearances a new entrant cannot replicate on any relevant timescale. <strong>Disclosed AI scale:</strong> a $2.6bn annualised AI book growing 13.6% a quarter is roughly 8.5% of revenue, and most peers do not publish a comparable figure at all. On the honest metric, TCS is not behind.</p>
-    <p>One number in our own materials should stop being cited to this board, though. The claim of <strong>270,000 people with AI competencies</strong> is self-defined, unaudited, and measures training completion rather than deployed capability. It is a reasonable internal mobilisation metric. It is not evidence of competitive position, and presenting it as such invites exactly the challenge we would not survive.</p>
+</div></details><details class="sec"><summary><span><span class="sh">What we are genuinely good at, stated fairly</span><span class="ss">Cost base, incumbency and disclosed AI scale are real advantages. One widely-cited internal number is not, and should stop being presented to this board.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="spine">
+    <p>Three things, and they are not small. <strong>Cost base:</strong> at 25% operating margin on $30bn, TCS runs the most efficient delivery organisation of its size anywhere. <strong>Incumbency:</strong> 66 accounts above $100m<sup class="cite" data-s="1">1</sup>, decades of estate knowledge, and security and regulatory clearances a new entrant cannot replicate on any relevant timescale. <strong>Disclosed AI scale:</strong> a $2.6bn annualised AI book growing 13.6% a quarter<sup class="cite" data-s="1">1</sup> is roughly 8.5% of revenue, and most peers do not publish a comparable figure at all. On the honest metric, TCS is not behind.</p>
+    <p>One number in our own materials should stop being cited to this board, though. The claim of <strong>270,000 people with AI competencies</strong><sup class="cite" data-s="1">1</sup> is self-defined, unaudited, and measures training completion rather than deployed capability. It is a reasonable internal mobilisation metric. It is not evidence of competitive position, and presenting it as such invites exactly the challenge we would not survive.</p>
   </div>
+</div></details>
+<div class="chnav" id="nav-competition"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="structure">
+<section id="structure" class="chapter">
+<div class="wrap">
   <p class="eyebrow">06 &middot; Industry structure</p>
   <h2>Every force is moving against the incumbent at once</h2>
   <div class="spine">
-    <p class="lede">Industry structure usually changes slowly enough that a large firm can adapt inside the drift. What is unusual here is that all five forces have turned in the same direction within about two years.</p>
+    <p class="lede">Industry structure usually changes slowly enough that a large firm can adapt inside the drift. What is unusual here is that all five forces have turned in the same direction within about two years.<span class="sn jf"><b>Judgement</b>All five ratings and their directions are assessments. There is no data behind the scores; they organise the argument rather than measure it.</span></p>
   </div>
   <div class="f5" id="f5"></div>
 
-  <div class="spine">
-    <h3>The supply side: the pyramid is the business model</h3>
-    <p>TCS employs <span class="mono">584,519</span> people. The economics have never really been about the headcount &mdash; they are about its <em>shape</em>. A large base of low-cost engineers billed at a multiple of their cost is what funds the pyramid above them. AI attacks that base first, because entry-level work is the most codified and the most automatable.</p>
-    <p>This produces a result that is counter-intuitive and important: <strong>removing the bottom of the pyramid makes the average unit of delivery more expensive, not less.</strong> The cheap layer disappears, the expensive layers remain, and revenue per employee rises while cost per employee rises faster. FY26 showed the first half of that &mdash; revenue per employee up 3.5% to <span class="mono">$51,354</span>. The second half arrives when the mix shift works through the wage bill.</p>
+<details class="sec"><summary><span><span class="sh">The supply side: the pyramid is the business model</span><span class="ss">Removing the bottom of the pyramid makes the average unit of delivery more expensive, not less. Why the cost lever is a one-time withdrawal rather than a strategy.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="spine">
+    <p>TCS employs <span class="mono">584,519</span> people.<sup class="cite" data-s="1">1</sup> The economics have never really been about the headcount &mdash; they are about its <em>shape</em>. A large base of low-cost engineers billed at a multiple of their cost is what funds the pyramid above them. AI attacks that base first, because entry-level work is the most codified and the most automatable.</p>
+    <p>This produces a result that is counter-intuitive and important: <strong>removing the bottom of the pyramid makes the average unit of delivery more expensive, not less.</strong> The cheap layer disappears, the expensive layers remain, and revenue per employee rises while cost per employee rises faster. FY26 showed the first half of that &mdash; revenue per employee up 3.5% to <span class="mono">$51,354</span>. The second half arrives when the mix shift works through the wage bill.<span class="sn jf"><b>Judgement</b>Pyramid inversion is an inference from the direction of automation, not a disclosed cost-per-grade series. Revenue per head by grade would test it.</span></p>
     <p>FY26 also demonstrated that the cost lever is a withdrawal, not a strategy. Margin rose to 25.0% on <strong>23,460 fewer people</strong>. The moment hiring resumed in Q1 FY27 &mdash; <strong>+9,279</strong> &mdash; margin fell <strong>130 basis points to 24.0%</strong> in a single quarter. That can be done once. It cannot be done every year, and the severe scenario in section 09 requires doing it five years running, to the tune of roughly 250,000 people, in a country where TCS is a politically significant employer.</p>
-    <p>The visa question is the one supply-side item that has been over-weighted. The $100,000 H-1B fee reads as a headwind but is largely absorbed: TCS took on roughly 500 new H-1B holders this year, has shifted decisively to local hiring, and analysts put the incremental annual cost at about <span class="mono">$50m</span> &mdash; material, not structural. Rivals more dependent on visa-linked onsite staffing carry proportionally more of it than TCS does.</p>
+    <p>The visa question is the one supply-side item that has been over-weighted. The $100,000 H-1B fee reads as a headwind but is largely absorbed: TCS took on roughly 500 new H-1B holders this year, has shifted decisively to local hiring, and analysts put the incremental annual cost at about <span class="mono">$50m</span><sup class="cite" data-s="9">9</sup> &mdash; material, not structural. Rivals more dependent on visa-linked onsite staffing carry proportionally more of it than TCS does.</p>
   </div>
+</div></details>
+<div class="chnav" id="nav-structure"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="pricing">
+<section id="pricing" class="chapter">
+<div class="wrap">
   <p class="eyebrow">07 &middot; Unit economics</p>
   <h2>What actually happens to a contract</h2>
   <div class="spine">
     <p class="lede">Everything in this assessment reduces to one mechanism, and it is worth setting out arithmetically rather than asserting it.</p>
-    <p>Take a contract worth <span class="mono">$100</span> a year, delivered at a 70% cost ratio, and assume AI reduces the effort required to deliver it by <strong>30% over five years</strong>. The delivery saving is identical in all three cases below. What differs is who keeps it &mdash; and that is decided entirely by how the contract was priced.</p>
+    <p>Take a contract worth <span class="mono">$100</span> a year, delivered at a 70% cost ratio, and assume AI reduces the effort required to deliver it by <strong>30% over five years</strong>. The delivery saving is identical in all three cases below. What differs is who keeps it &mdash; and that is decided entirely by how the contract was priced.<span class="sn jf"><b>Assumptions</b>30% effort reduction over five years, 70% opening cost ratio, 75% of the saving passed at renewal in year three, 2.3% a year uplift on outcome pricing. All four are choices.</span></p>
   </div>
   <figure>
     <div class="fig-head">
@@ -486,13 +714,16 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
     <p class="pull">We do not know what share of our revenue is priced on effort. It is the most important number in the business and it is not in any pack that reaches this board.</p>
     <p>The seven-bucket model in the next section applies a per-bucket <em>price pass-through</em> assumption to stand in for this mix. That is the right modelling choice given what is disclosed, but it is standing in for a fact that exists and is knowable. Until it is measured, every scenario here carries a wider error bar than it needs to.</p>
   </div>
+<div class="chnav" id="nav-pricing"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="risk">
+<section id="risk" class="chapter">
+<div class="wrap">
   <p class="eyebrow">08 &middot; Risk register</p>
   <h2>Where the exposure actually sits</h2>
   <div class="spine">
-    <p class="lede">TCS has not disclosed a service-line revenue split since FY21. What follows is a reconstruction &mdash; and it is the single most challengeable input in this whole assessment.</p>
+    <p class="lede">TCS has not disclosed a service-line revenue split since FY21. What follows is a reconstruction &mdash; and it is the single most challengeable input in this whole assessment.<span class="sn jf"><b>Judgement</b>Both the bucket weights and the per-bucket automatable shares are reconstructions from the FY21 disclosure, deal composition and peer structure. Nothing here is a disclosed figure.</span></p>
   </div>
   <figure>
     <div class="fig-head">
@@ -500,20 +731,23 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
       <div class="fig-sub">The filled portion is gross revenue at risk. This is a measure of exposure, not of expected loss.</div>
     </div>
     <div class="scroller"><svg id="c-risk" role="img" aria-label="Horizontal bar chart of TCS revenue by exposure bucket with the automatable share highlighted"></svg></div>
-    <figcaption>Weights reconstructed from TCS&rsquo;s last disclosed service-line mix, deal composition and peer structure. Automatable share is a judgement about the proportion of each bucket&rsquo;s work that current and near-term AI can perform with materially less human effort by FY31 &mdash; not a claim that the revenue disappears.</figcaption>
+    <figcaption>Weights reconstructed from TCS&rsquo;s last disclosed service-line mix, deal composition and peer structure. <span class="jtag" title="Judgement: TCS has disclosed no service-line split since FY21">J</span> Automatable share is a judgement about the proportion of each bucket&rsquo;s work that current and near-term AI can perform with materially less human effort by FY31 &mdash; not a claim that the revenue disappears.</figcaption>
   </figure>
   <div class="scroller" style="margin-top:1.6rem"><table id="t-risk"></table></div>
   <div class="spine">
     <p style="margin-top:2rem"><strong>$12.7bn &mdash; 42% of FY26 revenue &mdash; sits in work that AI can substantially automate.</strong> Whether that becomes lost revenue depends entirely on two things TCS partly controls: how much of the productivity gain is passed to the client in price, and how far cheaper delivery expands the volume of work clients are willing to buy. That is the whole scenario question, and it is what the model below flexes.</p>
     <p>Note what is <em>not</em> exposed. Engineering and R&amp;D services, and products and platforms, together are about 14% of revenue and carry the lowest automation exposure. Products and platforms &mdash; BaNCS, ignio, iON, ADD &mdash; are the only part of the book whose value AI <em>raises</em> rather than deflates, because their revenue is licensed, not billed by the hour. They are 5% of revenue. That number is a strategic failure a decade in the making, and it is now the most valuable thing in the portfolio.</p>
   </div>
+<div class="chnav" id="nav-risk"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="scenarios">
+<section id="scenarios" class="chapter">
+<div class="wrap">
   <p class="eyebrow">09 &middot; Scenario model</p>
   <h2>Four futures, and what separates them</h2>
   <div class="spine">
-    <p class="lede">Each scenario is built bucket by bucket from two drivers: annual price deflation and annual volume growth. Select one to see the full path. The full model, with every assumption editable, is in the accompanying workbook.</p>
+    <p class="lede">Each scenario is built bucket by bucket from two drivers: annual price deflation and annual volume growth. Select one to see the full path. The full model, with every assumption editable, is in the accompanying workbook.<span class="sn jf"><b>Judgement</b>Scenario probabilities of 15 / 40 / 30 / 15 are assigned, not estimated from anything. The expected value is only as good as they are.</span></p>
   </div>
 
   <div class="scen-bar" id="scen-bar" role="group" aria-label="Select scenario"></div>
@@ -543,15 +777,18 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
   <div class="spine">
     <p style="margin-top:2rem">The employment number deserves a line of its own. In the severe case, headcount falls from 584,519 to <span class="mono">334,575</span> &mdash; a reduction of roughly <strong>250,000 jobs</strong> over five years. That is not primarily a financial event for this group. It is a political and social one, and it would be managed as such, which in turn constrains how quickly the cost base can actually be taken out. The model assumes an orderly adjustment. A disorderly one is worse for margins, not better.</p>
   </div>
+<div class="chnav" id="nav-scenarios"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="parent">
+<section id="parent" class="chapter">
+<div class="wrap">
   <p class="eyebrow">10 &middot; The Tata Sons view</p>
   <h2>The concentration is the risk</h2>
   <div class="spine">
     <p class="lede">TCS could perform respectably and still leave this office short, because the parent has committed to a capital programme sized against a dividend that has already started falling.</p>
-    <p>In FY26 Tata Sons received <strong>₹28,291 crore</strong> from TCS, down 12% from ₹32,184 crore the year before. Total dividend income across every holding was ₹32,528 crore. TCS was <strong>87% of it</strong>. The rest of a listed portfolio worth ₹11.68 trillion contributed ₹4,237 crore.</p>
-    <p>Against that, the commitments: the Dholera fab at ₹91,000 crore and Assam assembly at ₹27,000 crore; Air India&rsquo;s 600-aircraft order and a business into which ₹22,618 crore has already gone; Agratas&rsquo;s £4bn Somerset plant; Tata Digital, carrying ₹22,903 crore of equity and a ₹4,974 crore FY26 loss. The four newest businesses lost roughly ₹30,000 crore between them last year. Parent net cash at the FY26 close was ₹21,841 crore, with no borrowings.</p>
+    <p>In FY26 Tata Sons received <strong>₹28,291 crore</strong> from TCS<sup class="cite" data-s="7">7</sup>, down 12% from ₹32,184 crore the year before. Total dividend income across every holding was ₹32,528 crore<sup class="cite" data-s="7">7</sup>.<span class="sn src"><b>Source 7</b>Tata Sons FY26 accounts as reported in Business Today, 28 July 2026. The 87% and &minus;12% figures are derived from these three numbers.</span> TCS was <strong>87% of it</strong>. The rest of a listed portfolio worth ₹11.68 trillion contributed ₹4,237 crore.</p>
+    <p>Against that, the commitments: the Dholera fab at ₹91,000 crore and Assam assembly at ₹27,000 crore<sup class="cite" data-s="8">8</sup>; Air India&rsquo;s 600-aircraft order and a business into which ₹22,618 crore has already gone; Agratas&rsquo;s £4bn Somerset plant; Tata Digital, carrying ₹22,903 crore of equity and a ₹4,974 crore FY26 loss. The four newest businesses lost roughly ₹30,000 crore between them last year. Parent net cash at the FY26 close was ₹21,841 crore, with no borrowings.<sup class="cite" data-s="8">8</sup></p>
   </div>
   <figure>
     <div class="fig-head">
@@ -560,20 +797,23 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
     </div>
     <div class="scroller"><svg id="c-cash" role="img" aria-label="Line chart of Tata Sons cumulative net cash under four scenarios"></svg></div>
     <div class="legend" id="l-cash"></div>
-    <figcaption>Assumes non-TCS dividend income grows 9% a year, parent costs 6%, and equity deployment into Air India, Tata Electronics, Agratas and Tata Digital rises from ₹20,000 crore in FY27 to ₹28,000 crore in FY31 (FY26 actual: ₹15,956 crore).</figcaption>
+    <figcaption>Assumes non-TCS dividend income grows 9% a year <span class="jtag" title="Assumption">J</span>, parent costs 6% <span class="jtag" title="Assumption">J</span>, and equity deployment into Air India, Tata Electronics, Agratas and Tata Digital rises from ₹20,000 crore in FY27 to ₹28,000 crore in FY31 <span class="jtag" title="Assumption: the forward capital-call profile is not disclosed and is held constant across scenarios by design">J</span> (FY26 actual: ₹15,956 crore).</figcaption>
   </figure>
   <div class="spine">
     <p style="margin-top:2rem">In the bear case Tata Sons runs a cumulative deficit of <span class="mono">₹19,163 crore</span> across FY27&ndash;FY31 and its net cash is all but exhausted. In the severe case the deficit is <span class="mono">₹56,517 crore</span> and the parent is in net borrowing from FY30. The gap between the best and worst cumulative dividend from TCS over five years is <strong>₹1,25,649 crore</strong> &mdash; roughly the whole cost of the Dholera fab plus the Assam facility.</p>
-    <p>There is a regulatory dimension to this that should not wait. Tata Sons remains on the RBI&rsquo;s upper-layer NBFC list, and the application to deregister as a core investment company is still unresolved. If the shock absorber for a falling dividend is access to debt markets at scale, that question needs an answer <em>before</em> it is needed, not after.</p>
+    <p>There is a regulatory dimension to this that should not wait. Tata Sons remains on the RBI&rsquo;s upper-layer NBFC list<sup class="cite" data-s="12">12</sup>, and the application to deregister as a core investment company is still unresolved. If the shock absorber for a falling dividend is access to debt markets at scale, that question needs an answer <em>before</em> it is needed, not after.</p>
     <p class="pull">We are not exposed to whether TCS grows. We are exposed to having assumed it would.</p>
   </div>
+<div class="chnav" id="nav-parent"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="sensitivity">
+<section id="sensitivity" class="chapter">
+<div class="wrap">
   <p class="eyebrow">11 &middot; Sensitivity</p>
   <h2>What TCS has to do to keep the group whole</h2>
   <div class="spine">
-    <p class="lede">Two levers determine almost the whole answer: how fast revenue grows, and what margin survives. Move them and see where FY31 lands.</p>
+    <p class="lede">Two levers determine almost the whole answer: how fast revenue grows, and what margin survives. Move them and see where FY31 lands.<span class="sn jf"><b>Simplified</b>This calculator holds cash conversion and payout fixed while the scenario model flexes them, so it diverges from chapter 09 by &minus;7% to +11% at the extremes.</span></p>
   </div>
   <figure>
     <div class="sens-ctl">
@@ -592,25 +832,31 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
       <div class="s" id="o-note"></div>
       <div id="o-pill"></div>
     </div>
-    <figcaption>Holds free cash flow at 82% of net income, dividend at 92% of free cash flow, the rupee at ₹98.22 to the dollar in FY31, and the Tata Sons stake at 71.74%. Break-even is ₹30,827 crore.</figcaption>
+    <figcaption>Holds free cash flow at 82% of net income <span class="jtag" title="Assumption">J</span>, dividend at 92% of free cash flow <span class="jtag" title="Assumption">J</span>, the rupee at ₹98.22 to the dollar in FY31 <span class="jtag" title="Assumption">J</span>, and the Tata Sons stake at 71.74%<sup class="cite" data-s="8">8</sup>. Break-even is ₹30,827 crore.</figcaption>
   </figure>
   <div class="spine">
     <p style="margin-top:2rem">Run the sliders and the shape of the problem shows itself. Over the range actually available to management, <strong>margin cannot rescue a growth failure.</strong> Moving operating margin from 25% to 27% &mdash; an outcome nobody has achieved in a decade &mdash; is worth roughly <span class="mono">₹2,400 crore</span> of FY31 dividend from a flat-revenue base. Getting from flat revenue to 4% growth is worth about <span class="mono">₹6,900 crore</span>, and unlike margin it compounds every year rather than resetting.</p>
     <p>Worse, the two are not independent. In every downside path modelled here margin falls <em>because</em> growth fails, not alongside it: idle capacity, pricing concessions to hold volume, and the cost of a workforce that cannot be reshaped as fast as revenue moves. Cost discipline buys time. It does not buy the outcome.</p>
   </div>
+<div class="chnav" id="nav-sensitivity"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="actions">
+<section id="actions" class="chapter">
+<div class="wrap">
   <p class="eyebrow">12 &middot; Recommendations</p>
   <h2>Nine things I would do, in this order</h2>
   <p class="lede">Three are about the group&rsquo;s own balance sheet and should happen regardless of what TCS does. Five are about TCS. One is about how this board governs the uncertainty.</p>
   <div class="recs" id="recs"></div>
+<div class="chnav" id="nav-actions"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="watch">
+<section id="watch" class="chapter">
+<div class="wrap">
   <p class="eyebrow">13 &middot; Monitoring</p>
   <h2>What would change this view</h2>
-  <div class="two">
+<details class="sec"><summary><span><span class="sh">Leading indicators, in order of signal value</span><span class="ss">Nine things to watch, ordered by how much they tell you. Revenue per employee is the cleanest single test of whether AI-led delivery is actually working.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="two">
     <div>
       <h3 style="margin-top:0">Leading indicators, in order of signal value</h3>
       <ul class="tight">
@@ -637,7 +883,7 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
       </ul>
     </div>
   </div>
-  <div class="caveat">
+</div></details><details class="sec"><summary><span><span class="sh">On the confidence of these numbers</span><span class="ss">What is reliable, what is derived, and what is judgement — and why roughly a quarter of the figures in this assessment cannot be verified by anyone.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="caveat" style="margin-top:0">
     <b>On the confidence of these numbers</b>
     The financial history, the Tata Sons dividend figures and the capital commitments are from public filings and are reliable. So are the peer data points quoted directly: Infosys at $20.2bn and +3.1% constant currency, Accenture&rsquo;s guidance cut and bookings decline, the GCC market size, and the TCS figures on headcount, revenue per employee, AI book and total contract value.
     <br><br>
@@ -645,18 +891,55 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
     <br><br>
     Where a competitor figure is not in this dataset the table says so rather than filling the cell. A model whose assumptions cannot be challenged is not an analysis; it is an opinion with decimal places.
   </div>
+</div></details>
+<div class="chnav" id="nav-watch"></div>
+</div><!-- /wrap -->
 </section>
 
-<section id="sources">
-  <p class="eyebrow">14</p>
-  <h2 style="font-size:1.25rem">Sources</h2>
-  <div class="sources" style="margin-top:1.2rem; max-width:60rem">
-    <p><b style="color:var(--ink)">Sections 04 to 07 introduce no new external data.</b> They reorganise the figures already cited below, add explicitly-labelled judgements, and derive the demand pools arithmetically from the same bucket model that drives the scenarios. Where a peer figure was not available it is marked as not in this dataset rather than estimated.</p>
-    <p>TCS Q4 FY26 results press release and fact sheet; TCS Q1 FY27 results press release; TCS Q4 FY25 and Q4 FY24 press releases (tcs.com/investor-relations). Infosys FY26 results and FY27 guidance. Accenture Q3 FY2026 results. Tata Sons FY26 accounts as reported in Business Today (28 July 2026) and Business Standard (17&ndash;18 August 2026). Screener.in and stockanalysis.com for market data as at 24 August 2026. Business of GCC industry data for India GCC market size. TCS&ndash;TPG HyperVault announcement. RBI upper-layer NBFC list, August 2026.</p>
+<section id="sources" class="chapter">
+<div class="wrap">
+  <p class="eyebrow">14 &middot; Provenance</p>
+  <h2>Every number, and where it comes from</h2>
+  <div class="spine">
+    <p class="lede">An assessment that cannot be audited cannot be defended. This chapter lists every material figure in the document, what it is, and whether it was reported, derived here, or assumed.</p>
+    <p>The distinction matters more than the sources list. A <em>reported</em> figure can be checked against a filing and either is or is not correct. A <em>derived</em> figure follows arithmetically from reported inputs, and the arithmetic is executable on this page. A <em>judgement</em> is an assumption that no one has disclosed and no one can verify &mdash; it can only be argued with. Roughly a quarter of the figures below are judgements, and they are concentrated in exactly the places where the conclusions are strongest.</p>
   </div>
+
+  <h3>Figure register</h3>
+  <div class="regbar" id="regfilter"></div>
+  <div class="regcount"><span id="regcount"></span> figures shown</div>
+  <div class="scroller" style="margin-top:.6rem"><table id="t-register"></table></div>
+
+  <div class="statkey">
+    <div><span class="stat" style="color:var(--bull);border-color:var(--bull)">Reported</span>
+      <span>Taken from the cited source document. Verifiable against the filing, and the first thing to check.</span></div>
+    <div><span class="stat" style="color:var(--base);border-color:var(--base)">Derived</span>
+      <span>Computed here from reported inputs. The arithmetic runs live on this page and reconciles &mdash; the demand pools, for instance, sum exactly to both FY26 actual and base-case FY31 revenue.</span></div>
+    <div><span class="stat" style="color:var(--bear);border-color:var(--bear)">Judgement</span>
+      <span>An assumption. Not disclosed by TCS or anyone else. These are the load-bearing inputs and the right place to start an argument.</span></div>
+  </div>
+
+  <h3 style="margin-top:2.6rem">Sources</h3>
+  <ol class="srclist" id="srcs"></ol>
+
+  <div class="caveat" style="margin-top:2.2rem">
+    <b>What has and has not been verified</b>
+    The internal consistency of this model has been checked in full: every derived figure has been
+    recomputed from its inputs, the bucket weights sum to 1.000, the demand pools reconcile to total
+    revenue in both the base year and the terminal year, the scenario cumulative dividends equal the
+    sum of their annual figures, and the parent cash bridge balances against its opening position.
+    <br><br>
+    The <em>reported</em> figures have not been independently re-checked against the primary filings
+    in preparing this page. They are carried through from the source documents listed above. Before
+    this assessment is relied on, each figure marked Reported should be confirmed against the filing
+    it cites &mdash; the register is ordered to make that a mechanical exercise rather than a search.
+  </div>
+<div class="chnav" id="nav-sources"></div>
+</div><!-- /wrap -->
 </section>
 
-</main>
+</div><!-- /content -->
+</div><!-- /app -->
 
 <div class="tip" id="tip" aria-hidden="true"></div>
 
@@ -1324,6 +1607,417 @@ function renderExtended(){
   tablePeers(); tableAI(); forces5(); chartPricing(); tablePricing();
 }
 
+
+
+/* ================= sources and the figure register ================= */
+/* STATUS values:
+   reported  - taken from the cited source document
+   derived   - computed in this model from reported inputs; the arithmetic is checkable here
+   judgement - an assumption. Not disclosed anywhere. The place to start an argument.        */
+
+const SOURCES = {
+  1:{s:"TCS Q4 FY26 results press release and fact sheet", d:"April 2026", u:"https://www.tcs.com/investor-relations"},
+  2:{s:"TCS Q1 FY27 results press release", d:"July 2026", u:"https://www.tcs.com/investor-relations"},
+  3:{s:"TCS Q4 FY25 results press release", d:"April 2025", u:"https://www.tcs.com/investor-relations"},
+  4:{s:"TCS Q4 FY24 results press release", d:"April 2024", u:"https://www.tcs.com/investor-relations"},
+  5:{s:"Infosys FY26 results and FY27 guidance", d:"April 2026"},
+  6:{s:"Accenture Q3 FY2026 results", d:"June 2026"},
+  7:{s:"Tata Sons FY26 accounts, as reported in Business Today", d:"28 July 2026"},
+  8:{s:"Tata Sons FY26 accounts, as reported in Business Standard", d:"17\u201318 August 2026"},
+  9:{s:"Screener.in and stockanalysis.com market data", d:"as at 24 August 2026"},
+ 10:{s:"Business of GCC \u2014 India GCC market size", d:"2026"},
+ 11:{s:"TCS\u2013TPG HyperVault announcement"},
+ 12:{s:"RBI list of upper-layer NBFCs", d:"August 2026"},
+ 13:{s:"Public reporting on OpenAI enterprise services investment"}
+};
+
+const REGISTER = [
+ ["FY26 revenue","$30,017m","02",1,"reported"],
+ ["FY26 revenue growth, reported dollars","\u22120.5%","02",1,"reported"],
+ ["FY26 revenue growth, constant currency","\u22122.4%","02",1,"reported"],
+ ["FY26 revenue, rupees","\u20b92,67,021 cr","02",1,"reported"],
+ ["FY26 operating margin","25.0%","02",1,"reported"],
+ ["FY26 profit after tax","$5,938m","02",1,"reported"],
+ ["FY26 closing headcount","584,519","02",1,"reported"],
+ ["FY25 closing headcount","607,979","02",3,"reported"],
+ ["FY26 total contract value","$40.7bn","02",1,"reported"],
+ ["FY26 free cash flow","\u20b942,983 cr","02",1,"reported"],
+ ["FY26 shareholder payout","\u20b939,571 cr","02",1,"reported"],
+ ["Q1 FY27 net headcount addition","+9,279","06",2,"reported"],
+ ["Q1 FY27 operating margin","24.0%","06",2,"reported"],
+ ["Q1 FY27 total contract value","$9.5bn","01",2,"reported"],
+ ["Q1 FY27 growth, constant currency","+3.2%","02",2,"reported"],
+ ["Q1 FY27 India business, sequential","+7.6%","04",2,"reported"],
+ ["BFSI share of revenue","32%","04",1,"reported"],
+ ["BFSI FY26 constant-currency growth","+1.0%","04",1,"reported"],
+ ["TCS AI book, annualised","$2.6bn","05",1,"reported"],
+ ["TCS AI book, quarterly growth","+13.6%","05",1,"reported"],
+ ["Staff with AI competencies","270,000","05",1,"reported"],
+ ["Accounts above $100m","66","05",1,"reported"],
+ ["New H-1B holders taken on","~500","06",1,"reported"],
+ ["Estimated annual H-1B fee cost","~$50m","06",9,"reported"],
+ ["Infosys FY26 revenue","$20.2bn","05",5,"reported"],
+ ["Infosys FY26 growth, constant currency","+3.1%","05",5,"reported"],
+ ["Accenture FY26 guidance revision","5% \u2192 4%","05",6,"reported"],
+ ["Accenture bookings, year on year","\u22122%","05",6,"reported"],
+ ["Tata Sons dividend from TCS, FY26","\u20b928,291 cr","10",7,"reported"],
+ ["Tata Sons dividend from TCS, FY25","\u20b932,184 cr","10",7,"reported"],
+ ["Tata Sons total dividend income, FY26","\u20b932,528 cr","10",7,"reported"],
+ ["Tata Sons listed portfolio value","\u20b911.68 trillion","10",8,"reported"],
+ ["Tata Sons parent net cash, FY26 close","\u20b921,841 cr","10",8,"reported"],
+ ["Tata Sons equity deployment, FY26","\u20b915,956 cr","10",8,"reported"],
+ ["Dholera fab commitment","\u20b991,000 cr","10",8,"reported"],
+ ["Assam ATMP commitment","\u20b927,000 cr","10",8,"reported"],
+ ["Air India equity invested","\u20b922,618 cr","10",8,"reported"],
+ ["Agratas Somerset plant","\u00a34bn","10",8,"reported"],
+ ["Tata Digital equity carried","\u20b922,903 cr","10",8,"reported"],
+ ["Tata Digital FY26 loss","\u20b94,974 cr","10",8,"reported"],
+ ["Tata Sons stake in TCS","71.74%","11",8,"reported"],
+ ["India GCC market size","$98\u2013100bn","06",10,"reported"],
+ ["India GCC centres / people","2,100+ / ~2.3m","06",10,"reported"],
+ ["OpenAI investment in enterprise delivery","$4bn+","05",13,"reported"],
+
+ ["Revenue per employee, FY25","$49,640","02",null,"derived"],
+ ["Revenue per employee, FY26","$51,354","02",null,"derived"],
+ ["Revenue per employee growth","+3.5%","02",null,"derived"],
+ ["Payout as share of free cash flow","92%","02",null,"derived"],
+ ["TCS share of parent dividend income","87%","10",null,"derived"],
+ ["TCS dividend decline, year on year","\u221212%","10",null,"derived"],
+ ["Non-TCS dividend income, FY26","\u20b94,237 cr","10",null,"derived"],
+ ["Revenue in automatable work","$12.7bn / 42%","08",null,"derived"],
+ ["Run pool, FY26","$13.6bn / 45.2%","04",null,"derived"],
+ ["Change pool, FY26","$10.4bn / 34.8%","04",null,"derived"],
+ ["Grow pool, FY26","$6.0bn / 20.0%","04",null,"derived"],
+ ["Expected FY31 revenue, probability-weighted","$31.9bn","09",null,"derived"],
+ ["Expected revenue CAGR","+1.2%","09",null,"derived"],
+ ["FY31 break-even dividend requirement","\u20b930,827 cr","10",null,"derived"],
+ ["Five-year dividend spread, bull vs severe","\u20b91,25,649 cr","10",null,"derived"],
+ ["Severe-case headcount reduction","~249,944","09",null,"derived"],
+ ["Contract value, time & materials, year 5","$70","07",null,"derived"],
+ ["Contract value, fixed price, year 5","$78","07",null,"derived"],
+ ["Contract value, outcome-linked, year 5","$112","07",null,"derived"],
+
+ ["Seven-bucket revenue weights","see chapter 08","08",null,"judgement"],
+ ["Automatable share per bucket","10%\u201365%","08",null,"judgement"],
+ ["Per-bucket deflation and volume drivers","per scenario","09",null,"judgement"],
+ ["Scenario probabilities","15 / 40 / 30 / 15","09",null,"judgement"],
+ ["Forward capital-call profile","\u20b920,000\u201328,000 cr a year","10",null,"judgement"],
+ ["Non-TCS dividend growth","+9% a year","10",null,"judgement"],
+ ["Parent operating cost growth","+6% a year","10",null,"judgement"],
+ ["FY31 exchange rate","\u20b998.22 / $","11",null,"judgement"],
+ ["Run / Change split of application work","60 / 40","04",null,"judgement"],
+ ["Vertical revenue shares","reconstructed","04",null,"judgement"],
+ ["Geographic revenue shares","reconstructed","04",null,"judgement"],
+ ["Buying-centre pool sizes","~75 / 15 / 10%","04",null,"judgement"],
+ ["Buying-centre pool growth rates","0\u20132 / 5\u20138 / 25\u201340%","04",null,"judgement"],
+ ["Competitive matrix scores","all cells","05",null,"judgement"],
+ ["Five-forces ratings","all five","06",null,"judgement"],
+ ["Contract effort reduction","30% over 5 years","07",null,"judgement"],
+ ["Renewal price pass-through","75% of the saving","07",null,"judgement"],
+ ["Outcome-linked annual uplift","+2.3% a year","07",null,"judgement"]
+];
+
+const STATUS = {
+  reported:{l:"Reported", c:"--bull",  d:"From the cited source document."},
+  derived: {l:"Derived",  c:"--base",  d:"Computed here from reported inputs. Arithmetic is verifiable on this page."},
+  judgement:{l:"Judgement",c:"--bear", d:"An assumption. Not disclosed by anyone. Challenge these first."}
+};
+
+let regFilter = "all";
+function wireCiteTips(){
+  document.querySelectorAll("sup.cite").forEach(c=>{
+    if (c.dataset.wired) return; c.dataset.wired = "1";
+    const src = SOURCES[c.dataset.s]; if (!src) return;
+    c.setAttribute("title", src.s + (src.d ? " \u00b7 " + src.d : ""));
+    c.setAttribute("role","button"); c.setAttribute("tabindex","0");
+    c.setAttribute("aria-label","Source " + c.dataset.s + ": " + src.s);
+    c.addEventListener("mousemove", e => showTip(e, "Source " + c.dataset.s,
+      [[src.s, src.d || ""]]));
+    c.addEventListener("mouseleave", hideTip);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); c.click(); } });
+  });
+}
+function renderSources(){
+  wireCiteTips();
+  const host = document.getElementById("srcs");
+  if (host) host.innerHTML = Object.entries(SOURCES).map(([n,v]) =>
+    `<li id="src-${n}"><span class="sn-n">${n}</span><span>${v.s}${v.d?` <span class="dt">\u00b7 ${v.d}</span>`:""}` +
+    `${v.u?` <a href="${v.u}" target="_blank" rel="noopener">link</a>`:""}</span></li>`).join("");
+
+  const counts = {all:REGISTER.length};
+  Object.keys(STATUS).forEach(k => counts[k] = REGISTER.filter(r => r[4]===k).length);
+  const fh = document.getElementById("regfilter");
+  if (fh) fh.innerHTML = ["all",...Object.keys(STATUS)].map(k =>
+    `<button data-f="${k}" aria-pressed="${regFilter===k}">` +
+    `${k==="all"?"All figures":STATUS[k].l}<span class="ct">${counts[k]}</span></button>`).join("");
+
+  const rows = REGISTER.filter(r => regFilter==="all" || r[4]===regFilter);
+  const t = document.getElementById("t-register");
+  if (t) t.innerHTML = "<thead><tr><th>Figure</th><th>Value</th><th>Ch.</th><th>Status</th><th>Source</th></tr></thead><tbody>" +
+    rows.map(([f,v,ch,src,st]) =>
+      `<tr><td>${f}</td><td class="mono">${v}</td><td class="mono">${ch}</td>` +
+      `<td><span class="stat" style="color:var(${STATUS[st].c});border-color:var(${STATUS[st].c})">${STATUS[st].l}</span></td>` +
+      `<td>${src?`<a href="#src-${src}" class="srcref">${SOURCES[src].s}</a>`:        `<span style="color:var(--ink-3)">\u2014</span>`}</td></tr>`).join("") + "</tbody>";
+
+  const n = document.getElementById("regcount");
+  if (n) n.textContent = rows.length + " of " + REGISTER.length;
+}
+document.addEventListener("click", e => {
+  const sup = e.target.closest("sup.cite");
+  if (sup){
+    e.preventDefault();
+    showChapter("sources", true);
+    const li = document.getElementById("src-" + sup.dataset.s);
+    if (li){ location.hash = "#src-" + sup.dataset.s; li.scrollIntoView({block:"center"}); }
+    return;
+  }
+  const b = e.target.closest("#regfilter button");
+  if (!b) return;
+  regFilter = b.dataset.f; renderSources();
+});
+
+/* ================= chapter router + shell ================= */
+/* Charts cannot measure themselves inside a hidden element, so every chart is
+   (re)drawn at the moment its chapter or its <details> becomes visible. */
+
+const CHARTS_BY_CHAPTER = {
+  record:      [() => chartHistory()],
+  demand:      [() => chartDemand(), () => chartBudget()],
+  competition: [() => chartRadar()],
+  pricing:     [() => chartPricing()],
+  risk:        [() => chartRisk()],
+  scenarios:   [() => drawScenarioCharts()],
+  parent:      [() => drawScenarioCharts()]
+};
+
+const CHAPTERS = [...document.querySelectorAll(".chapter")].map(el => {
+  const eb = el.querySelector(".eyebrow");
+  const h  = el.querySelector("h1, h2");
+  const raw = eb ? eb.textContent.trim() : "";
+  const num = raw.split("\u00b7")[0].trim() || "00";
+  let title = raw.includes("\u00b7") ? raw.split("\u00b7")[1].trim() : "";
+  if (el.id === "overview") { title = "Overview"; }
+  if (!title && h) title = h.textContent.trim();
+  return { id: el.id, el, num: el.id === "overview" ? "00" : num, title };
+});
+
+function buildToc(){
+  document.getElementById("toc").innerHTML = CHAPTERS.map(c =>
+    `<li><a href="#${c.id}" data-ch="${c.id}"><span class="n">${c.num}</span><span>${c.title}</span></a></li>`
+  ).join("");
+}
+
+function buildChapterNav(){
+  CHAPTERS.forEach((c,i) => {
+    const host = document.getElementById("nav-" + c.id);
+    if (!host) return;
+    const prev = CHAPTERS[i-1], next = CHAPTERS[i+1];
+    host.innerHTML =
+      (prev ? `<a href="#${prev.id}" class="pv"><span class="d">\u2190 Previous</span><span class="t">${prev.num} \u00b7 ${prev.title}</span></a>` : "") +
+      (next ? `<a href="#${next.id}" class="nx"><span class="d">Next \u2192</span><span class="t">${next.num} \u00b7 ${next.title}</span></a>` : "");
+  });
+}
+
+let current = null;
+function showChapter(id, push){
+  const c = CHAPTERS.find(x => x.id === id) || CHAPTERS[0];
+  if (current === c.id) return;
+  CHAPTERS.forEach(x => x.el.classList.toggle("on", x.id === c.id));
+  document.querySelectorAll("#toc a").forEach(a =>
+    a.dataset.ch === c.id ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
+  current = c.id;
+  document.title = (c.id === "overview" ? "" : c.num + " " + c.title + " \u2014 ") + "The TCS Question";
+  (CHARTS_BY_CHAPTER[c.id] || []).forEach(fn => fn());
+  redrawOpenDetails(c.el);
+  if (push && location.hash !== "#" + c.id) history.pushState(null, "", "#" + c.id);
+  window.scrollTo(0, 0);
+  if (innerWidth <= 900) setNav(false);
+}
+
+/* <details> that contain charts must redraw when opened */
+function redrawOpenDetails(scope){
+  (scope || document).querySelectorAll("details.sec[open]").forEach(d => redrawIn(d));
+}
+function redrawIn(node){
+  const ids = [...node.querySelectorAll("svg[id]")].map(x => x.id);
+  if (!ids.length) return;
+  if (ids.includes("c-history"))  chartHistory();
+  if (ids.includes("c-demand"))   chartDemand();
+  if (ids.includes("c-pricing"))  chartPricing();
+  if (ids.includes("c-radar"))    chartRadar();
+  if (ids.includes("c-budget"))   chartBudget();
+  if (ids.includes("c-risk"))     chartRisk();
+  if (ids.some(i => ["c-rev","c-div","c-cash"].includes(i))) drawScenarioCharts();
+}
+document.addEventListener("toggle", e => {
+  if (e.target.matches("details.sec") && e.target.open) redrawIn(e.target);
+}, true);
+
+/* sidebar open/closed */
+function setNav(open){
+  document.getElementById("app").dataset.nav = open ? "open" : "closed";
+  document.getElementById("navtoggle").setAttribute("aria-expanded", String(open));
+  try { localStorage.setItem("tcs-nav", open ? "open" : "closed"); } catch(_){}
+}
+document.getElementById("navtoggle").addEventListener("click", () =>
+  setNav(document.getElementById("app").dataset.nav !== "open"));
+document.getElementById("scrim").addEventListener("click", () => setNav(false));
+
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute("href").slice(1);
+  if (!CHAPTERS.some(c => c.id === id)) return;
+  e.preventDefault();
+  showChapter(id, true);
+});
+addEventListener("popstate", () => showChapter(location.hash.slice(1) || "overview", false));
+
+/* keyboard: \ toggles the index, [ and ] page between chapters */
+addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const t = e.target;
+  if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+  if (e.key === "\\") { setNav(document.getElementById("app").dataset.nav !== "open"); return; }
+  const i = CHAPTERS.findIndex(c => c.id === current);
+  if (e.key === "[" && CHAPTERS[i-1]) showChapter(CHAPTERS[i-1].id, true);
+  if (e.key === "]" && CHAPTERS[i+1]) showChapter(CHAPTERS[i+1].id, true);
+});
+
+function bootShell(){
+  buildToc(); buildChapterNav();
+  let open = innerWidth > 900;
+  try { const st = localStorage.getItem("tcs-nav"); if (st && innerWidth > 900) open = st === "open"; } catch(_){}
+  setNav(open);
+  const start = location.hash.slice(1);
+  showChapter(CHAPTERS.some(c => c.id === start) ? start : "overview", false);
+}
+
+
+/* ---- interactive radar: TCS against one comparator ---- */
+let cmpKey = 1;   // index into AIPLAYERS; 0 is TCS
+function cmpBar(){
+  document.getElementById("cmp").innerHTML = AIPLAYERS.map((p,i)=> i===0 ? "" :
+    `<button data-i="${i}" aria-pressed="${i===cmpKey}">${p[0]}</button>`).join("");
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("#cmp button"); if(!b) return;
+  cmpKey = +b.dataset.i; cmpBar(); chartRadar();
+});
+
+function chartRadar(){
+  const svg = document.getElementById("c-radar"); if(!svg) return;
+  svg.innerHTML = "";
+  const W = Math.max(560, svg.parentElement.clientWidth), H = 400;
+  svg.setAttribute("viewBox","0 0 "+W+" "+H);
+  svg.setAttribute("width",W); svg.setAttribute("height",H);
+  const cx = W/2, cy = H/2 + 6, R = Math.min(H*0.38, W*0.30);
+  const N = AIDIMS.length;
+  const ang = i => -Math.PI/2 + i*2*Math.PI/N;
+  const pt = (i,v) => [cx + Math.cos(ang(i))*R*(v/5), cy + Math.sin(ang(i))*R*(v/5)];
+
+  for(let ring=1; ring<=5; ring++){
+    const d = Array.from({length:N},(_,i)=>{const [x,y]=pt(i,ring); return (i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}).join(" ")+" Z";
+    svg.appendChild(el("path",{d, fill:"none", stroke:css("--rule"),
+      "stroke-width": ring===5?1.3:1}));
+  }
+  for(let i=0;i<N;i++){
+    const [x,y] = pt(i,5);
+    svg.appendChild(el("line",{x1:cx,y1:cy,x2:x,y2:y,stroke:css("--rule"),"stroke-width":1}));
+    const lx = cx + Math.cos(ang(i))*(R+20), ly = cy + Math.sin(ang(i))*(R+20);
+    const anchor = Math.abs(Math.cos(ang(i)))<0.25 ? "middle" : (Math.cos(ang(i))>0 ? "start":"end");
+    const words = AIDIMS[i].split(" ");
+    const lines = []; let cur = "";
+    words.forEach(w=>{ if((cur+" "+w).trim().length>15){lines.push(cur.trim()); cur=w;} else cur+=" "+w; });
+    if(cur.trim()) lines.push(cur.trim());
+    lines.forEach((ln,k)=>{
+      const t = el("text",{x:lx, y:ly + (k-(lines.length-1)/2)*11 + 3.5, "text-anchor":anchor,
+        "font-size":9.5, fill:css("--ink-2"), "font-family":'"IBM Plex Sans",sans-serif'});
+      t.textContent = ln; svg.appendChild(t);
+    });
+  }
+
+  const draw = (scores, colour, w, fillOp) => {
+    const d = scores.map((v,i)=>{const [x,y]=pt(i,v); return (i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}).join(" ")+" Z";
+    svg.appendChild(el("path",{d, fill:css(colour), "fill-opacity":fillOp,
+      stroke:css(colour), "stroke-width":w, "stroke-linejoin":"round"}));
+    scores.forEach((v,i)=>{const [x,y]=pt(i,v);
+      svg.appendChild(el("circle",{cx:x,cy:y,r:3.4,fill:css(colour),
+        stroke:css("--paper"),"stroke-width":1.6}));});
+  };
+  const rival = AIPLAYERS[cmpKey];
+  draw(rival[1], "--ink-3", 1.6, 0.10);
+  draw(AIPLAYERS[0][1], "--severe", 2.4, 0.14);
+
+  // hover zones per axis
+  for(let i=0;i<N;i++){
+    const [x,y] = pt(i,5.6);
+    const z = el("circle",{cx:x,cy:y,r:26,fill:"transparent"}); z.style.cursor="crosshair";
+    z.addEventListener("mousemove", e=>showTip(e, AIDIMS[i],
+      [["TCS", String(AIPLAYERS[0][1][i])+" / 5"],[rival[0], String(rival[1][i])+" / 5"]]));
+    z.addEventListener("mouseleave", hideTip);
+    svg.appendChild(z);
+  }
+  document.getElementById("l-radar").innerHTML =
+    `<span style="display:inline-flex;align-items:center;gap:.38rem"><span class="sw" style="background:${css("--severe")}"></span>TCS &mdash; total ${AIPLAYERS[0][1].reduce((a,b)=>a+b,0)}</span>` +
+    `<span style="display:inline-flex;align-items:center;gap:.38rem"><span class="sw" style="background:${css("--ink-3")}"></span>${rival[0]} &mdash; total ${rival[1].reduce((a,b)=>a+b,0)}</span>`;
+}
+
+/* ---- buying-centre scatter ---- */
+const BUDGETPTS = [
+  {n:"CIO / IT run budget",         share:75, g:1,    c:"--bear"},
+  {n:"CFO / cost-takeout mandate",  share:15, g:6.5,  c:"--base"},
+  {n:"Business unit / CDO AI budget",share:10, g:32.5, c:"--bull"}
+];
+function chartBudget(){
+  const svg = document.getElementById("c-budget"); if(!svg) return;
+  svg.innerHTML = "";
+  const W = Math.max(560, svg.parentElement.clientWidth), H = 340;
+  const M = {t:24,r:150,b:52,l:62};
+  svg.setAttribute("viewBox","0 0 "+W+" "+H);
+  svg.setAttribute("width",W); svg.setAttribute("height",H);
+  const iw = W-M.l-M.r, ih = H-M.t-M.b;
+  const x = v => M.l + v/80*iw;
+  const y = v => M.t + ih - v/40*ih;
+
+  for(let v=0; v<=40; v+=10){
+    svg.appendChild(el("line",{x1:M.l,x2:W-M.r,y1:y(v),y2:y(v),
+      stroke: v===0?css("--ink-3"):css("--rule"),"stroke-width":v===0?1.4:1}));
+    const t=el("text",{x:M.l-9,y:y(v)+4,"text-anchor":"end","font-size":10,fill:css("--ink-3")});
+    t.textContent = v+"%"; svg.appendChild(t);
+  }
+  for(let v=0; v<=80; v+=20){
+    const t=el("text",{x:x(v),y:H-M.b+20,"text-anchor":"middle","font-size":10,fill:css("--ink-3")});
+    t.textContent = v+"%"; svg.appendChild(t);
+  }
+  const ax=el("text",{x:M.l+iw/2,y:H-M.b+38,"text-anchor":"middle","font-size":10.5,
+    fill:css("--ink-2"),"font-family":'"IBM Plex Sans",sans-serif'});
+  ax.textContent="Share of TCS revenue"; svg.appendChild(ax);
+  const ay=el("text",{x:16,y:M.t+ih/2,"text-anchor":"middle","font-size":10.5,
+    fill:css("--ink-2"),"font-family":'"IBM Plex Sans",sans-serif',
+    transform:"rotate(-90 16 "+(M.t+ih/2)+")"});
+  ay.textContent="Pool growth, a year"; svg.appendChild(ay);
+
+  BUDGETPTS.forEach(p=>{
+    const r = 9 + Math.sqrt(p.share)*2.4;
+    const g = el("g"); g.style.cursor="pointer";
+    g.appendChild(el("circle",{cx:x(p.share),cy:y(p.g),r,fill:css(p.c),"fill-opacity":.22,
+      stroke:css(p.c),"stroke-width":2}));
+    const right = p.share < 45;
+    const t = el("text",{x:x(p.share)+(right? r+9 : -(r+9)), y:y(p.g)-2,
+      "text-anchor": right?"start":"end","font-size":10.5, fill:css("--ink"),
+      "font-family":'"IBM Plex Sans",sans-serif'});
+    t.textContent = p.n.split(" / ")[0]; g.appendChild(t);
+    const t2 = el("text",{x:x(p.share)+(right? r+9 : -(r+9)), y:y(p.g)+11,
+      "text-anchor": right?"start":"end","font-size":9.5, fill:css("--ink-3")});
+    t2.textContent = "~"+p.share+"% of revenue"; g.appendChild(t2);
+    g.addEventListener("mousemove", e=>showTip(e, p.n, [
+      ["Share of TCS revenue","~"+p.share+"%"],["Pool growth","~"+p.g+"% a year"]]));
+    g.addEventListener("mouseleave", hideTip);
+    svg.appendChild(g);
+  });
+}
+
 /* ---------------- render ---------------- */
 function render(){
   document.querySelectorAll('#scen-bar button').forEach(b=>
@@ -1332,17 +2026,25 @@ function render(){
 }
 function renderAll(){
   verdict(); chartHistory(); chartRisk(); tableRisk(); scenBar(); recs(); render(); sens();
-  renderExtended();
+  renderExtended(); renderSources(); cmpBar(); chartRadar(); chartBudget();
 }
 renderAll();
+bootShell();
 
 document.getElementById('s-cagr').addEventListener('input', sens);
 document.getElementById('s-marg').addEventListener('input', sens);
 
 let t; addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(()=>{
-  chartHistory(); chartRisk(); drawScenarioCharts(); chartDemand(); chartPricing(); }, 160); });
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', renderAll);
-new MutationObserver(renderAll).observe(document.documentElement,
+  const on = document.querySelector('.chapter.on');
+  if (on) { (CHARTS_BY_CHAPTER[on.id] || []).forEach(fn => fn()); redrawOpenDetails(on); }
+}, 160); });
+function rerenderTheme(){
+  renderAll();
+  const on = document.querySelector('.chapter.on');
+  if (on) { (CHARTS_BY_CHAPTER[on.id] || []).forEach(fn => fn()); redrawOpenDetails(on); }
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', rerenderTheme);
+new MutationObserver(rerenderTheme).observe(document.documentElement,
   {attributes:true, attributeFilter:['data-theme']});
 </script>
 

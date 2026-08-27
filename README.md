@@ -86,6 +86,28 @@ Tata Sons needs **₹30,827 crore** from TCS in FY31 to cover its own costs and 
 | 13 | Monitoring | Leading indicators and the data gaps |
 | 14 | Sources | |
 
+### Reading it
+
+The site is a **chaptered document**, not a scroll. The left index moves between the fourteen
+chapters; each is its own view with a bookmarkable URL (`#demand`, `#pricing`, and so on). The
+index collapses; `\` toggles it and `[` / `]` page between chapters. Longer chapters keep their
+secondary material in collapsible sections — heading and summary visible, detail on demand.
+
+### Provenance
+
+Every material figure is in a **filterable register in chapter 14**: 81 figures, each marked
+*Reported* (from a cited source), *Derived* (computed here, with the arithmetic checkable on the
+page) or *Judgement* (an assumption nobody has disclosed). The split is **44 / 19 / 18**. Inline
+superscripts link to the source, a J flag marks an assumption in place, and margin notes carry
+provenance beside the paragraph that needs it.
+
+> **What has been verified, and what has not.** The internal consistency of this model has been
+> checked in full and holds: bucket weights sum to 1.000, the demand pools reconcile exactly to
+> both FY26 actual and base-case FY31 revenue, every scenario CAGR matches its own revenue path,
+> and each parent cash bridge balances from its ₹21,841 cr opening position. The figures marked
+> *Reported* are carried through from the source documents and have **not** been independently
+> re-checked against the primary filings. Confirm each against its citation before relying on this.
+
 Sections 04–07 introduce **no new external data**. They reorganise the figures already sourced,
 add explicitly-labelled judgements, and derive the demand pools from the same bucket model that
 drives the scenarios. Where a peer figure was unavailable the table says *not in this dataset*
