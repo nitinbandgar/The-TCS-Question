@@ -163,6 +163,30 @@ sup.cite::before{content:"["} sup.cite::after{content:"]"}
 }
 .jtag.est{color:var(--ink-3); border-color:var(--rule-2)}
 
+/* ---------- strategic options ---------- */
+.options{display:grid; gap:1rem; margin-top:2rem}
+.option{display:grid; grid-template-columns:2.4rem 1fr; gap:1rem;
+  background:var(--paper); border:1px solid var(--rule); padding:1.15rem 1.2rem 1.25rem}
+.option.key{border-color:var(--accent); box-shadow:inset 3px 0 0 var(--accent)}
+.option-k{font-family:Newsreader,Georgia,serif; font-size:1.5rem; color:var(--accent); line-height:1}
+.option.key .option-k{font-weight:600}
+.option-head{display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:baseline;
+  justify-content:space-between; margin-bottom:.5rem}
+.option-head h3{margin:0; font-size:1.06rem}
+.option-meta{display:flex; gap:.45rem; flex-wrap:wrap}
+.opt-up,.opt-t{font-family:"IBM Plex Mono",monospace; font-size:.6rem; letter-spacing:.09em;
+  text-transform:uppercase; padding:.12rem .4rem; border:1px solid; border-radius:2px; white-space:nowrap}
+.opt-up.bull{color:var(--bull);border-color:var(--bull)}
+.opt-up.base{color:var(--base);border-color:var(--base)}
+.opt-up.bear{color:var(--bear);border-color:var(--bear)}
+.opt-up.severe{color:var(--severe);border-color:var(--severe)}
+.opt-t{color:var(--ink-3); border-color:var(--rule-2)}
+.option p{font-size:.88rem; line-height:1.55; color:var(--ink-2); margin-bottom:.6rem}
+.option p:last-child{margin-bottom:0}
+.option-risk{padding-top:.65rem; border-top:1px dashed var(--rule-2); font-size:.83rem}
+.option-risk b{display:block; font-family:"IBM Plex Mono",monospace; font-size:.6rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--bear); margin-bottom:.2rem; font-weight:500}
+
 /* ---------- comparator picker ---------- */
 .cmp{display:flex; flex-wrap:wrap; gap:.4rem; margin:0 0 1.1rem}
 .cmp button{all:unset; cursor:pointer; padding:.42rem .75rem; border:1px solid var(--rule-2);
@@ -584,6 +608,8 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
   <h2>Demand is not falling. It is moving.</h2>
   <div class="spine">
     <p class="lede">The revenue line hides three demand pools travelling in different directions at different speeds. Reading them as one budget is how the response gets mis-sized.</p>
+    <p><strong>Total IT spending grows 14.2% in 2026. IT services grows 5.3%.</strong><sup class="cite" data-s="14">14</sup> The gap between those two numbers is most of the story. Data-centre systems reach $822bn and software $1,468bn while IT services reach $1,570bn &mdash; and almost none of the infrastructure build is billable hours.</p>
+    <p>TCS shrank 2.4% in a market that grew 5.3%. Its share of the global services pool fell from <strong>2.02% to 1.91%</strong> in a single year<sup class="cite" data-s="14">14</sup> &mdash; a relative decline of more than five per cent. That is the number that separates a weak market from a weak competitor, and it points at the second.</p>
     <p>Aggregate revenue fell 2.4% in constant currency. No single client cut 2.4% of their spend. What happened is that one pool of demand kept its volume and lost its price, a second pool froze outright, and a third grew quickly from a small base &mdash; and the three roughly cancelled.<span class="sn jf"><b>Derived, on a judgement</b>Pool sizes follow arithmetically from the seven-bucket model. The one free choice is the 60/40 split of application work between Run and Change.</span></p>
   </div>
 
@@ -618,7 +644,8 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 
 </div></details><details class="sec"><summary><span><span class="sh">Where the revenue sits, by vertical and geography</span><span class="ss">Reconstructed shares across eight verticals and six markets. India is the fastest-growing market TCS serves, and the reason should worry the board.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="two">
     <div>
-      <h3 style="margin-top:0">By vertical</h3>
+      <h3 style="margin-top:0">By vertical &mdash; TCS against its end-market</h3>
+      <p style="font-size:.85rem;color:var(--ink-2);margin:.5rem 0 .9rem">Where the second column is higher than the first, TCS is losing share of a market that is growing.</p>
       <div class="scroller"><table id="t-vertical"></table></div>
     </div>
     <div>
@@ -649,6 +676,24 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
   </div>
 <details class="sec"><summary><span><span class="sh">Where each competitor actually stands</span><span class="ss">Peer-by-peer read on strategy and position, plus a scored matrix of TCS against Accenture, Infosys, HCLTech, client GCCs and AI-native entrants on the seven dimensions AI makes decisive.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="scroller"><table id="t-peers"></table></div>
 
+  <figure style="margin-top:2.2rem">
+    <div class="fig-head">
+      <div class="fig-title">Revenue per employee</div>
+      <div class="fig-sub">The cleanest available test of whether a firm has broken the link between headcount and revenue.</div>
+    </div>
+    <div class="scroller"><svg id="c-rpe" role="img" aria-label="Bar chart of revenue per employee across the peer set"></svg></div>
+    <figcaption>TCS runs the highest operating margin in the peer set and the lowest revenue per employee<sup class="cite" data-s="9">9</sup> &mdash; it converts a structurally less productive delivery model into sector-leading profitability through cost discipline. That works until the price of the underlying work falls faster than cost can be taken out. Palantir, on a forward-deployed-engineer model, earns roughly $1.8m per employee<sup class="cite" data-s="28">28</sup>, about 35 times TCS.</figcaption>
+  </figure>
+
+  <figure style="margin-top:2.2rem">
+    <div class="fig-head">
+      <div class="fig-title">Share of the seven large dollar-reporting providers</div>
+      <div class="fig-sub">FY24-equivalent against the latest fiscal year. Capgemini excluded to avoid currency distortion.</div>
+    </div>
+    <div class="scroller"><svg id="c-share" role="img" aria-label="Share shift among the seven large providers between FY24 and the latest year"></svg></div>
+    <figcaption>Accenture is the only large-scale share gainer, and it is buying share rather than winning it &mdash; roughly $9bn of FY26 acquisitions across thirteen deals<sup class="cite" data-s="30">30</sup>. Of the firms gaining share, only HCLTech is doing it organically.</figcaption>
+  </figure>
+
   <figure style="margin-top:2.4rem">
     <div class="fig-head">
       <div class="fig-title">Competitive position on the dimensions AI makes decisive</div>
@@ -674,9 +719,9 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 <section id="structure" class="chapter">
 <div class="wrap">
   <p class="eyebrow">06 &middot; Industry structure</p>
-  <h2>Every force is moving against the incumbent at once</h2>
+  <h2>Four of the five forces are intensifying</h2>
   <div class="spine">
-    <p class="lede">Industry structure usually changes slowly enough that a large firm can adapt inside the drift. What is unusual here is that all five forces have turned in the same direction within about two years.<span class="sn jf"><b>Judgement</b>All five ratings and their directions are assessments. There is no data behind the scores; they organise the argument rather than measure it.</span></p>
+    <p class="lede">Industry structure usually changes slowly enough that a large firm can adapt inside the drift. What is unusual here is that four of the five forces have turned within about two years &mdash; and the two now at maximum intensity did not exist in this form eighteen months ago.<span class="sn jf"><b>Judgement</b>All five ratings and their directions are assessments. There is no data behind the scores; they organise the argument rather than measure it.</span></p>
   </div>
   <div class="f5" id="f5"></div>
 
@@ -709,10 +754,14 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
     <figcaption>Time-and-materials refunds the productivity gain continuously, because the client is billed for effort and effort has fallen. Fixed-price retains it until renewal, then returns most of it when the contract is re-bid against a new, AI-aware benchmark &mdash; modelled here as a renewal in year three passing 75% of the saving to the client. Outcome-linked pricing decouples the fee from effort altogether, so the gain accrues to the provider as margin.</figcaption>
   </figure>
   <div class="scroller" style="margin-top:1.6rem"><table id="t-pricing"></table></div>
+  <div class="scroller" style="margin-top:2rem"><table id="t-outcome"></table></div>
   <div class="spine">
     <p style="margin-top:2rem">The three lines end at <strong>$70</strong>, <strong>$78</strong> and <strong>$112</strong> on identical delivery economics. That spread is not a forecasting difference. It is a contracting difference, and it is the single largest controllable variable in this assessment &mdash; larger than margin discipline, larger than the AI capability build, larger than anything in the cost line.</p>
-    <p class="pull">We do not know what share of our revenue is priced on effort. It is the most important number in the business and it is not in any pack that reaches this board.</p>
-    <p>The seven-bucket model in the next section applies a per-bucket <em>price pass-through</em> assumption to stand in for this mix. That is the right modelling choice given what is disclosed, but it is standing in for a fact that exists and is knowable. Until it is measured, every scenario here carries a wider error bar than it needs to.</p>
+    <h3>Who has actually repriced</h3>
+    <p>An earlier draft of this assessment asserted that the effort-priced share of revenue was simply unknown. That was too strong, and the correction runs in TCS&rsquo;s favour. Roughly <strong>80% of TCS contracts in finance, HR and business services are already outcome-based</strong>, and that share has doubled since late 2023<sup class="cite" data-s="22">22</sup>. That is genuine movement, it is ahead of most of the industry, and a headline reading of TCS misses it.</p>
+    <p>The qualification is where it sits. That 80% is concentrated in <em>operations</em> &mdash; business process and managed services. Nobody in the top tier, TCS included, has repriced <strong>application services</strong> to outcomes at scale, and application work is the largest and most exposed pool in the book. The genuine movers elsewhere are Cognizant at 45% of its business-process book and ExlService at 36% of total revenue targeting the mid-forties<sup class="cite" data-s="22">22</sup>.</p>
+    <p>Demand is not the constraint. HFS puts enterprise sentiment on outcome-based pricing at <strong>72% net favourable</strong>, against <strong>negative 61%</strong> for effort-based pricing<sup class="cite" data-s="20">20</sup>. Clients want to buy this way. Providers have not worked out how to sell it without giving up near-term revenue &mdash; which is precisely the dip the chart above describes.</p>
+    <p class="pull">The question is no longer whether TCS can price on outcomes. It has proved it can, in operations. The question is whether it will do it where the exposure actually is.</p>
   </div>
 <div class="chnav" id="nav-pricing"></div>
 </div><!-- /wrap -->
@@ -842,9 +891,58 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 </div><!-- /wrap -->
 </section>
 
+<section id="valuation" class="chapter">
+<div class="wrap">
+  <p class="eyebrow">12 &middot; Valuation</p>
+  <h2>The market has priced a de-rating, not a collapse</h2>
+  <div class="spine">
+    <p class="lede">Before deciding whether the market is wrong, it is worth establishing precisely what it is saying.<span class="sn src"><b>Sources 9, 1</b>Price and market capitalisation from market data as at 24 August 2026; FY26 net income from the results release.</span></p>
+    <p>At <span class="mono">&#8377;2,284</span> a share and a market capitalisation of <span class="mono">&#8377;8.26 lakh crore</span> against FY26 net income of <span class="mono">&#8377;52,820 crore</span><sup class="cite" data-s="9">9</sup>, TCS trades at roughly <strong>15.6 times earnings</strong>. Working backwards from that price &mdash; discounting the base-case dividend stream at an 11% cost of equity and solving for the FY31 earnings implied by a range of exit multiples &mdash; gives the following.</p>
+  </div>
+  <div class="scroller" style="margin-top:1.6rem"><table id="t-implied"></table></div>
+  <figure style="margin-top:2rem">
+    <div class="fig-head">
+      <div class="fig-title">What the current price implies, against the four scenarios</div>
+      <div class="fig-sub">Implied rupee earnings CAGR at each exit multiple, against the earnings CAGR each scenario actually produces.</div>
+    </div>
+    <div class="scroller"><svg id="c-implied" role="img" aria-label="Implied earnings growth at various exit multiples against scenario earnings growth"></svg></div>
+    <div class="legend" id="l-implied"></div>
+    <figcaption>The implied line is what an investor paying today&rsquo;s price must believe. The scenario markers are what this model produces. Where a scenario sits above the implied line at a given multiple, the shares are cheap on that scenario.</figcaption>
+  </figure>
+  <div class="spine">
+    <p style="margin-top:2rem">The conclusion is more interesting than &ldquo;the market has capitulated&rdquo;. At the current multiple, today&rsquo;s price is consistent with earnings compounding at around <strong>5.5% in rupees</strong> &mdash; close to the base case, which produces 6.2%. What the market has removed is the <em>premium multiple</em>, not the earnings. And at no plausible exit multiple is it pricing the severe case.</p>
+    <p class="pull">The market will re-rate on evidence of share gain, not on evidence of margin defence.</p>
+    <p>Three implications follow, and they bear directly on decisions in front of this board. If we believe the base case, <strong>the shares are not obviously mispriced</strong> &mdash; the value is in the dividend stream, not in a re-rating. <strong>Any buyback is therefore a bet on multiple recovery rather than on earnings</strong>, and multiple recovery requires a change in the growth narrative, not in cost discipline. And third, it tells us which metric to put in front of the market: share of the services pool, not operating margin.</p>
+  </div>
+<div class="chnav" id="nav-valuation"></div>
+</div><!-- /wrap -->
+</section>
+
+<section id="options" class="chapter">
+<div class="wrap">
+  <p class="eyebrow">13 &middot; Strategic options</p>
+  <h2>Six options. Two change the trajectory.</h2>
+  <div class="spine">
+    <p class="lede">Diagnosis without a menu is not advice. These are not mutually exclusive, but capital and management attention are finite.</p>
+  </div>
+  <div class="options" id="options-list"></div>
+  <div class="spine">
+    <p style="margin-top:2rem"><strong>On sequencing.</strong> A and B are the only two that change the trajectory, and they are complementary &mdash; outcome pricing needs product to price against. C accelerates both and should come from the same envelope. D is already committed and now needs governing rather than deciding, with ring-fencing so the parent&rsquo;s dividend is not the residual claimant on a capital programme. E should be declined. F is the default that happens if nothing else is chosen, and this board should choose it deliberately or not at all.</p>
+    <h3>What would have to be true</h3>
+    <p>Each of the first four rests on a proposition that can be tested rather than argued. None of these tests takes longer than two quarters.</p>
+  </div>
+  <div class="scroller" style="margin-top:1.4rem"><table id="t-wwhtbt"></table></div>
+  <div class="caveat">
+    <b>How to read this chapter</b>
+    The upside and time-to-effect labels on each option are judgements, not modelled outputs &mdash; they are registered as such in chapter 16. The underlying facts each option rests on are sourced: the 80% outcome-based share in operations, HCLSoftware&rsquo;s recurring revenue, the HyperVault commitment, and the H1 2026 transaction data. The recommendation to decline option E is an opinion, and the argument against it is stated so it can be attacked.
+  </div>
+<div class="chnav" id="nav-options"></div>
+</div><!-- /wrap -->
+</section>
+
 <section id="actions" class="chapter">
 <div class="wrap">
-  <p class="eyebrow">12 &middot; Recommendations</p>
+  <p class="eyebrow">14 &middot; Recommendations</p>
   <h2>Nine things I would do, in this order</h2>
   <p class="lede">Three are about the group&rsquo;s own balance sheet and should happen regardless of what TCS does. Five are about TCS. One is about how this board governs the uncertainty.</p>
   <div class="recs" id="recs"></div>
@@ -854,7 +952,7 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 
 <section id="watch" class="chapter">
 <div class="wrap">
-  <p class="eyebrow">13 &middot; Monitoring</p>
+  <p class="eyebrow">15 &middot; Monitoring</p>
   <h2>What would change this view</h2>
 <details class="sec"><summary><span><span class="sh">Leading indicators, in order of signal value</span><span class="ss">Nine things to watch, ordered by how much they tell you. Revenue per employee is the cleanest single test of whether AI-led delivery is actually working.</span></span><span class="chev"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span></summary><div class="body">  <div class="two">
     <div>
@@ -898,7 +996,7 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 
 <section id="sources" class="chapter">
 <div class="wrap">
-  <p class="eyebrow">14 &middot; Provenance</p>
+  <p class="eyebrow">16 &middot; Provenance</p>
   <h2>Every number, and where it comes from</h2>
   <div class="spine">
     <p class="lede">An assessment that cannot be audited cannot be defended. This chapter lists every material figure in the document, what it is, and whether it was reported, derived here, or assumed.</p>
@@ -946,6 +1044,7 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 <script>
 const DATA = {"years":["FY27","FY28","FY29","FY30","FY31"],"fy26":{"rev":30017.0,"opm":0.25,"pat":5938.0,"div":39571.0,"ts":28291.0,"hc":584519,"dps":110.0,"fcf":42983.0},"history":[{"FY":"FY22","RevUSDm":25707,"USDg":0.157,"CCg":0.157,"OPM":0.25,"NetM":0.204,"PATusdm":5240,"RevINRcr":191754,"PATINRcr":38449,"TCVusdbn":34600,"Headcount":592195,"DPS":43,"PayoutINRcr":15671},{"FY":"FY23","RevUSDm":27927,"USDg":0.086,"CCg":0.138,"OPM":0.244,"NetM":0.192,"PATusdm":5364,"RevINRcr":225458,"PATINRcr":42303,"TCVusdbn":34100,"Headcount":614795,"DPS":115,"PayoutINRcr":42084},{"FY":"FY24","RevUSDm":29080,"USDg":0.041,"CCg":0.034,"OPM":0.246,"NetM":0.196,"PATusdm":5697,"RevINRcr":240893,"PATINRcr":46099,"TCVusdbn":42700,"Headcount":601546,"DPS":73,"PayoutINRcr":26411},{"FY":"FY25","RevUSDm":30180,"USDg":0.038,"CCg":0.042,"OPM":0.243,"NetM":0.19,"PATusdm":5739,"RevINRcr":255324,"PATINRcr":48797,"TCVusdbn":39400,"Headcount":607979,"DPS":126,"PayoutINRcr":44962},{"FY":"FY26","RevUSDm":30017,"USDg":-0.005,"CCg":-0.024,"OPM":0.25,"NetM":0.198,"PATusdm":5938,"RevINRcr":267021,"PATINRcr":49454,"TCVusdbn":40700,"Headcount":584519,"DPS":110,"PayoutINRcr":39571}],"buckets":[{"name":"Application Development & Maintenance (custom)","w":0.32,"auto":0.55,"rev":9605.44,"note":"Code generation, test automation and agentic L1/L2 support attack the core of this book. Largest single pool and the most exposed."},{"name":"Enterprise / Package Application Services","w":0.13,"auto":0.4,"rev":3902.21,"note":"SAP/Oracle/Salesforce migration and rollout. Config work automates; change management, data migration and integration hold value."},{"name":"Cloud & Infrastructure Managed Services","w":0.16,"auto":0.5,"rev":4802.72,"note":"AIOps compresses run-cost; offset by AI-infrastructure build, GPU estate operations and the HyperVault adjacency."},{"name":"Business Process Services","w":0.1,"auto":0.65,"rev":3001.7000000000003,"note":"Most directly substitutable. Agentic workflows displace seat-based delivery; the FTE pricing model is the liability."},{"name":"Engineering & R&D Services","w":0.09,"auto":0.25,"rev":2701.5299999999997,"note":"Embedded, semiconductor, automotive software. Least substitutable near-term and structurally growing."},{"name":"Consulting, Data, AI & Cybersecurity","w":0.15,"auto":0.15,"rev":4502.55,"note":"The growth engine. AI-native demand, data estate rebuild, model governance, security. TCS AI book already ~8.5% of revenue."},{"name":"Products & Platforms (BaNCS, ignio, iON, ADD)","w":0.05,"auto":0.1,"rev":1500.8500000000001,"note":"IP-led, non-linear. AI raises product value rather than deflating it. Strategically under-scaled at ~5% of revenue."}],"scenarios":{"bull":{"label":"Bull \u2014 AI Dividend","prob":0.15,"rev":[32787.4,35793.5,39139.5,42697.7,46582.6],"ccg":[0.0923,0.0917,0.0935,0.0909,0.091],"opm":[0.245,0.255,0.262,0.267,0.27],"pat":[6375.3,7226.5,8106.2,9002.2,9925.4],"revinr":[297499,331271,369482,411133,457513],"patinr":[57847,66882,76523,86681,97482],"fcf":[46278,50161,60454,72812,85784],"div":[42575,46148,55617,66987,78922],"dps":[117.7,127.6,153.7,185.2,218.1],"ts":[30544,33107,39900,48057,56618],"hc":[605182,626226,649066,671159,694054],"rpe":[54178,57158,60301,63618,67117],"cagr":0.0919,"cumts":208225,"bridge":{"tcs":[30544,33107,39900,48057,56618],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[7759,6294,11069,18220,25791],"cum":[29600,35894,46962,65183,90974],"cumsur":69133},"buckets":[[9946.4,10299.5,10721.3,11160.3,11678.2],[4163.7,4442.6,4754.9,5089.2,5463.8],[5163.9,5552.2,5994.6,6472.3,7017.0],[3103.8,3209.3,3339.6,3475.2,3639.2],[2995.5,3321.4,3686.4,4091.7,4546.0],[5673.2,6971.2,8374.9,9858.7,11395.9],[1741.0,1997.3,2267.7,2550.3,2842.6]]},"base":{"label":"Base \u2014 Managed Transition","prob":0.4,"rev":[31149.4,32299.3,33451.4,34746.0,36023.7],"ccg":[0.0377,0.0369,0.0357,0.0387,0.0368],"opm":[0.243,0.246,0.25,0.252,0.255],"pat":[6010.4,6304.5,6629.1,6937.4,7273.0],"revinr":[282636,298932,315786,334568,353807],"patinr":[54536,58348,62579,66800,71432],"fcf":[43629,44345,48812,54776,60717],"div":[40575,41241,44907,50394,55860],"dps":[112.1,114.0,124.1,139.3,154.4],"ts":[29108,29586,32216,36152,40074],"hc":[583240,581511,579089,578367,576571],"rpe":[53407,55544,57766,60076,62479],"cagr":0.0372,"cumts":167137,"bridge":{"tcs":[29108,29586,32216,36152,40074],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[6324,2773,3385,6316,9247],"cum":[28165,30938,34323,40639,49886],"cumsur":28045},"buckets":[[9570.9,9536.4,9502.1,9528.3,9554.6],[4008.4,4117.4,4229.4,4362.5,4499.8],[4927.6,5055.7,5187.2,5350.0,5518.0],[2927.3,2854.7,2783.9,2738.4,2693.7],[2859.3,3026.3,3203.0,3397.0,3602.7],[5206.7,5910.9,6600.1,7276.3,7916.7],[1649.3,1798.0,1945.8,2093.4,2238.1]]},"bear":{"label":"Bear \u2014 Slow Bleed","prob":0.3,"rev":[29471.7,28500.1,27361.4,26472.0,25794.9],"ccg":[-0.0182,-0.033,-0.04,-0.0325,-0.0256],"opm":[0.24,0.234,0.228,0.224,0.22],"pat":[5620.9,5308.1,4973.8,4733.2,4535.3],"revinr":[267414,263770,258296,254898,253345],"patinr":[51001,49127,46953,45576,44543],"fcf":[39781,35372,34745,35549,36525],"div":[37792,32896,31618,31994,32873],"dps":[104.5,90.9,87.4,88.4,90.9],"ts":[27112,23599,22683,22953,23583],"hc":[557186,523123,487594,458004,433290],"rpe":[52894,54481,56115,57799,59533],"cagr":-0.0299,"cumts":119930,"bridge":{"tcs":[27112,23599,22683,22953,23583],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[4327,-3214,-6148,-6884,-7244],"cum":[26168,22954,16806,9922,2678],"cumsur":-19163},"buckets":[[9092.1,8439.3,7755.9,7199.0,6748.2],[3826.4,3704.7,3564.0,3450.6,3362.2],[4675.2,4473.2,4242.7,4059.4,3917.9],[2767.8,2484.4,2199.6,1974.3,1796.3],[2719.7,2715.3,2699.7,2695.4,2702.3],[4837.9,5094.0,5284.7,5453.6,5604.0],[1552.7,1589.3,1614.9,1639.6,1663.9]]},"severe":{"label":"Severe \u2014 Structural Break","prob":0.15,"rev":[28337.5,25552.7,22547.6,20181.9,18509.4],"ccg":[-0.056,-0.0983,-0.1176,-0.1049,-0.0829],"opm":[0.235,0.22,0.202,0.188,0.175],"pat":[5299.0,4492.7,3662.0,3067.2,2633.8],"revinr":[257122,236491,212853,194330,181790],"patinr":[48081,41580,34569,29534,25868],"fcf":[36060,27443,23507,21855,20694],"div":[34257,24698,19981,18577,17590],"dps":[94.7,68.3,55.2,51.3,48.6],"ts":[24576,17719,14334,13327,12619],"hc":[543659,482988,419888,370278,334575],"rpe":[52124,52905,53699,54505,55322],"cagr":-0.0922,"cumts":82576,"bridge":{"tcs":[24576,17719,14334,13327,12619],"oth":[4618,5034,5487,5981,6519],"opex":[7403,7847,8318,8817,9346],"cap":[20000,24000,26000,27000,28000],"sur":[1792,-9095,-14497,-16509,-18208],"cum":[23633,14538,41,-16468,-34676],"cumsur":-56517},"buckets":[[8856.2,7704.9,6502.9,5573.0,4921.0],[3691.5,3359.3,2996.5,2699.8,2481.1],[4530.6,4072.6,3570.3,3169.7,2884.5],[2624.0,2108.6,1620.1,1273.3,1045.7],[2630.3,2497.2,2340.6,2208.0,2109.6],[4529.1,4397.4,4184.0,3993.4,3854.0],[1475.8,1412.7,1333.2,1264.6,1213.5]]}},"expected":{"rev":[30470.0,30671.7,30842.0,31271.9,31911.7],"ts":[28045,26538,27826,30554,33490],"hc":[572778,555923,538257,524963,514909],"cagr":0.0123},"fx":{"FY27":90.74,"FY28":92.55,"FY29":94.4,"FY30":96.29,"FY31":98.22},"breakeven_fy31":30827};
 
+const X = {"implied":{"16":{"cagr":0.05458326868864671,"e31":68897.39172968752},"18":{"cagr":0.030031182215589647,"e31":61242.12598194446},"20":{"cagr":0.00855334524713558,"e31":55117.91338375001},"22":{"cagr":-0.010489659051438727,"e31":50107.193985227284},"25":{"cagr":-0.03546748710129777,"e31":44094.33070700001}},"scen_pat_cagr":{"Bull — AI Dividend":0.13038239170446686,"Base — Managed Transition":0.06223055947879641,"Bear — Slow Bleed":-0.03351201397588954,"Severe — Structural Break":-0.13305314104036925},"mcap":826407,"price":2284,"pat26":52820,"gartner_services":{"2025":1492,"2026":1570},"gartner_services_growth":{"2025":0.038,"2026":0.053},"forrester_cagr":{"ex_iaas":0.018,"incl_iaas":0.048},"ai_spend_2026":{"AI infrastructure":1431509,"AI services":585527,"AI software":453209,"AI cybersecurity":51347,"AI models":32604,"AI platforms (DS/ML)":29928,"AI app-dev platforms":8416,"AI data":3126},"ai_spend_total_2026":2595666,"etr":[["AI as share of IT budget",0.121,0.142],["AI funded from the broader IT budget",0.567,0.617],["AI funded from innovation / DT budget",0.527,0.497],["Overall IT budget growth",0.037,0.036],["Forward 12-month AI spend trajectory",0.144,0.13]],"tcs_share":{"2025":0.020227882037533514,"2026":0.019119108280254777},"verticals":[["BFSI",0.32,0.01,0.024,"Celent: FI IT budgets +7% for 2026; Forrester: US FS tech spend $495bn, ~40% to software. But ISG Americas BFSI managed-services ACV only +1.3%.","Budgets are growing; they are not landing in labour-based services."],["Consumer Business",0.155,-0.02,-0.012,"ISG: Retail & CPG combined market +31% in FY25; CPG managed services +59% globally in Q2 2026. IHL: AI now ~15% of retail IT budgets, growing ~27%.","The strongest vertical in the market and TCS is shrinking in it. The clearest share loss."],["Life Sciences & Healthcare",0.104,-0.018,0.035,"ISG: Healthcare & Pharma combined market +32% FY25, but Americas managed services −20% in Q2 2026.","Volatile. Q1 recovery is real but the Americas signal is poor."],["Manufacturing",0.088,-0.002,0.029,"ISG: managed services −11% globally in Q2 2026, third consecutive decline; Americas −18%. But ER&D ACV +35% in FY25.","The market is genuinely weak, and what is spending is spending on engineering, not apps."],["Technology & Services",0.084,0.022,null,"Accenture CMT +9% LC in Q3 FY26, its best group — but driven by hi-tech, not telecom.","Reasonable. Not a problem area."],["Energy, Resources & Utilities",0.06,0.031,0.069,"ISG: Energy managed services +21% globally, +34% Europe in Q2 2026. S&P: US utility capex ~$1.3trn over 2026-30, driven by data-centre load.","TCS's best vertical and the market agrees. Under-weighted at 6% of revenue."],["Communications & Media",0.058,-0.047,0.014,"Analysys Mason: operator capex −3% CAGR 2021-31; Gartner communications services the slowest segment (+4.4%).","Structurally declining end-market. Managed decline is the right ambition."]],"peers":[["Accenture",69.7,0.035,null,0.17,799000,89401,4.4,0.059],["TCS",30.02,-0.024,0.032,0.25,584519,51353,2.6,0.085],["IBM Consulting",21.06,0.004,0.01,0.121,null,null,null,null],["Cognizant",21.1,0.045,0.041,null,351600,60011,null,null],["Infosys",20.16,0.031,0.024,0.211,328594,61347,1.67,0.082],["HCLTech",14.7,0.039,0.026,null,227000,64758,0.68,0.047],["Wipro",10.48,-0.016,0.009,0.16,230000,45600,null,null]],"share_fy24":{"Accenture":0.367,"TCS":0.164,"IBM Consulting":0.117,"Cognizant":0.111,"Infosys":0.105,"HCLTech":0.075,"Wipro":0.061},"share_latest":{"Accenture":0.372,"TCS":0.16,"IBM Consulting":0.112,"Cognizant":0.113,"Infosys":0.108,"HCLTech":0.0785,"Wipro":0.056},"outcome_pricing":[["ExlService","36% of total revenue outcome-based; targeting mid-40s% within 3-5 years","The most explicit public target in the industry"],["Cognizant","45% of BPO contracts on outcome-based models; fixed-price now ~50/50 with T&M","Publishes revenue and operating income per associate as headline metrics"],["Endava","24% of revenue outcome-based","DavaFlow claims 5-10x productivity"],["TCS","~80% of finance, HR and business-services contracts outcome-based, doubled since late 2023","Real and material — but concentrated in operations, not application services"],["Coforge","6-7% of revenue outcome-based on a run-rate basis","Growing 33% YoY"],["Globant","AI Pods on tokenised consumption pricing replacing hourly billing","Glob.AI ARR $52.8m, targeting $110m"],["Accenture","Over 60% of work fixed-price, 'continuing to increase'","Fixed-price is not the same as outcome-based; margin 'no real difference' vs T&M"],["Infosys","Explicitly not at scale — CEO: 'it is not so much that it has become a large part'","Client interest without conversion"]],"forces":[["Threat of substitutes",5,"Rising fast","OpenAI's DeployCo ($4bn capital, ~$14bn valuation, acquired Tomoro) and Anthropic's Ode ($1.5bn, with Blackstone, Hellman & Friedman and Goldman Sachs) were both stood up within one week in May 2026. Palantir's US commercial revenue grew 149% to $764m in Q2 2026 on a forward-deployed-engineer model earning roughly $1.8m per head. Hyperscalers are shipping agentic modernisation tooling (AWS Transform) that compresses the legacy-migration work that has been a staple of the Indian IT book.","The most serious of the five. These are not cheaper competitors — they are a different cost structure entirely, and they are funded by the model providers TCS depends on."],["Bargaining power of buyers",5,"Rising fast","India's GCCs are now $98.4bn of revenue across 2,117 centres and 2.36 million people, and added 200,000 net hires in FY26 against 110,000 for the whole Indian IT services industry — a 2:1 gap, and the third consecutive year GCCs out-hired the industry. HFS reports contracts signed in 2024 and early 2025 being reopened within 24 months, with those above $50m a year under the most pressure. Persistent reports clients demanding 25-30% cost reduction. Everest finds 58% of organisations now have business, not IT, involved in sourcing decisions.","Renegotiation risk is concentrated in exactly the large, long contracts that make up TCS's most profitable book."],["Threat of new entrants",4,"Rising","Mid-caps are compounding at multiples of the large caps: Coforge +33%, Persistent +16% in the June 2026 quarter against 1-3% for the large four. AI-native boutiques earn extraordinary unit economics — Tomoro was doing roughly £225,000 of revenue per head at over 40% margin on about 150 people, against roughly $51,000 per head at TCS. IT services M&A ran to 449 deals worth $14.8bn in H1 2026.","Scale is no longer the moat it was. The capability being bought is small, senior and expensive — the opposite of the pyramid."],["Bargaining power of suppliers",3,"Rising","TCS's AI delivery runs on frontier models it does not own. Within eleven weeks of signing multi-year alliances with Accenture, BCG, McKinsey and Capgemini, OpenAI launched a majority-owned services subsidiary competing with them. Anthropic did the same while maintaining partnerships with Deloitte and Accenture. Separately, HyperVault exposes TCS to GPU supply and pricing it does not control.","Classic channel conflict. TCS's AI margin sits between a supplier that can move downstream and a client that can go direct."],["Rivalry among existing firms",4,"Rising","Accenture is the only large-scale share gainer and is buying it — roughly $9bn of FY26 acquisitions and just under 2 percentage points of inorganic contribution into FY27. Capgemini bought WNS for $3.3bn. Everest's Jimit Arora: 'It is a desperate market for the service providers.' Tech Mahindra's CEO reports competitors bidding on unrealistic 70-80% productivity gains over five to seven years.","Price competition is being fought with productivity promises that may not be deliverable. Whoever cannot deliver them will take the margin hit in year three."]]};
 const SCEN = [
   {k:'bull',   n:'Bull',   full:'AI Dividend',       v:'--bull'},
   {k:'base',   n:'Base',   full:'Managed Transition',v:'--base'},
@@ -1609,6 +1708,262 @@ function renderExtended(){
 
 
 
+
+/* ================= research-backed renderers (X dataset) ================= */
+
+/* ---- verticals: TCS growth against end-market growth ---- */
+function tableVerticalX(){
+  const t=document.getElementById("t-vertical"); if(!t) return;
+  let h="<thead><tr><th>Vertical</th><th>Share</th><th>TCS FY26</th><th>Q1 FY27</th><th>Read</th></tr></thead><tbody>";
+  X.verticals.forEach(([n,w,tcs,q1,ev,read])=>{
+    const col=v=>v==null?"--ink-3":v<0?"--severe":v>0.02?"--bull":"--bear";
+    const f=v=>v==null?"&mdash;":(v>=0?"+":"\u2212")+Math.abs(v*100).toFixed(1)+"%";
+    h+=`<tr><td><b>${n}</b><div style="font-size:.74rem;color:var(--ink-3);line-height:1.45;margin-top:.25rem">${ev}</div></td>`+
+       `<td>${(w*100).toFixed(1)}%</td>`+
+       `<td style="color:var(${col(tcs)});font-weight:600">${f(tcs)}</td>`+
+       `<td style="color:var(${col(q1)})">${f(q1)}</td>`+
+       `<td style="text-align:left;font-family:inherit;color:var(--ink-2);font-size:.79rem">${read}</td></tr>`;
+  });
+  const tot=X.verticals.reduce((a,v)=>a+v[1],0);
+  h+=`<tr class="tot"><td>Total</td><td>${(tot*100).toFixed(1)}%</td><td></td><td></td><td></td></tr>`;
+  t.innerHTML=h+"</tbody>";
+}
+
+/* ---- peers: real financials ---- */
+function tablePeersX(){
+  const t=document.getElementById("t-peers"); if(!t) return;
+  let h="<thead><tr><th>Provider</th><th>Revenue $bn</th><th>Latest FY growth</th><th>Recent qtr</th><th>Op margin</th><th>Headcount</th><th>Rev / head</th><th>AI book $bn</th></tr></thead><tbody>";
+  const dash='<span style="color:var(--ink-3)">&mdash;</span>';
+  X.peers.forEach(([n,rev,g,q,m,hc,rpe,ai])=>{
+    const me=n==="TCS";
+    const f=v=>v==null?dash:(v>=0?"+":"\u2212")+Math.abs(v*100).toFixed(1)+"%";
+    h+=`<tr${me?' style="background:var(--sunk)"':""}><td><b>${n}</b></td>`+
+       `<td>${rev.toFixed(1)}</td>`+
+       `<td style="color:var(${g==null?"--ink-3":g<0?"--severe":"--bull"});font-weight:${me?600:400}">${f(g)}</td>`+
+       `<td>${f(q)}</td>`+
+       `<td>${m==null?dash:(m*100).toFixed(1)+"%"}</td>`+
+       `<td>${hc==null?dash:fmt(hc)}</td>`+
+       `<td>${rpe==null?dash:"$"+fmt(rpe)}</td>`+
+       `<td>${ai==null?dash:"$"+ai.toFixed(2)+"bn"}</td></tr>`;
+  });
+  t.innerHTML=h+"</tbody>";
+}
+
+/* ---- revenue per employee ---- */
+function chartRPE(){
+  const svg=document.getElementById("c-rpe"); if(!svg) return; svg.innerHTML="";
+  const rows=X.peers.filter(p=>p[6]!=null).sort((a,b)=>b[6]-a[6]);
+  const W=Math.max(560,svg.parentElement.clientWidth), rowH=34;
+  const M={t:14,r:96,b:34,l:112}, H=M.t+rows.length*rowH+M.b;
+  svg.setAttribute("viewBox","0 0 "+W+" "+H); svg.setAttribute("width",W); svg.setAttribute("height",H);
+  const iw=W-M.l-M.r, hi=100000, x=v=>v/hi*iw;
+  [0,25000,50000,75000,100000].forEach(v=>{
+    const xx=M.l+x(v);
+    svg.appendChild(el("line",{x1:xx,x2:xx,y1:M.t,y2:H-M.b,stroke:css("--rule"),"stroke-width":1}));
+    const t=el("text",{x:xx,y:H-M.b+18,"text-anchor":"middle","font-size":9.5,fill:css("--ink-3")});
+    t.textContent=v===0?"$0":"$"+(v/1000)+"k"; svg.appendChild(t);
+  });
+  rows.forEach((p,i)=>{
+    const y=M.t+i*rowH+7, me=p[0]==="TCS";
+    const g=el("g"); g.style.cursor="pointer";
+    g.appendChild(el("rect",{x:M.l,y,width:Math.max(2,x(p[6])),height:19,
+      fill:css(me?"--severe":"--ink-3"),opacity:me?.9:.5,rx:2}));
+    const nm=el("text",{x:M.l-12,y:y+14,"text-anchor":"end","font-size":11,
+      fill:css("--ink"),"font-weight":me?600:400,"font-family":'"IBM Plex Sans",sans-serif'});
+    nm.textContent=p[0]; g.appendChild(nm);
+    const v=el("text",{x:M.l+x(p[6])+9,y:y+14,"font-size":10,fill:css("--ink-2")});
+    v.textContent="$"+fmt(p[6]); g.appendChild(v);
+    g.addEventListener("mousemove",e=>showTip(e,p[0],[
+      ["Revenue per employee","$"+fmt(p[6])],
+      ["Headcount",p[5]?fmt(p[5]):"n/a"],
+      ["vs TCS",(p[6]/51353).toFixed(2)+"x"]]));
+    g.addEventListener("mouseleave",hideTip);
+    svg.appendChild(g);
+  });
+}
+
+/* ---- share shift ---- */
+function chartShare(){
+  const svg=document.getElementById("c-share"); if(!svg) return; svg.innerHTML="";
+  const names=Object.keys(X.share_latest);
+  const W=Math.max(560,svg.parentElement.clientWidth), rowH=36;
+  const M={t:26,r:118,b:20,l:112}, H=M.t+names.length*rowH+M.b;
+  svg.setAttribute("viewBox","0 0 "+W+" "+H); svg.setAttribute("width",W); svg.setAttribute("height",H);
+  const iw=W-M.l-M.r, hi=0.40, x=v=>v/hi*iw;
+  const hd=el("text",{x:M.l,y:M.t-10,"font-size":9.5,fill:css("--ink-3")});
+  hd.textContent="FY24-equivalent \u2192 latest"; svg.appendChild(hd);
+  names.forEach((n,i)=>{
+    const y=M.t+i*rowH+rowH/2, a=X.share_fy24[n], b=X.share_latest[n];
+    const up=b>a, me=n==="TCS";
+    const g=el("g"); g.style.cursor="pointer";
+    g.appendChild(el("line",{x1:M.l+x(a),x2:M.l+x(b),y1:y,y2:y,
+      stroke:css(up?"--bull":"--severe"),"stroke-width":3,"stroke-linecap":"round",opacity:me?1:.55}));
+    g.appendChild(el("circle",{cx:M.l+x(a),cy:y,r:4,fill:css("--paper"),
+      stroke:css("--ink-3"),"stroke-width":1.8}));
+    g.appendChild(el("circle",{cx:M.l+x(b),cy:y,r:5,fill:css(up?"--bull":"--severe"),opacity:me?1:.65}));
+    const nm=el("text",{x:M.l-12,y:y+4,"text-anchor":"end","font-size":11,fill:css("--ink"),
+      "font-weight":me?600:400,"font-family":'"IBM Plex Sans",sans-serif'});
+    nm.textContent=n; g.appendChild(nm);
+    const d=(b-a)*100;
+    const v=el("text",{x:W-M.r+10,y:y+4,"font-size":10,fill:css(up?"--bull":"--severe"),"font-weight":me?600:400});
+    v.textContent=(b*100).toFixed(1)+"%  ("+(d>=0?"+":"\u2212")+Math.abs(d).toFixed(1)+"pp)"; g.appendChild(v);
+    g.addEventListener("mousemove",e=>showTip(e,n,[["FY24-equivalent",(a*100).toFixed(1)+"%"],
+      ["Latest",(b*100).toFixed(1)+"%"],["Change",(d>=0?"+":"\u2212")+Math.abs(d).toFixed(2)+"pp"]]));
+    g.addEventListener("mouseleave",hideTip);
+    svg.appendChild(g);
+  });
+}
+
+/* ---- outcome-based pricing across the industry ---- */
+function tableOutcome(){
+  const t=document.getElementById("t-outcome"); if(!t) return;
+  let h="<thead><tr><th>Provider</th><th>Disclosed position on outcome-based pricing</th><th>Note</th></tr></thead><tbody>";
+  X.outcome_pricing.forEach(([n,pos,note])=>{
+    const me=n==="TCS";
+    h+=`<tr${me?' style="background:var(--sunk)"':""}><td><b>${n}</b></td>`+
+       `<td style="text-align:left;font-family:inherit;color:var(--ink${me?"":"-2"});font-size:.83rem">${pos}</td>`+
+       `<td style="text-align:left;font-family:inherit;color:var(--ink-3);font-size:.78rem">${note}</td></tr>`;
+  });
+  t.innerHTML=h+"</tbody>";
+}
+
+/* ---- five forces, re-driven from the sourced evidence ---- */
+function forces5X(){
+  const host=document.getElementById("f5"); if(!host) return;
+  const col=sc=>sc>=5?"--severe":sc>=4?"--bear":"--base";
+  host.innerHTML=X.forces.map(([n,sc,dir,ev,read])=>
+    `<div class="force5" style="--c:var(${col(sc)})">`+
+      `<div class="hd"><h3>${n}</h3><span class="lvl">${dir}`+
+        `<span class="bars">${[1,2,3,4,5].map(i=>`<i class="${i<=sc?"on":""}"></i>`).join("")}</span></span></div>`+
+      `<p>${ev}</p><div class="dir">${read}</div></div>`).join("");
+}
+
+/* ---- valuation ---- */
+function tableImplied(){
+  const t=document.getElementById("t-implied"); if(!t) return;
+  const cur=X.mcap/X.pat26;
+  let h="<thead><tr><th>FY31 exit multiple</th><th>Implied FY31 earnings</th><th>Implied earnings CAGR</th><th>Read</th></tr></thead><tbody>";
+  Object.entries(X.implied).forEach(([mult,v])=>{
+    const near=Math.abs(+mult-cur)<1.5;
+    h+=`<tr${near?' style="background:var(--sunk)"':""}><td><b>${mult}\u00d7</b>${near?' <span style="font-size:.7rem;color:var(--accent)">\u2190 near today\u2019s 15.6\u00d7</span>':""}</td>`+
+       `<td>\u20b9${fmt(Math.round(v.e31))} cr</td>`+
+       `<td style="color:var(${v.cagr>=0?"--bull":"--severe"});font-weight:600">${(v.cagr>=0?"+":"\u2212")+Math.abs(v.cagr*100).toFixed(1)}%</td>`+
+       `<td style="text-align:left;font-family:inherit;color:var(--ink-2);font-size:.8rem">`+
+       `${v.cagr>0.10?"Requires the bull case":v.cagr>0.05?"Close to the base case":v.cagr>0?"Below the base case":"Assumes earnings decline"}</td></tr>`;
+  });
+  t.innerHTML=h+"</tbody>";
+}
+
+function chartImplied(){
+  const svg=document.getElementById("c-implied"); if(!svg) return; svg.innerHTML="";
+  const W=Math.max(560,svg.parentElement.clientWidth), H=330;
+  const M={t:20,r:150,b:46,l:62};
+  svg.setAttribute("viewBox","0 0 "+W+" "+H); svg.setAttribute("width",W); svg.setAttribute("height",H);
+  const iw=W-M.l-M.r, ih=H-M.t-M.b;
+  const mults=Object.keys(X.implied).map(Number).sort((a,b)=>a-b);
+  const lo=-0.15, hi=0.15;
+  const x=m=>M.l+(m-mults[0])/(mults[mults.length-1]-mults[0])*iw;
+  const y=v=>M.t+ih-(v-lo)/(hi-lo)*ih;
+  for(let v=lo; v<=hi+1e-9; v+=0.05){
+    const z=Math.abs(v)<1e-9;
+    svg.appendChild(el("line",{x1:M.l,x2:W-M.r,y1:y(v),y2:y(v),
+      stroke:z?css("--ink-3"):css("--rule"),"stroke-width":z?1.4:1}));
+    const t=el("text",{x:M.l-9,y:y(v)+4,"text-anchor":"end","font-size":10,
+      fill:z?css("--ink-2"):css("--ink-3")});
+    t.textContent=(v>=0?"+":"\u2212")+Math.abs(v*100).toFixed(0)+"%"; svg.appendChild(t);
+  }
+  mults.forEach(m=>{
+    const t=el("text",{x:x(m),y:H-M.b+20,"text-anchor":"middle","font-size":10.5,fill:css("--ink-2")});
+    t.textContent=m+"\u00d7"; svg.appendChild(t);
+  });
+  const ax=el("text",{x:M.l+iw/2,y:H-M.b+38,"text-anchor":"middle","font-size":10,fill:css("--ink-3"),
+    "font-family":'"IBM Plex Sans",sans-serif'});
+  ax.textContent="FY31 exit multiple"; svg.appendChild(ax);
+  // implied line
+  const d=mults.map((m,i)=>(i?"L":"M")+x(m)+" "+y(X.implied[m].cagr)).join(" ");
+  svg.appendChild(el("path",{d,fill:"none",stroke:css("--accent"),"stroke-width":2.6,
+    "stroke-linejoin":"round","stroke-linecap":"round"}));
+  mults.forEach(m=>svg.appendChild(el("circle",{cx:x(m),cy:y(X.implied[m].cagr),r:4.2,
+    fill:css("--accent"),stroke:css("--paper"),"stroke-width":2})));
+  // scenario earnings CAGRs as horizontal markers
+  const KEY={"Bull \u2014 AI Dividend":"--bull","Base \u2014 Managed Transition":"--base",
+             "Bear \u2014 Slow Bleed":"--bear","Severe \u2014 Structural Break":"--severe"};
+  Object.entries(X.scen_pat_cagr).forEach(([lab,v])=>{
+    const c=KEY[lab]||"--ink-3"; const yy=y(Math.max(lo,Math.min(hi,v)));
+    svg.appendChild(el("line",{x1:M.l,x2:W-M.r,y1:yy,y2:yy,stroke:css(c),
+      "stroke-width":1.4,"stroke-dasharray":"5 4",opacity:.85}));
+    const t=el("text",{x:W-M.r+8,y:yy+4,"font-size":10,fill:css(c),"font-weight":600});
+    t.textContent=lab.split(" \u2014 ")[0]+" "+(v>=0?"+":"\u2212")+Math.abs(v*100).toFixed(1)+"%";
+    svg.appendChild(t);
+  });
+  mults.forEach(m=>{
+    const zw=iw/(mults.length-1);
+    const r=el("rect",{x:x(m)-zw/2,y:M.t,width:zw,height:ih,fill:"transparent"});
+    r.style.cursor="crosshair";
+    r.addEventListener("mousemove",e=>showTip(e,m+"\u00d7 exit multiple",[
+      ["Implied FY31 earnings","\u20b9"+fmt(Math.round(X.implied[m].e31))+" cr"],
+      ["Implied CAGR",(X.implied[m].cagr*100).toFixed(1)+"%"]]));
+    r.addEventListener("mouseleave",hideTip);
+    svg.appendChild(r);
+  });
+  document.getElementById("l-implied").innerHTML=
+    `<span style="display:inline-flex;align-items:center;gap:.38rem"><span class="sw" style="background:${css("--accent")}"></span>Implied by today\u2019s price</span>`+
+    Object.entries(KEY).map(([lab,c])=>`<span style="display:inline-flex;align-items:center;gap:.38rem"><span class="sw" style="background:${css(c)}"></span>${lab.split(" \u2014 ")[0]} earnings CAGR</span>`).join("");
+}
+
+/* ---- strategic options ---- */
+const OPTS = [
+  ["A","Reprice the application-services book to outcomes","Very high","2\u20133 years","bull",
+   "Extend the outcome-based model from finance, HR and business services \u2014 where TCS is already at roughly 80% \u2014 into application development, maintenance and infrastructure managed services, which together are 48% of revenue and hold 42% of the automation exposure.",
+   "Near-term revenue dilution as billing shifts from hours to outcomes, before volume expansion offsets it. Requires estimating a delivery capability TCS does not currently price on."],
+  ["B","Triple products and platforms from 5% to 15% of revenue","High, durable","3\u20135 years","bull",
+   "BaNCS, ignio, iON and ADD are the only assets whose value AI raises rather than deflates. HCLSoftware gives HCLTech $1.06bn of recurring revenue on a base less than half TCS\u2019s size. Licensed revenue is not deflated by productivity, and it re-rates the multiple.",
+   "A decade of under-investment because services cash was easier. Building product organisations inside services companies has a poor track record, and the acquisition window is closing."],
+  ["C","Buy AI-native delivery capability","Medium","Immediate","base",
+   "Acquire small, senior, high-margin AI consultancies to import a different delivery model rather than retrain into one. Addresses the finding that only 15% of clients think providers use AI extensively.",
+   "Scarcity pricing \u2014 Accenture paid roughly 15\u00d7 revenue for Faculty in a sector trading at 11\u201313\u00d7 EBITDA. TCS has historically struggled to retain acquired senior talent."],
+  ["D","Go asset-heavy on AI infrastructure (HyperVault)","Medium","5\u20137 years","bear",
+   "Already chosen: up to \u20b918,000 crore of combined TCS and TPG equity, targeting more than 1GW against an Indian market moving from roughly 1.5GW today to more than 10GW by 2030. Data-sovereignty regulation is creating this market.",
+   "Converts an asset-light dividend machine into a capital-intensive business precisely when the parent needs the dividend most. Free cash flow conversion has already fallen to 81% of net income. Capacity commoditises."],
+  ["E","Consolidate \u2014 acquire scale in a shrinking mid-market","Low","Fast","severe",
+   "Buy revenue and clients in application services as smaller players fail. IT services M&A ran to 449 deals worth $14.8bn in the first half of 2026.",
+   "It buys revenue but not a different model \u2014 and it buys exactly the revenue that is deflating. Accenture is buying platforms and capability, not scale. Decline."],
+  ["F","Manage for cash \u2014 accept slower growth, maximise distribution","Low","Immediate","severe",
+   "Defend margin, restrain capital expenditure, distribute the maximum. This is the implicit current strategy: FY26 margin hit a four-year high while revenue fell.",
+   "It is what the market has already priced. It forecloses the re-rating, and it does not reliably clear the parent\u2019s FY31 break-even under the bear case."]
+];
+const WWHTBT = [
+  ["A \u2014 Reprice","That TCS can estimate delivery effort under AI accurately enough to price outcomes without destroying margin, and that clients will pay a premium for risk transfer.",
+   "Price ten application-services renewals on outcomes. Compare realised margin against the time-and-materials counterfactual."],
+  ["B \u2014 Products","That BaNCS, ignio, iON and ADD have addressable markets large enough to triple revenue share, and that TCS can run a product P&L.",
+   "Independent market sizing for each platform, and a separately-reported product segment with its own margin."],
+  ["C \u2014 Acquire","That acquired AI-native teams stay, and that their delivery model transfers rather than being absorbed.",
+   "Retention of acquired senior staff at eighteen months in any past TCS acquisition of this type."],
+  ["D \u2014 HyperVault","That returns clear TCS\u2019s cost of capital and that the capital programme can be ring-fenced from the dividend.",
+   "The business case, the hurdle rate and the covenant structure. This should already exist."]
+];
+function optionCards(){
+  const host=document.getElementById("options-list"); if(!host) return;
+  host.innerHTML=OPTS.map(([k,h,up,t,col,what,risk])=>
+    `<div class="option${k==="A"||k==="B"?" key":""}">`+
+      `<div class="option-k">${k}</div><div>`+
+      `<div class="option-head"><h3>${h}</h3>`+
+      `<div class="option-meta"><span class="opt-up ${col}">${up}</span><span class="opt-t">${t}</span></div></div>`+
+      `<p>${what}</p><p class="option-risk"><b>Risk and cost</b>${risk}</p></div></div>`).join("");
+}
+function tableWwhtbt(){
+  const t=document.getElementById("t-wwhtbt"); if(!t) return;
+  t.innerHTML="<thead><tr><th>Option</th><th>What must be true</th><th>How to test it within two quarters</th></tr></thead><tbody>"+
+    WWHTBT.map(([a,b,c])=>`<tr><td><b>${a}</b></td>`+
+    `<td style="text-align:left;font-family:inherit;color:var(--ink-2);font-size:.83rem">${b}</td>`+
+    `<td style="text-align:left;font-family:inherit;color:var(--ink-2);font-size:.83rem">${c}</td></tr>`).join("")+"</tbody>";
+}
+
+function renderResearch(){
+  tableVerticalX(); tablePeersX(); chartRPE(); chartShare(); tableOutcome();
+  forces5X(); tableImplied(); chartImplied(); optionCards(); tableWwhtbt();
+}
+
 /* ================= sources and the figure register ================= */
 /* STATUS values:
    reported  - taken from the cited source document
@@ -1628,7 +1983,24 @@ const SOURCES = {
  10:{s:"Business of GCC \u2014 India GCC market size", d:"2026"},
  11:{s:"TCS\u2013TPG HyperVault announcement"},
  12:{s:"RBI list of upper-layer NBFCs", d:"August 2026"},
- 13:{s:"Public reporting on OpenAI enterprise services investment"}
+ 13:{s:"Public reporting on OpenAI enterprise services investment"},
+ 14:{s:"Gartner worldwide IT spending forecast", d:"July 2026"},
+ 15:{s:"Gartner worldwide AI spending forecast", d:"Q2 2026"},
+ 16:{s:"Forrester global tech market forecast, IT services to 2029"},
+ 17:{s:"ISG Index \u2014 annual contract value", d:"June 2026 quarter"},
+ 18:{s:"ISG survey of 300 Global 2000 enterprises", d:"2026"},
+ 19:{s:"ETR enterprise technology spending survey", d:"2025 and 2026 waves"},
+ 20:{s:"HFS Research \u2014 contract renegotiation and pricing sentiment"},
+ 21:{s:"Everest Group commentary and sourcing survey"},
+ 22:{s:"Company disclosures on outcome-based pricing", d:"earnings calls, 2025\u201326"},
+ 23:{s:"Celent financial-institution IT budget survey", d:"2026"},
+ 24:{s:"IHL Group retail technology spending"},
+ 25:{s:"Analysys Mason operator capex forecast", d:"2021\u201331"},
+ 26:{s:"McKinsey on AI and change budgets"},
+ 27:{s:"S&P Global US utility capital expenditure outlook", d:"2026\u201330"},
+ 28:{s:"Palantir Technologies Q2 2026 results"},
+ 29:{s:"Reported executive commentary", d:"Sequoia, Blackstone, Everest, Tech Mahindra, Persistent"},
+ 30:{s:"Reported M&A and transaction data", d:"IT services, H1 2026"}
 };
 
 const REGISTER = [
@@ -1706,15 +2078,70 @@ const REGISTER = [
  ["Parent operating cost growth","+6% a year","10",null,"judgement"],
  ["FY31 exchange rate","\u20b998.22 / $","11",null,"judgement"],
  ["Run / Change split of application work","60 / 40","04",null,"judgement"],
- ["Vertical revenue shares","reconstructed","04",null,"judgement"],
+ ["Vertical revenue shares","see chapter 04","04",17,"reported"],
  ["Geographic revenue shares","reconstructed","04",null,"judgement"],
  ["Buying-centre pool sizes","~75 / 15 / 10%","04",null,"judgement"],
  ["Buying-centre pool growth rates","0\u20132 / 5\u20138 / 25\u201340%","04",null,"judgement"],
  ["Competitive matrix scores","all cells","05",null,"judgement"],
- ["Five-forces ratings","all five","06",null,"judgement"],
+ ["Five-forces intensity scores","1\u20135 per force","06",null,"judgement"],
  ["Contract effort reduction","30% over 5 years","07",null,"judgement"],
  ["Renewal price pass-through","75% of the saving","07",null,"judgement"],
- ["Outcome-linked annual uplift","+2.3% a year","07",null,"judgement"]
+ ["Outcome-linked annual uplift","+2.3% a year","07",null,"judgement"],
+
+ ["Worldwide IT spending growth, 2026","+14.2%","04",14,"reported"],
+ ["Worldwide IT services growth, 2026","+5.3%","04",14,"reported"],
+ ["Worldwide IT services market, 2026","$1,570bn","04",14,"reported"],
+ ["TCS share of the global services pool, 2025","2.02%","04",14,"reported"],
+ ["TCS share of the global services pool, 2026","1.91%","04",14,"reported"],
+ ["Forrester IT services CAGR to 2029, ex-cloud","+1.8%","04",16,"reported"],
+ ["Worldwide AI spending, 2026","$2,596bn","04",15,"reported"],
+ ["AI spending that is infrastructure","55%","04",15,"reported"],
+ ["AI spending that is services","22.6%","04",15,"reported"],
+ ["AI as a share of enterprise IT budget","14.2%","04",19,"reported"],
+ ["AI funded from the broader IT budget","61.7%","04",19,"reported"],
+ ["Overall IT budget growth","+3.6%","04",19,"reported"],
+ ["ISG managed-services ACV growth","+2.7%","04",17,"reported"],
+ ["Accenture FY26 revenue","$69.7bn","05",6,"reported"],
+ ["Accenture operating margin","17.0%","05",6,"reported"],
+ ["Accenture revenue per employee","$89,401","05",6,"reported"],
+ ["Accenture AI book","$4.4bn","05",6,"reported"],
+ ["TCS revenue per employee vs Accenture","0.57\u00d7","05",null,"derived"],
+ ["Infosys revenue per employee","$61,347","05",5,"reported"],
+ ["HCLTech revenue per employee","$64,758","05",9,"reported"],
+ ["Cognizant revenue per employee","$60,011","05",9,"reported"],
+ ["Wipro revenue per employee","$45,600","05",9,"reported"],
+ ["Palantir revenue per employee","~$1.8m","05",28,"reported"],
+ ["TCS share of the seven large providers, FY24","16.4%","05",9,"reported"],
+ ["TCS share of the seven large providers, latest","16.0%","05",9,"reported"],
+ ["Accenture share, FY24 to latest","36.7% \u2192 37.2%","05",9,"reported"],
+ ["Accenture FY26 acquisition spend","~$9bn","05",30,"reported"],
+ ["IT services M&A, H1 2026","449 deals, $14.8bn","06",30,"reported"],
+ ["GCC revenue in India","$98.4bn","06",10,"reported"],
+ ["GCC centres / people in India","2,117 / 2.36m","06",10,"reported"],
+ ["GCC net hiring, FY26","200,000","06",10,"reported"],
+ ["Indian IT services net hiring, FY26","110,000","06",10,"reported"],
+ ["Palantir US commercial revenue growth","+149% to $764m","06",28,"reported"],
+ ["OpenAI services subsidiary capital","$4bn","06",13,"reported"],
+ ["Anthropic services venture capital","$1.5bn","06",13,"reported"],
+ ["Client cost-reduction demands","25\u201330%","06",29,"reported"],
+ ["Business-led sourcing decisions","58%","06",21,"reported"],
+ ["TCS outcome-based share, finance / HR / business services","~80%","07",22,"reported"],
+ ["Cognizant outcome-based share of BPO","45%","07",22,"reported"],
+ ["ExlService outcome-based share of revenue","36%","07",22,"reported"],
+ ["Enterprise sentiment, outcome-based pricing","72% net favourable","07",20,"reported"],
+ ["Enterprise sentiment, effort-based pricing","\u221261% net","07",20,"reported"],
+ ["TCS share price","\u20b92,284","12",9,"reported"],
+ ["TCS market capitalisation","\u20b98.26 lakh cr","12",9,"reported"],
+ ["TCS FY26 net income (standalone basis used)","\u20b952,820 cr","12",9,"reported"],
+ ["TCS trailing price / earnings","15.6\u00d7","12",null,"derived"],
+ ["Implied earnings CAGR at 20\u00d7 exit","+0.9%","12",null,"derived"],
+ ["Implied earnings CAGR at 16\u00d7 exit","+5.5%","12",null,"derived"],
+ ["Base-case earnings CAGR","+6.2%","12",null,"derived"],
+ ["Cost of equity used","11%","12",null,"judgement"],
+ ["HCLSoftware recurring revenue","$1.06bn","13",9,"reported"],
+ ["HyperVault committed equity","up to \u20b918,000 cr","13",11,"reported"],
+ ["Option upside and time-to-effect labels","six options","13",null,"judgement"],
+ ["Recommendation to decline option E","opinion","13",null,"judgement"]
 ];
 
 const STATUS = {
@@ -1783,7 +2210,8 @@ document.addEventListener("click", e => {
 const CHARTS_BY_CHAPTER = {
   record:      [() => chartHistory()],
   demand:      [() => chartDemand(), () => chartBudget()],
-  competition: [() => chartRadar()],
+  competition: [() => chartRadar(), () => chartRPE(), () => chartShare()],
+  valuation:   [() => chartImplied()],
   pricing:     [() => chartPricing()],
   risk:        [() => chartRisk()],
   scenarios:   [() => drawScenarioCharts()],
@@ -1846,6 +2274,9 @@ function redrawIn(node){
   if (ids.includes("c-pricing"))  chartPricing();
   if (ids.includes("c-radar"))    chartRadar();
   if (ids.includes("c-budget"))   chartBudget();
+  if (ids.includes("c-rpe"))      chartRPE();
+  if (ids.includes("c-share"))    chartShare();
+  if (ids.includes("c-implied"))  chartImplied();
   if (ids.includes("c-risk"))     chartRisk();
   if (ids.some(i => ["c-rev","c-div","c-cash"].includes(i))) drawScenarioCharts();
 }
@@ -2026,7 +2457,7 @@ function render(){
 }
 function renderAll(){
   verdict(); chartHistory(); chartRisk(); tableRisk(); scenBar(); recs(); render(); sens();
-  renderExtended(); renderSources(); cmpBar(); chartRadar(); chartBudget();
+  renderExtended(); renderSources(); cmpBar(); chartRadar(); chartBudget(); renderResearch();
 }
 renderAll();
 bootShell();

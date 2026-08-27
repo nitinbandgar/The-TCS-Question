@@ -82,9 +82,11 @@ Tata Sons needs **₹30,827 crore** from TCS in FY31 to cover its own costs and 
 | 09 | Scenario model | Four futures, driver by driver |
 | 10 | The Tata Sons view | Parent cash bridge against the capital call |
 | 11 | Sensitivity | Growth vs margin, and the break-even |
-| 12 | Recommendations | Nine actions, in order |
-| 13 | Monitoring | Leading indicators and the data gaps |
-| 14 | Sources | |
+| 12 | Valuation | What the current share price implies, against what the scenarios produce |
+| 13 | Strategic options | Six options, the two that change the trajectory, and how to test each |
+| 14 | Recommendations | Nine actions, in order |
+| 15 | Monitoring | Leading indicators and the data gaps |
+| 16 | Provenance | Filterable register of all 135 material figures, and 30 sources |
 
 ### Reading it
 
@@ -95,9 +97,9 @@ secondary material in collapsible sections — heading and summary visible, deta
 
 ### Provenance
 
-Every material figure is in a **filterable register in chapter 14**: 81 figures, each marked
+Every material figure is in a **filterable register in chapter 16**: 135 figures, each marked
 *Reported* (from a cited source), *Derived* (computed here, with the arithmetic checkable on the
-page) or *Judgement* (an assumption nobody has disclosed). The split is **44 / 19 / 18**. Inline
+page) or *Judgement* (an assumption nobody has disclosed). The split is **91 / 24 / 20**. Inline
 superscripts link to the source, a J flag marks an assumption in place, and margin notes carry
 provenance beside the paragraph that needs it.
 
