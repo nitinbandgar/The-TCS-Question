@@ -26,7 +26,7 @@
   --bull:#159178; --base:#3A72C0; --bear:#C8801A; --severe:#C23B36;
   --bull-soft:#DDF0EA; --base-soft:#E0EAF7; --bear-soft:#F7EBD8; --severe-soft:#F8E3E1;
   --shadow:0 1px 2px rgba(20,26,28,.05), 0 8px 24px -16px rgba(20,26,28,.18);
-  --maxw:1040px; --spine:42rem; --side:15rem; --sidebar:16.5rem;
+  --maxw:1180px; --spine:none; --side:15rem; --sidebar:16.5rem;
 }
 :root:not([data-theme="light"]){ }
 @media (prefers-color-scheme: dark){
@@ -52,14 +52,12 @@
 body{
   margin:0; background:var(--ground); color:var(--ink);
   font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  font-size:16.5px; line-height:1.72; -webkit-font-smoothing:antialiased;
 }
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.1rem,3.5vw,2.8rem)}
-/* The gutter is reserved out of whatever width the spine's parent actually has, so a
-   spine inside a <details> or any padded box shrinks instead of overflowing. */
-.spine{max-width:min(var(--spine), calc(100% - var(--side) - 2rem))}
-/* a lede carrying a sidenote must span the full measure, or the note lands short */
-.lede:has(.sn){max-width:min(var(--spine), calc(100% - var(--side) - 2rem))}
+/* Prose fills the full column. Sidenotes float within it and the text wraps around
+   them, so no gutter is reserved on the paragraphs that do not carry one. */
+.spine{max-width:none}
 
 /* ---------- app shell ---------- */
 .app{min-height:100vh}
@@ -93,15 +91,31 @@ body{
   font-size:.68rem; line-height:1.45; color:var(--ink-3)}
 
 .navtoggle{
-  position:fixed; top:.75rem; left:calc(var(--sidebar) + .6rem); z-index:50;
-  all:unset; cursor:pointer; width:2rem; height:2rem; display:grid; place-items:center;
-  background:var(--paper); border:1px solid var(--rule-2); border-radius:3px;
-  color:var(--ink-2); transition:left .22s ease;
+  all:unset;
+  position:fixed; top:.7rem; left:calc(var(--sidebar) + .7rem); z-index:50;
+  cursor:pointer; display:inline-flex; align-items:center; gap:.45rem;
+  padding:.42rem .7rem .42rem .55rem;
+  background:var(--paper); border:1px solid var(--rule-2); border-radius:4px;
+  color:var(--ink-2); box-shadow:var(--shadow);
+  font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.1em;
+  text-transform:uppercase; line-height:1; white-space:nowrap;
+  transition:left .22s ease, color .15s, border-color .15s;
 }
-.navtoggle:hover{color:var(--ink); border-color:var(--ink-3)}
+.navtoggle:hover{color:var(--accent); border-color:var(--accent)}
 .navtoggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.app[data-nav="closed"] .navtoggle{left:.6rem}
-.navtoggle svg{width:15px; height:15px; display:block}
+.app[data-nav="closed"] .navtoggle{left:.7rem}
+.navtoggle svg{width:14px; height:14px; display:block; flex:none}
+.navtoggle .nl::after{content:"Hide contents"}
+.app[data-nav="closed"] .navtoggle .nl::after{content:"Contents"}
+/* a second, obvious way out from inside the panel itself */
+.sb-close{
+  all:unset; position:absolute; top:.65rem; right:.7rem; cursor:pointer;
+  width:1.6rem; height:1.6rem; display:grid; place-items:center; border-radius:3px;
+  color:var(--ink-3); border:1px solid transparent;
+}
+.sb-close:hover{color:var(--ink); border-color:var(--rule-2); background:var(--sunk)}
+.sb-close:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.sb-head{position:relative}
 .scrim{display:none}
 
 /* ---------- chapters ---------- */
@@ -130,9 +144,9 @@ body{
 /* ---------- sidenotes ---------- */
 .sn{
   float:right; clear:right; width:var(--side);
-  margin:.35rem 0 1rem 2rem; margin-right:calc(-1 * (var(--side) + 2rem));
+  margin:.3rem 0 .9rem 1.8rem;
   font-size:.735rem; line-height:1.5; color:var(--ink-3);
-  border-left:2px solid var(--rule-2); padding:.1rem 0 .1rem .7rem;
+  border-left:2px solid var(--rule-2); padding:.15rem 0 .15rem .75rem;
 }
 .sn b{display:block; color:var(--ink-2); font-weight:600; font-size:.68rem;
   font-family:"IBM Plex Mono",monospace; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.2rem}
@@ -197,7 +211,7 @@ sup.cite::before{content:"["} sup.cite::after{content:"]"}
   color:var(--severe); font-weight:600}
 
 /* ---------- source list and figure register ---------- */
-ol.srclist{list-style:none; margin:1.2rem 0 0; padding:0; max-width:62rem}
+ol.srclist{list-style:none; margin:1.2rem 0 0; padding:0}
 ol.srclist li{display:grid; grid-template-columns:1.9rem 1fr; gap:.5rem;
   padding:.5rem 0; border-bottom:1px solid var(--rule); font-size:.83rem; line-height:1.5;
   color:var(--ink-2); scroll-margin-top:1rem}
@@ -223,7 +237,7 @@ ol.srclist .dt{color:var(--ink-3)}
 #t-register td:last-child{text-align:left; font-family:inherit; color:var(--ink-3); font-size:.76rem}
 a.srcref{color:var(--ink-3); text-decoration-color:var(--rule-2)}
 a.srcref:hover{color:var(--accent)}
-.statkey{display:grid; gap:.5rem; margin-top:1.3rem; max-width:46rem}
+.statkey{display:grid; gap:.5rem; margin-top:1.3rem}
 .statkey div{display:grid; grid-template-columns:5.6rem 1fr; gap:.7rem; font-size:.81rem;
   line-height:1.5; color:var(--ink-2); align-items:start}
 
@@ -245,7 +259,7 @@ details.sec .chev{
 details.sec[open] > summary .chev{transform:rotate(180deg); color:var(--accent); border-color:var(--accent)}
 details.sec[open] > summary{border-bottom:1px solid var(--rule)}
 details.sec .body{padding:1.3rem 1.15rem 1.4rem}
-details.sec .body > .spine{max-width:min(var(--spine), calc(100% - var(--side) - 2rem))}
+details.sec .body > .spine{max-width:none}
 
 @media (prefers-reduced-motion:reduce)
 h1,h2,h3{font-family:Newsreader,Georgia,serif; font-weight:500; text-wrap:balance; margin:0}
@@ -267,10 +281,10 @@ strong{font-weight:600}
   gap:.55rem 1.1rem; align-items:baseline; margin-bottom:1.6rem;
 }
 .mast .kicker span:not(:first-child){color:var(--ink-3)}
-h1{font-size:clamp(2.5rem,6.4vw,4.35rem); line-height:1.02; letter-spacing:-.018em; max-width:16ch}
+h1{font-size:clamp(2.5rem,6.4vw,4.35rem); line-height:1.02; letter-spacing:-.018em; max-width:22ch}
 .standfirst{
   font-family:Newsreader,Georgia,serif; font-size:clamp(1.1rem,2.1vw,1.32rem);
-  line-height:1.55; color:var(--ink-2); max-width:44ch; margin-top:1.5rem;
+  line-height:1.55; color:var(--ink-2); max-width:none; margin-top:1.5rem;
 }
 .byline{
   margin-top:2rem; padding-top:1.1rem; border-top:1px solid var(--rule);
@@ -294,10 +308,10 @@ h1{font-size:clamp(2.5rem,6.4vw,4.35rem); line-height:1.02; letter-spacing:-.018
 /* ---------- sections ---------- */
 section{padding:clamp(3rem,7vw,5rem) 0; border-bottom:1px solid var(--rule)}
 section:last-of-type{border-bottom:none}
-h2{font-size:clamp(1.7rem,3.4vw,2.35rem); line-height:1.14; letter-spacing:-.012em; max-width:20ch}
+h2{font-size:clamp(1.7rem,3.4vw,2.35rem); line-height:1.14; letter-spacing:-.012em; max-width:30ch}
 h3{font-size:1.13rem; line-height:1.3; margin:2.2rem 0 .6rem; letter-spacing:-.005em}
 .lede{font-family:Newsreader,Georgia,serif; font-size:1.16rem; line-height:1.58;
-  color:var(--ink-2); max-width:46ch; margin:1.1rem 0 0}
+  color:var(--ink-2); max-width:none; margin:1.1rem 0 0}
 
 /* ---------- figure / instrument ---------- */
 figure{margin:2.4rem 0 0; background:var(--paper); border:1px solid var(--rule);
@@ -387,7 +401,7 @@ tr.tot td{font-weight:600; border-top:1px solid var(--rule-2); border-bottom:non
 /* ---------- pull ---------- */
 .pull{font-family:Newsreader,Georgia,serif; font-size:clamp(1.25rem,2.6vw,1.62rem);
   line-height:1.42; color:var(--ink); border-left:2px solid var(--accent);
-  padding:.15rem 0 .15rem 1.4rem; margin:2.4rem 0; max-width:38ch}
+  padding:.15rem 0 .15rem 1.4rem; margin:2.4rem 0; max-width:62ch}
 
 /* ---------- watchlist / gaps ---------- */
 .two{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2.2rem; margin-top:2.2rem}
@@ -494,14 +508,17 @@ input[type=range]{width:100%; accent-color:var(--accent); margin:0}
 
 <div class="app" id="app" data-nav="open">
 
-<button class="navtoggle" id="navtoggle" aria-expanded="true" aria-controls="sidebar" title="Toggle contents (press \ )">
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-    <path d="M2 4h12M2 8h12M2 12h12"/></svg>
+<button class="navtoggle" id="navtoggle" aria-expanded="true" aria-controls="sidebar" title="Show or hide the contents panel (shortcut: \ )">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <path d="M2 4h12M2 8h12M2 12h12"/></svg><span class="nl"></span>
 </button>
 <div class="scrim" id="scrim"></div>
 
 <nav class="sidebar" id="sidebar" aria-label="Chapters">
   <div class="sb-head">
+    <button class="sb-close" id="sbclose" title="Hide contents (\)" aria-label="Hide contents">
+      <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
+    </button>
     <div class="t">The TCS question</div>
     <div class="s">Strategic assessment &middot; FY26 base</div>
   </div>
@@ -2285,14 +2302,24 @@ document.addEventListener("toggle", e => {
 }, true);
 
 /* sidebar open/closed */
+function redrawVisible(){
+  const on = document.querySelector(".chapter.on");
+  if (!on) return;
+  (CHARTS_BY_CHAPTER[on.id] || []).forEach(fn => fn());
+  redrawOpenDetails(on);
+}
+let navT;
 function setNav(open){
   document.getElementById("app").dataset.nav = open ? "open" : "closed";
   document.getElementById("navtoggle").setAttribute("aria-expanded", String(open));
   try { localStorage.setItem("tcs-nav", open ? "open" : "closed"); } catch(_){}
+  clearTimeout(navT);
+  navT = setTimeout(redrawVisible, 260);   // after the width transition settles
 }
 document.getElementById("navtoggle").addEventListener("click", () =>
   setNav(document.getElementById("app").dataset.nav !== "open"));
 document.getElementById("scrim").addEventListener("click", () => setNav(false));
+document.getElementById("sbclose").addEventListener("click", () => setNav(false));
 
 document.addEventListener("click", e => {
   const a = e.target.closest('a[href^="#"]');
@@ -2466,14 +2493,9 @@ document.getElementById('s-cagr').addEventListener('input', sens);
 document.getElementById('s-marg').addEventListener('input', sens);
 
 let t; addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(()=>{
-  const on = document.querySelector('.chapter.on');
-  if (on) { (CHARTS_BY_CHAPTER[on.id] || []).forEach(fn => fn()); redrawOpenDetails(on); }
+  redrawVisible();
 }, 160); });
-function rerenderTheme(){
-  renderAll();
-  const on = document.querySelector('.chapter.on');
-  if (on) { (CHARTS_BY_CHAPTER[on.id] || []).forEach(fn => fn()); redrawOpenDetails(on); }
-}
+function rerenderTheme(){ renderAll(); redrawVisible(); }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', rerenderTheme);
 new MutationObserver(rerenderTheme).observe(document.documentElement,
   {attributes:true, attributeFilter:['data-theme']});
